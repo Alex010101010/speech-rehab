@@ -1,0 +1,246 @@
+{
+  "pack": "speech-rehab-content-v1",
+  "status": "draft-needs-logoped-review",
+  "total_items": 1362,
+  "types": [
+    {
+      "type": "find_error",
+      "title": "Найдите ошибку и исправьте предложение",
+      "section": "I. Понимание",
+      "file": "json/01_find_error.json",
+      "count": 80,
+      "levels": {
+        "1": 36,
+        "2": 30,
+        "3": 14
+      }
+    },
+    {
+      "type": "complete_phrase_choice",
+      "title": "Достройте фразу: выберите подходящее слово",
+      "section": "I. Понимание",
+      "file": "json/02_complete_phrase_choice.json",
+      "count": 90,
+      "levels": {
+        "1": 42,
+        "2": 34,
+        "3": 14
+      }
+    },
+    {
+      "type": "logic_questions",
+      "title": "Логические вопросы",
+      "section": "I. Понимание",
+      "file": "json/03_logic_questions.json",
+      "count": 81,
+      "levels": {
+        "1": 27,
+        "2": 28,
+        "3": 26
+      }
+    },
+    {
+      "type": "story_order",
+      "title": "Составьте рассказ",
+      "section": "I. Понимание",
+      "file": "json/04_story_order.json",
+      "count": 40,
+      "levels": {
+        "1": 10,
+        "2": 15,
+        "3": 15
+      }
+    },
+    {
+      "type": "proverbs",
+      "title": "Пословицы: объясните смысл",
+      "section": "I. Понимание",
+      "file": "json/05_proverbs.json",
+      "count": 72,
+      "levels": {
+        "1": 24,
+        "2": 24,
+        "3": 24
+      }
+    },
+    {
+      "type": "name_by_description",
+      "title": "Назовите предмет по описанию",
+      "section": "II. Словарь",
+      "file": "json/06_name_by_description.json",
+      "count": 92,
+      "levels": {
+        "1": 33,
+        "2": 35,
+        "3": 24
+      }
+    },
+    {
+      "type": "professions",
+      "title": "Назовите профессию",
+      "section": "II. Словарь",
+      "file": "json/07_professions.json",
+      "count": 50,
+      "levels": {
+        "1": 20,
+        "2": 20,
+        "3": 10
+      }
+    },
+    {
+      "type": "generalization",
+      "title": "Подберите обобщающее слово",
+      "section": "II. Словарь",
+      "file": "json/08_generalization.json",
+      "count": 70,
+      "levels": {
+        "1": 31,
+        "2": 27,
+        "3": 12
+      }
+    },
+    {
+      "type": "part_whole",
+      "title": "Назовите — к чему относится?",
+      "section": "II. Словарь",
+      "file": "json/09_part_whole.json",
+      "count": 60,
+      "levels": {
+        "1": 13,
+        "2": 38,
+        "3": 9
+      }
+    },
+    {
+      "type": "synonyms_antonyms",
+      "title": "Подберите синоним или антоним",
+      "section": "II. Словарь",
+      "file": "json/10_synonyms_antonyms.json",
+      "count": 72,
+      "levels": {
+        "1": 23,
+        "2": 40,
+        "3": 9
+      }
+    },
+    {
+      "type": "word_formation",
+      "title": "Словообразование",
+      "section": "III. Структура слова",
+      "file": "json/11_word_formation.json",
+      "count": 70,
+      "levels": {
+        "1": 23,
+        "2": 24,
+        "3": 23
+      }
+    },
+    {
+      "type": "paronyms",
+      "title": "Паронимы",
+      "section": "III. Структура слова",
+      "file": "json/12_paronyms.json",
+      "count": 50,
+      "levels": {
+        "1": 17,
+        "2": 16,
+        "3": 17
+      }
+    },
+    {
+      "type": "complete_phrase_open",
+      "title": "Достроить фразу",
+      "section": "IV. Фраза",
+      "file": "json/13_complete_phrase_open.json",
+      "count": 80,
+      "levels": {
+        "1": 26,
+        "2": 27,
+        "3": 27
+      }
+    },
+    {
+      "type": "prepositions",
+      "title": "Вставьте пропущенный предлог",
+      "section": "V. Грамматика",
+      "file": "json/14_prepositions.json",
+      "count": 80,
+      "levels": {
+        "1": 30,
+        "2": 32,
+        "3": 18
+      }
+    },
+    {
+      "type": "endings_cases",
+      "title": "Поставьте слово в правильную форму, допишите окончание",
+      "section": "V. Грамматика",
+      "file": "json/15_endings_cases.json",
+      "count": 90,
+      "levels": {
+        "1": 35,
+        "2": 36,
+        "3": 19
+      }
+    },
+    {
+      "type": "stress",
+      "title": "Поставьте ударение",
+      "section": "V. Грамматика",
+      "file": "json/16_stress.json",
+      "count": 50,
+      "levels": {
+        "1": 12,
+        "2": 25,
+        "3": 13
+      }
+    },
+    {
+      "type": "fill_letter",
+      "title": "Вставьте пропущенную букву",
+      "section": "VI. Звуки",
+      "file": "json/17_fill_letter.json",
+      "count": 100,
+      "levels": {
+        "1": 46,
+        "2": 42,
+        "3": 12
+      }
+    },
+    {
+      "type": "reading_texts",
+      "title": "Чтение и понимание текста",
+      "section": "VII. Память и связная речь",
+      "file": "json/18_reading_texts.json",
+      "count": 20,
+      "levels": {
+        "1": 4,
+        "2": 9,
+        "3": 7
+      }
+    },
+    {
+      "type": "memory_rows",
+      "title": "Повторение речевых рядов (объём слухоречевой памяти)",
+      "section": "VII. Память и связная речь",
+      "file": "json/19_memory_rows.json",
+      "count": 100,
+      "levels": {
+        "1": 33,
+        "2": 41,
+        "3": 26
+      }
+    },
+    {
+      "type": "retell_texts",
+      "title": "Тексты для отсроченного пересказа по памяти",
+      "section": "VII. Память и связная речь",
+      "file": "json/20_retell_texts.json",
+      "count": 15,
+      "levels": {
+        "2": 2,
+        "3": 13
+      }
+    }
+  ]
+}

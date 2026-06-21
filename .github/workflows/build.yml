@@ -1,0 +1,62 @@
+name: build
+
+on:
+  push:
+    paths:
+      - 'app/**'
+      - '.github/workflows/build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - run: flutter --version
+
+      # В репозитории лежит только lib/ + assets + pubspec.
+      # Платформенные папки (android/, web/) генерируем здесь, без коммита в репо.
+      - name: Generate platform folders
+        run: flutter create --platforms=android,web --org dev.rech --project-name rech .
+
+      - run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: rech-apk
+          path: app/build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Build Web (для предпросмотра)
+        run: flutter build web --release --base-href /speech-rehab/
+
+      - name: Upload Web artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: app/build/web
+
+  deploy-pages:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
