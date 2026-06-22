@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../engine/tts_service.dart';
+import '../models/exercise.dart';
 
 // ---------- проверка ответа ----------
 
@@ -102,12 +103,17 @@ class ExerciseScaffold extends StatelessWidget {
 class ChoiceExercise extends StatefulWidget {
   final Map<String, dynamic> item;
   final TtsService tts;
-  final void Function(bool) onResult;
+  final void Function(StepOutcome) onResult;
+
+  /// Безошибочный режим (пол лестницы): сразу подсвечиваем верный, гасим
+  /// неверные — задание невозможно провалить.
+  final bool errorless;
   const ChoiceExercise(
       {super.key,
       required this.item,
       required this.tts,
-      required this.onResult});
+      required this.onResult,
+      this.errorless = false});
   @override
   State<ChoiceExercise> createState() => _ChoiceExerciseState();
 }
@@ -122,8 +128,27 @@ class _ChoiceExerciseState extends State<ChoiceExercise> {
       checkTyped(widget.item, o) ||
       normalize(o) == normalize((widget.item['answer'] ?? '').toString());
 
+  List<String> get _options => ((widget.item['options'] as List?) ?? const [])
+      .map((e) => e.toString())
+      .toList();
+
   List<String> _wrongLeft(List<String> options) =>
       options.where((o) => !_isCorrect(o) && !_faded.contains(o)).toList();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.errorless) {
+      // гасим все неверные, оставляем только правильный, проговариваем его
+      for (final o in _options) {
+        if (!_isCorrect(o)) _faded.add(o);
+      }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final c = _options.firstWhere(_isCorrect, orElse: () => '');
+        if (c.isNotEmpty) widget.tts.speak('Правильный ответ. $c');
+      });
+    }
+  }
 
   void _hint(List<String> options) {
     final left = _wrongLeft(options);
@@ -140,21 +165,31 @@ class _ChoiceExerciseState extends State<ChoiceExercise> {
     if (correct.isNotEmpty) widget.tts.speak('Правильный ответ. $correct');
   }
 
+  StepOutcome _outcome() {
+    if (widget.errorless) {
+      return const StepOutcome(correct: true, unaided: false, gradeable: false);
+    }
+    return StepOutcome(
+      correct: !_revealed,
+      unaided: !_revealed && _wrongPick == null && _faded.isEmpty,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final prompt = (widget.item['prompt'] ?? '').toString();
-    final options = ((widget.item['options'] as List?) ?? const [])
-        .map((e) => e.toString())
-        .toList();
-    final canHint = _wrongLeft(options).length > 1;
+    final options = _options;
+    final canHint = !widget.errorless && _wrongLeft(options).length > 1;
     return ExerciseScaffold(
       prompt: prompt,
       tts: widget.tts,
       solved: _solved,
-      hint: _solved
-          ? (_revealed ? 'Правильный ответ показан' : 'Верно!')
-          : (_wrongPick != null ? 'Попробуйте ещё раз' : 'Выберите ответ'),
-      onNext: () => widget.onResult(!_revealed),
+      hint: widget.errorless
+          ? 'Это правильный ответ — нажмите его'
+          : (_solved
+              ? (_revealed ? 'Правильный ответ показан' : 'Верно!')
+              : (_wrongPick != null ? 'Попробуйте ещё раз' : 'Выберите ответ')),
+      onNext: () => widget.onResult(_outcome()),
       child: Column(
         children: [
           for (final o in options)
@@ -162,7 +197,7 @@ class _ChoiceExerciseState extends State<ChoiceExercise> {
               padding: const EdgeInsets.only(bottom: 14),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: _solved && _isCorrect(o)
+                  backgroundColor: (_solved || widget.errorless) && _isCorrect(o)
                       ? Colors.green.shade100
                       : (_wrongPick == o ? Colors.orange.shade100 : null),
                 ),
@@ -179,7 +214,7 @@ class _ChoiceExerciseState extends State<ChoiceExercise> {
                 child: Text(o, textAlign: TextAlign.center),
               ),
             ),
-          if (!_solved)
+          if (!_solved && !widget.errorless)
             Row(
               children: [
                 if (canHint) ...[
@@ -211,12 +246,14 @@ class _ChoiceExerciseState extends State<ChoiceExercise> {
 class TypedExercise extends StatefulWidget {
   final Map<String, dynamic> item;
   final TtsService tts;
-  final void Function(bool) onResult;
+  final void Function(StepOutcome) onResult;
+  final bool errorless;
   const TypedExercise(
       {super.key,
       required this.item,
       required this.tts,
-      required this.onResult});
+      required this.onResult,
+      this.errorless = false});
   @override
   State<TypedExercise> createState() => _TypedExerciseState();
 }
@@ -225,8 +262,23 @@ class _TypedExerciseState extends State<TypedExercise> {
   final _c = TextEditingController();
   bool _solved = false;
   bool _revealed = false;
+  bool _hintUsed = false;
   int _tries = 0;
   String _hint = 'Напишите ответ';
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.errorless) {
+      // показываем ответ и просим прочитать вслух — провалить нельзя
+      final ans = (widget.item['answer'] ?? '').toString();
+      _solved = true;
+      _hint = ans.isEmpty ? 'Нажмите «Дальше»' : 'Прочитайте вслух: $ans';
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (ans.isNotEmpty) widget.tts.speak(ans);
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -260,8 +312,21 @@ class _TypedExerciseState extends State<TypedExercise> {
   void _giveHint() {
     final ans = (widget.item['answer'] ?? '').toString();
     if (ans.isEmpty) return;
-    setState(() => _hint = 'Подсказка: начинается на «${ans[0]}»');
+    setState(() {
+      _hintUsed = true;
+      _hint = 'Подсказка: начинается на «${ans[0]}»';
+    });
     widget.tts.speak('Начинается на ${ans[0]}');
+  }
+
+  StepOutcome _outcome() {
+    if (widget.errorless) {
+      return const StepOutcome(correct: true, unaided: false, gradeable: false);
+    }
+    return StepOutcome(
+      correct: !_revealed,
+      unaided: !_revealed && _tries == 0 && !_hintUsed,
+    );
   }
 
   @override
@@ -272,7 +337,7 @@ class _TypedExerciseState extends State<TypedExercise> {
       tts: widget.tts,
       hint: _hint,
       solved: _solved,
-      onNext: () => widget.onResult(!_revealed),
+      onNext: () => widget.onResult(_outcome()),
       child: Column(
         children: [
           TextField(
@@ -309,7 +374,7 @@ class _TypedExerciseState extends State<TypedExercise> {
 class MemoryExercise extends StatefulWidget {
   final Map<String, dynamic> item;
   final TtsService tts;
-  final void Function(bool) onResult;
+  final void Function(StepOutcome) onResult;
   const MemoryExercise(
       {super.key,
       required this.item,
@@ -339,7 +404,9 @@ class _MemoryExerciseState extends State<MemoryExercise> {
       solved: _played,
       hint: _played ? 'Повторите ряд вслух' : 'Нажмите «Слушать»',
       nextLabel: 'Повторил',
-      onNext: () => widget.onResult(true),
+      // самооценка — не влияет на адаптацию сложности
+      onNext: () => widget.onResult(
+          const StepOutcome(correct: true, unaided: true, gradeable: false)),
       child: Column(
         children: [
           ElevatedButton.icon(
@@ -368,7 +435,7 @@ class _MemoryExerciseState extends State<MemoryExercise> {
 class ReadingExercise extends StatefulWidget {
   final Map<String, dynamic> item;
   final TtsService tts;
-  final void Function(bool) onResult;
+  final void Function(StepOutcome) onResult;
   const ReadingExercise(
       {super.key,
       required this.item,
@@ -381,6 +448,10 @@ class ReadingExercise extends StatefulWidget {
 class _ReadingExerciseState extends State<ReadingExercise> {
   int _phase = 0; // 0 чтение, 1 вопросы, 2 пересказ
   final Set<int> _revealed = {};
+
+  // самооценка пересказа — не влияет на адаптацию сложности
+  static const _selfReport =
+      StepOutcome(correct: true, unaided: true, gradeable: false);
 
   @override
   Widget build(BuildContext context) {
@@ -485,14 +556,14 @@ class _ReadingExerciseState extends State<ReadingExercise> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
                       foregroundColor: Colors.white),
-                  onPressed: () => widget.onResult(true),
+                  onPressed: () => widget.onResult(_selfReport),
                   child: const Text('Получилось'),
                 ),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: OutlinedButton(
-                  onPressed: () => widget.onResult(true),
+                  onPressed: () => widget.onResult(_selfReport),
                   child: const Text('Ещё раз'),
                 ),
               ),

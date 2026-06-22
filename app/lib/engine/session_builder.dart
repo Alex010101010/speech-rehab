@@ -2,46 +2,35 @@ import 'dart:math';
 import '../models/exercise.dart';
 import '../data/content_repository.dart';
 
+/// Слот сессии без привязки к сложности — конкретное задание подбирается
+/// по ходу под текущий рабочий уровень (адаптивная лестница).
+class SessionSlot {
+  final String type;
+  final String role; // warmup | core | memory | reading | cooldown
+  final bool fixedEasy; // разминка/завершение — всегда уровень 1 (успех)
+  SessionSlot(this.type, this.role, {this.fixedEasy = false});
+}
+
 class SessionStep {
   final String type;
   final String title;
   final Map<String, dynamic> item;
-  final String role; // warmup | core | memory | reading | cooldown
+  final String role;
   SessionStep(this.type, this.title, this.item, this.role);
   RenderMode get mode => renderModeFor(type);
 }
 
-/// Собирает дневную сессию: разминка → ядро → память → чтение → завершение.
+/// Собирает план дневной сессии: разминка → ядро → память → чтение → завершение.
 /// Сессия всегда заканчивается лёгким заданием (на успехе).
 class SessionBuilder {
   final ContentRepository repo;
   final Random _r = Random();
   SessionBuilder(this.repo);
 
-  List<Map<String, dynamic>> _pick(String type, int maxLevel, int n) {
-    final set = repo[type];
-    if (set == null) return const [];
-    var pool =
-        set.items.where((e) => ((e['level'] ?? 1) as int) <= maxLevel).toList();
-    if (pool.isEmpty) pool = List.of(set.items);
-    pool.shuffle(_r);
-    return pool.take(n).toList();
-  }
+  List<SessionSlot> buildPlan() {
+    final plan = <SessionSlot>[];
+    plan.add(SessionSlot('complete_phrase_choice', 'warmup', fixedEasy: true));
 
-  List<SessionStep> build(int level) {
-    final steps = <SessionStep>[];
-
-    void addOne(String type, String role, int maxLevel) {
-      final items = _pick(type, maxLevel, 1);
-      if (items.isNotEmpty) {
-        steps.add(SessionStep(type, repo[type]?.title ?? type, items.first, role));
-      }
-    }
-
-    // Разминка — лёгкий выбор
-    addOne('complete_phrase_choice', 'warmup', 1);
-
-    // Ядро — несколько разных типов под уровень
     final coreTypes = <String>[
       'name_by_description',
       'complete_phrase_choice',
@@ -53,21 +42,30 @@ class SessionBuilder {
       'endings_cases',
     ]..shuffle(_r);
     for (final t in coreTypes.take(5)) {
-      addOne(t, 'core', level);
+      plan.add(SessionSlot(t, 'core'));
     }
 
-    // Память — два ряда
-    for (final it in _pick('memory_rows', level, 2)) {
-      steps.add(SessionStep(
-          'memory_rows', repo['memory_rows']?.title ?? 'Память', it, 'memory'));
-    }
-
-    // Чтение и пересказ — один текст
-    addOne('reading_texts', 'reading', level);
-
-    // Завершение — лёгкий выбор (успех в конце)
-    addOne('complete_phrase_choice', 'cooldown', 1);
-
-    return steps;
+    plan.add(SessionSlot('memory_rows', 'memory'));
+    plan.add(SessionSlot('memory_rows', 'memory'));
+    plan.add(SessionSlot('reading_texts', 'reading'));
+    plan.add(SessionSlot('complete_phrase_choice', 'cooldown', fixedEasy: true));
+    return plan;
   }
+
+  /// Берёт ещё не использованное задание типа [type] не сложнее [maxLevel]
+  /// (мягкое смешивание: на уровне N доступны задания уровней 1..N).
+  Map<String, dynamic> pickItem(String type, int maxLevel, Set<Object> used) {
+    final set = repo[type];
+    if (set == null) return const {};
+    var pool =
+        set.items.where((e) => ((e['level'] ?? 1) as int) <= maxLevel).toList();
+    if (pool.isEmpty) pool = List.of(set.items);
+    pool.shuffle(_r);
+    for (final it in pool) {
+      if (!used.contains(it)) return it;
+    }
+    return pool.isEmpty ? const {} : pool.first;
+  }
+
+  String titleFor(String type) => repo[type]?.title ?? type;
 }

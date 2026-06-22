@@ -21,44 +21,107 @@ class SessionScreen extends StatefulWidget {
 }
 
 class _SessionScreenState extends State<SessionScreen> {
-  late List<SessionStep> _steps;
-  late int _primaryCount; // длина первого прохода — для статистики и уровня
-  final List<SessionStep> _missed = []; // пропущенное на первом проходе
-  bool _reviewing = false;
-  int _i = 0;
+  late final SessionBuilder _builder;
+  late List<SessionSlot> _plan; // первый проход (слоты, задания подбираются по ходу)
+  final List<SessionStep> _missed = []; // пропущенное/неверное — в блок «Повторим»
+  final Set<Object> _usedItems = {}; // чтобы задания не повторялись в сессии
+
+  // Адаптивная лестница: единый рабочий уровень, серии для шага вверх/вниз.
+  int _workingLevel = 1;
+  int _upStreak = 0; // подряд верных самостоятельно
+  int _downStreak = 0; // подряд ошибок
+  bool _errorlessNext = false; // следующий core-шаг показать безошибочно (пол)
+
+  int _i = 0; // индекс в плане (первый проход)
+  int _ri = 0; // индекс в повторе
   int _correct = 0;
+  bool _reviewing = false;
   bool _done = false;
+  late SessionStep _current; // текущий шаг первого прохода
+  bool _errorlessCurrent = false;
   List<String> _newAch = const [];
 
   @override
   void initState() {
     super.initState();
-    _steps = SessionBuilder(widget.repo).build(widget.store.progress.level);
-    _primaryCount = _steps.length;
-    if (_steps.isEmpty) _done = true;
+    _builder = SessionBuilder(widget.repo);
+    _plan = _builder.buildPlan();
+    _workingLevel = widget.store.progress.level;
+    if (_plan.isEmpty) {
+      _done = true;
+    } else {
+      _resolve();
+    }
   }
 
-  void _onResult(bool ok) {
-    if (!_reviewing) {
-      if (ok) {
-        _correct++;
-      } else {
-        _missed.add(_steps[_i]);
+  /// Подобрать конкретное задание для текущего слота под рабочий уровень.
+  void _resolve() {
+    final slot = _plan[_i];
+    final lvl = slot.fixedEasy ? 1 : _workingLevel;
+    final item = _builder.pickItem(slot.type, lvl, _usedItems);
+    if (item.isNotEmpty) _usedItems.add(item);
+    final m = renderModeFor(slot.type);
+    final canErrorless = m == RenderMode.choice || m == RenderMode.typed;
+    _errorlessCurrent =
+        _errorlessNext && slot.role == 'core' && canErrorless;
+    _errorlessNext = false;
+    _current = SessionStep(slot.type, _builder.titleFor(slot.type), item, slot.role);
+  }
+
+  /// Лестница реагирует только на ядро (core): вниз быстро (2 ошибки подряд),
+  /// вверх осторожно (3 верных самостоятельно подряд). На полу — errorless.
+  void _applyStaircase(StepOutcome o) {
+    if (!o.gradeable || _plan[_i].role != 'core') return;
+    if (o.correct && o.unaided) {
+      _upStreak++;
+      _downStreak = 0;
+      if (_upStreak >= 3 && _workingLevel < 3) {
+        _workingLevel++;
+        _upStreak = 0;
+      }
+    } else {
+      _downStreak++;
+      _upStreak = 0;
+      if (_downStreak >= 2) {
+        if (_workingLevel > 1) {
+          _workingLevel--;
+          _downStreak = 0;
+        } else {
+          _errorlessNext = true; // ниже некуда — поддержим безошибочным шагом
+        }
       }
     }
-    if (_i + 1 >= _steps.length) {
-      if (!_reviewing && _missed.isNotEmpty) {
-        // мягкий повтор пропущенного, без штрафа
+  }
+
+  void _onOutcome(StepOutcome o) {
+    if (_reviewing) {
+      if (_ri + 1 >= _missed.length) {
+        _finish();
+      } else {
+        setState(() => _ri++);
+      }
+      return;
+    }
+    if (o.correct) {
+      _correct++;
+    } else {
+      _missed.add(_current);
+    }
+    _applyStaircase(o);
+    if (_i + 1 >= _plan.length) {
+      if (_missed.isNotEmpty) {
         setState(() {
           _reviewing = true;
-          _steps = List.of(_missed);
-          _i = 0;
+          _ri = 0;
         });
       } else {
         _finish();
       }
     } else {
-      setState(() => _i++);
+      setState(() {
+        _i++;
+        _resolve();
+      });
     }
   }
 
@@ -66,23 +129,15 @@ class _SessionScreenState extends State<SessionScreen> {
   /// заданиям первого прохода, а не по всему плану.
   Future<void> _persist({required bool early}) async {
     final p = widget.store.progress;
-    final answered = (early && !_reviewing) ? _i : _primaryCount;
+    final answered = (early && !_reviewing) ? _i : _plan.length;
     p.sessions += 1;
     p.answered += answered;
     p.correct += _correct;
     final now = DateTime.now();
     p.days.add(
         '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}');
-    // Адаптация: уровень растёт от точности (трудно, но выполнимо), а не от числа
-    // сессий. Меняем только если успели сделать достаточно заданий.
-    if (answered >= 3) {
-      final acc = _correct / answered;
-      if (acc >= 0.75 && p.level < 3) {
-        p.level += 1;
-      } else if (acc < 0.5 && p.level > 1) {
-        p.level -= 1;
-      }
-    }
+    // Лестница: следующий заход начинаем с уровня, на котором остановились.
+    p.level = _workingLevel;
     _newAch = updateAchievements(p);
     await widget.store.save();
   }
@@ -100,37 +155,49 @@ class _SessionScreenState extends State<SessionScreen> {
   }
 
   Widget _render(SessionStep step) {
-    final key = ValueKey('${_reviewing ? 'r' : 'p'}$_i');
+    final key = ValueKey('${_reviewing ? 'r$_ri' : 'p$_i'}');
+    final errorless = !_reviewing && _errorlessCurrent;
     switch (step.mode) {
       case RenderMode.choice:
         return ChoiceExercise(
-            key: key, item: step.item, tts: widget.tts, onResult: _onResult);
+            key: key,
+            item: step.item,
+            tts: widget.tts,
+            onResult: _onOutcome,
+            errorless: errorless);
       case RenderMode.memory:
         return MemoryExercise(
-            key: key, item: step.item, tts: widget.tts, onResult: _onResult);
+            key: key, item: step.item, tts: widget.tts, onResult: _onOutcome);
       case RenderMode.reading:
         return ReadingExercise(
-            key: key, item: step.item, tts: widget.tts, onResult: _onResult);
+            key: key, item: step.item, tts: widget.tts, onResult: _onOutcome);
       default:
         return TypedExercise(
-            key: key, item: step.item, tts: widget.tts, onResult: _onResult);
+            key: key,
+            item: step.item,
+            tts: widget.tts,
+            onResult: _onOutcome,
+            errorless: errorless);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (_done) return _DoneView(newAch: _newAch);
-    final step = _steps[_i];
+    final step = _reviewing ? _missed[_ri] : _current;
+    final total = _reviewing ? _missed.length : _plan.length;
+    final idx = _reviewing ? _ri : _i;
     return Scaffold(
       appBar: AppBar(
         title: Text(
             _reviewing
-                ? 'Повторим • ${_i + 1} из ${_steps.length}'
-                : '${_i + 1} из ${_steps.length}',
+                ? 'Повторим • ${idx + 1} из $total'
+                : '${idx + 1} из $total',
             style: const TextStyle(fontSize: 20)),
         actions: [
           TextButton(
-            onPressed: () => _onResult(false),
+            onPressed: () => _onOutcome(
+                const StepOutcome(correct: false, unaided: false, gradeable: false)),
             child: const Text('Пропустить', style: TextStyle(fontSize: 18)),
           ),
           TextButton(
@@ -140,7 +207,7 @@ class _SessionScreenState extends State<SessionScreen> {
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4),
-          child: LinearProgressIndicator(value: (_i + 1) / _steps.length),
+          child: LinearProgressIndicator(value: (idx + 1) / total),
         ),
       ),
       body: SafeArea(

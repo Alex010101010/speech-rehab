@@ -22,6 +22,18 @@ class ExerciseSet {
       );
 }
 
+/// Результат одного шага — для адаптации сложности (лестница).
+class StepOutcome {
+  final bool correct; // верно (не показано принудительно)
+  final bool unaided; // верно с первой попытки, без подсказок
+  final bool gradeable; // объективно оцениваемое (выбор/ввод), не самооценка
+  const StepOutcome({
+    required this.correct,
+    required this.unaided,
+    this.gradeable = true,
+  });
+}
+
 /// Как именно рисовать задание данного типа.
 enum RenderMode { choice, typed, memory, reading, retell, order, unknown }
 
