@@ -15,6 +15,9 @@ app/macos/
 app/windows/
 app/.metadata
 
+# Скачанные сборки (APK из CI-артефактов)
+dist/
+
 # IDE / OS
 *.iml
 .idea/
