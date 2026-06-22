@@ -1,7 +1,7 @@
 {
   "pack": "speech-rehab-content-v1",
   "status": "logoped-reviewed",
-  "total_items": 1356,
+  "total_items": 1350,
   "types": [
     {
       "type": "find_error",
@@ -60,11 +60,11 @@
       "title": "Пословицы: объясните смысл",
       "section": "I. Понимание",
       "file": "json/05_proverbs.json",
-      "count": 65,
+      "count": 60,
       "levels": {
-        "1": 24,
-        "2": 21,
-        "3": 20
+        "1": 23,
+        "2": 20,
+        "3": 17
       },
       "advanced": true
     },
@@ -177,10 +177,10 @@
       "title": "Вставьте пропущенный предлог",
       "section": "V. Грамматика",
       "file": "json/14_prepositions.json",
-      "count": 78,
+      "count": 77,
       "levels": {
         "1": 30,
-        "2": 31,
+        "2": 30,
         "3": 17
       },
       "advanced": false
