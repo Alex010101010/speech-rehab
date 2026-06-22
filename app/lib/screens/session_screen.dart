@@ -26,11 +26,25 @@ class _SessionScreenState extends State<SessionScreen> {
   final List<SessionStep> _missed = []; // пропущенное/неверное — в блок «Повторим»
   final Set<Object> _usedItems = {}; // чтобы задания не повторялись в сессии
 
-  // Адаптивная лестница: единый рабочий уровень, серии для шага вверх/вниз.
-  int _workingLevel = 1;
-  int _upStreak = 0; // подряд верных самостоятельно
-  int _downStreak = 0; // подряд ошибок
-  bool _errorlessNext = false; // следующий core-шаг показать безошибочно (пол)
+  // Адаптивная лестница НА КАЖДЫЙ НАВЫК (тип задания).
+  final Map<String, int> _skill = {}; // тип -> рабочий уровень
+  final Map<String, int> _up = {}; // серии верных самостоятельно по типу
+  final Map<String, int> _down = {}; // серии ошибок по типу
+  final Set<String> _errorlessTypes = {}; // типам: след. core-шаг безошибочно
+
+  // уровень навыка с ленивым засевом из сохранёнки (или старого общего level)
+  int _levelFor(String t) => _skill[t] ??=
+      (widget.store.progress.skillLevels[t] ?? widget.store.progress.level);
+
+  Map<String, int> get _mergedLevels =>
+      Map<String, int>.from(widget.store.progress.skillLevels)..addAll(_skill);
+
+  // «общий» уровень (среднее по навыкам) — для памяти/чтения и экрана
+  int get _overallLevel {
+    final v = _mergedLevels.values;
+    if (v.isEmpty) return widget.store.progress.level;
+    return (v.reduce((a, b) => a + b) / v.length).round().clamp(1, 3);
+  }
 
   int _i = 0; // индекс в плане (первый проход)
   int _ri = 0; // индекс в повторе
@@ -46,7 +60,6 @@ class _SessionScreenState extends State<SessionScreen> {
     super.initState();
     _builder = SessionBuilder(widget.repo);
     _plan = _builder.buildPlan();
-    _workingLevel = widget.store.progress.level;
     if (_plan.isEmpty) {
       _done = true;
     } else {
@@ -54,40 +67,45 @@ class _SessionScreenState extends State<SessionScreen> {
     }
   }
 
-  /// Подобрать конкретное задание для текущего слота под рабочий уровень.
+  /// Подобрать конкретное задание для текущего слота под уровень навыка.
   void _resolve() {
     final slot = _plan[_i];
-    final lvl = slot.fixedEasy ? 1 : _workingLevel;
+    // core — по уровню своего навыка; память/чтение — по общему; разминка/финал — 1
+    final lvl = slot.fixedEasy
+        ? 1
+        : (slot.role == 'core' ? _levelFor(slot.type) : _overallLevel);
     final item = _builder.pickItem(slot.type, lvl, _usedItems);
     if (item.isNotEmpty) _usedItems.add(item);
     final m = renderModeFor(slot.type);
     final canErrorless = m == RenderMode.choice || m == RenderMode.typed;
     _errorlessCurrent =
-        _errorlessNext && slot.role == 'core' && canErrorless;
-    _errorlessNext = false;
+        slot.role == 'core' && canErrorless && _errorlessTypes.remove(slot.type);
     _current = SessionStep(slot.type, _builder.titleFor(slot.type), item, slot.role);
   }
 
-  /// Лестница реагирует только на ядро (core): вниз быстро (2 ошибки подряд),
-  /// вверх осторожно (3 верных самостоятельно подряд). На полу — errorless.
+  /// Лестница на навык: вниз быстро (2 ошибки подряд), вверх осторожно
+  /// (3 верных самостоятельно подряд). На полу навыка — errorless.
   void _applyStaircase(StepOutcome o) {
-    if (!o.gradeable || _plan[_i].role != 'core') return;
+    final slot = _plan[_i];
+    if (!o.gradeable || slot.role != 'core') return;
+    final t = slot.type;
+    final cur = _levelFor(t);
     if (o.correct && o.unaided) {
-      _upStreak++;
-      _downStreak = 0;
-      if (_upStreak >= 3 && _workingLevel < 3) {
-        _workingLevel++;
-        _upStreak = 0;
+      _up[t] = (_up[t] ?? 0) + 1;
+      _down[t] = 0;
+      if (_up[t]! >= 3 && cur < 3) {
+        _skill[t] = cur + 1;
+        _up[t] = 0;
       }
     } else {
-      _downStreak++;
-      _upStreak = 0;
-      if (_downStreak >= 2) {
-        if (_workingLevel > 1) {
-          _workingLevel--;
-          _downStreak = 0;
+      _down[t] = (_down[t] ?? 0) + 1;
+      _up[t] = 0;
+      if (_down[t]! >= 2) {
+        if (cur > 1) {
+          _skill[t] = cur - 1;
+          _down[t] = 0;
         } else {
-          _errorlessNext = true; // ниже некуда — поддержим безошибочным шагом
+          _errorlessTypes.add(t); // ниже некуда — поддержим безошибочным шагом
         }
       }
     }
@@ -139,8 +157,9 @@ class _SessionScreenState extends State<SessionScreen> {
     final now = DateTime.now();
     p.days.add(
         '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}');
-    // Лестница: следующий заход начинаем с уровня, на котором остановились.
-    p.level = _workingLevel;
+    // Лестница: сохраняем уровни навыков; общий level — среднее (для экрана/наград).
+    p.skillLevels = _mergedLevels;
+    p.level = _overallLevel;
     _newAch = updateAchievements(p);
     await widget.store.save();
   }

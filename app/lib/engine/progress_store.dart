@@ -6,7 +6,8 @@ class Progress {
   int sessions;
   int answered;
   int correct;
-  int level;
+  int level; // производное «общее» (среднее по навыкам) — для экрана и наград
+  Map<String, int> skillLevels; // уровень на каждый навык (тип задания)
   Set<String> achievements;
   Set<String> days; // строки "yyyy-mm-dd"
 
@@ -15,9 +16,11 @@ class Progress {
     this.answered = 0,
     this.correct = 0,
     this.level = 1,
+    Map<String, int>? skillLevels,
     Set<String>? achievements,
     Set<String>? days,
-  })  : achievements = achievements ?? <String>{},
+  })  : skillLevels = skillLevels ?? <String, int>{},
+        achievements = achievements ?? <String>{},
         days = days ?? <String>{};
 
   Map<String, dynamic> toJson() => {
@@ -25,6 +28,7 @@ class Progress {
         'answered': answered,
         'correct': correct,
         'level': level,
+        'skillLevels': skillLevels,
         'achievements': achievements.toList(),
         'days': days.toList(),
       };
@@ -34,6 +38,8 @@ class Progress {
         answered: (j['answered'] ?? 0) as int,
         correct: (j['correct'] ?? 0) as int,
         level: (j['level'] ?? 1) as int,
+        skillLevels: ((j['skillLevels'] ?? const {}) as Map)
+            .map((k, v) => MapEntry(k.toString(), (v as num).toInt())),
         achievements: ((j['achievements'] ?? const []) as List)
             .map((e) => e.toString())
             .toSet(),
