@@ -31,6 +31,12 @@ String displayPrompt(Map<String, dynamic> item) {
   final task = (item['task'] ?? '').toString();
   if (task == 'антоним') return 'Противоположное по смыслу слову «$p»';
   if (task == 'синоним') return 'Близкое по смыслу слову «$p» (синоним)';
+  // prepositions: пропуск ___ → вставить предлог
+  if (p.contains('__')) return 'Вставьте подходящий предлог:\n$p';
+  // endings_cases: «(слово…)» → поставить слово в нужную форму (изменить окончание)
+  if (p.contains('(') && (p.contains('…') || p.contains('...'))) {
+    return 'Поставьте слово в скобках в правильную форму:\n$p';
+  }
   return p;
 }
 
@@ -486,8 +492,13 @@ class _ReadingExerciseState extends State<ReadingExercise> {
   Widget build(BuildContext context) {
     final title = (widget.item['title'] ?? '').toString();
     final text = (widget.item['text'] ?? '').toString();
-    final questions = ((widget.item['questions'] as List?) ?? const [])
+    final allQuestions = ((widget.item['questions'] as List?) ?? const [])
         .map((e) => Map<String, dynamic>.from(e as Map))
+        .toList();
+    // на нижнем уровне — меньше вопросов (старт с малого)
+    final level = (widget.item['level'] ?? 1) as int;
+    final questions = allQuestions
+        .take(level >= 3 ? allQuestions.length : (level == 2 ? 3 : 2))
         .toList();
 
     return Column(
@@ -574,9 +585,12 @@ class _ReadingExerciseState extends State<ReadingExercise> {
               onPressed: () => setState(() => _phase = 1),
               child: const Text('Дальше')),
         if (_phase == 1)
+          // пересказ (связная речь) — только на верхнем уровне; ниже заканчиваем после вопросов
           ElevatedButton(
-              onPressed: () => setState(() => _phase = 2),
-              child: const Text('Перейти к пересказу')),
+              onPressed: level >= 3
+                  ? () => setState(() => _phase = 2)
+                  : () => widget.onResult(_selfReport),
+              child: Text(level >= 3 ? 'Перейти к пересказу' : 'Готово')),
         if (_phase == 2)
           Row(
             children: [

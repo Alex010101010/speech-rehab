@@ -6,6 +6,11 @@ on:
       - 'app/**'
       - '.github/workflows/build.yml'
   workflow_dispatch:
+    inputs:
+      build_apk:
+        description: 'Собрать APK (установочник для Android)'
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -13,7 +18,8 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  # Быстрое превью: только веб (~1.5–2 мин). Идёт на каждый push.
+  web:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -25,12 +31,47 @@ jobs:
         with:
           channel: stable
 
-      - run: flutter --version
+      # Платформенные папки генерируем здесь (в репо только lib/ + assets + pubspec).
+      - name: Generate web platform
+        run: flutter create --platforms=web --org dev.rech --project-name rech .
 
-      # В репозитории лежит только lib/ + assets + pubspec.
-      # Платформенные папки (android/, web/) генерируем здесь, без коммита в репо.
-      - name: Generate platform folders
-        run: flutter create --platforms=android,web --org dev.rech --project-name rech .
+      - run: flutter pub get
+
+      - name: Build Web
+        run: flutter build web --release --base-href /speech-rehab/
+
+      - name: Upload Web artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: app/build/web
+
+  deploy-pages:
+    needs: web
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  # APK самый долгий (~5 мин), нужен только для установки на Android.
+  # Собираем вручную: вкладка Actions → build → Run workflow.
+  apk:
+    if: github.event_name == 'workflow_dispatch' && inputs.build_apk
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Generate android platform
+        run: flutter create --platforms=android --org dev.rech --project-name rech .
 
       - run: flutter pub get
 
@@ -42,21 +83,3 @@ jobs:
         with:
           name: rech-apk
           path: app/build/app/outputs/flutter-apk/app-release.apk
-
-      - name: Build Web (для предпросмотра)
-        run: flutter build web --release --base-href /speech-rehab/
-
-      - name: Upload Web artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: app/build/web
-
-  deploy-pages:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4

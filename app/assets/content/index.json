@@ -229,9 +229,9 @@
       "title": "Чтение и понимание текста",
       "section": "VII. Память и связная речь",
       "file": "json/18_reading_texts.json",
-      "count": 20,
+      "count": 26,
       "levels": {
-        "1": 6,
+        "1": 12,
         "2": 7,
         "3": 7
       },
