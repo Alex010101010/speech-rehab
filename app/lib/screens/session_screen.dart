@@ -114,6 +114,10 @@ class _SessionScreenState extends State<SessionScreen> {
             style: const TextStyle(fontSize: 20)),
         actions: [
           TextButton(
+            onPressed: () => _onResult(false),
+            child: const Text('Пропустить', style: TextStyle(fontSize: 18)),
+          ),
+          TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('Отдохнуть', style: TextStyle(fontSize: 18)),
           ),
