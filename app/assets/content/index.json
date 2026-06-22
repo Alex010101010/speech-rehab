@@ -280,7 +280,7 @@
       "section": "0. Узнавание",
       "file": "json/22_picture_word.json",
       "count": 63,
-      "draft": true,
+      "draft": false,
       "advanced": false
     }
   ]
