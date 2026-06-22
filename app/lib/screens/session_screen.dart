@@ -160,6 +160,10 @@ class _SessionScreenState extends State<SessionScreen> {
   Widget _render(SessionStep step) {
     final key = ValueKey('${_reviewing ? 'r$_ri' : 'p$_i'}');
     final errorless = !_reviewing && _errorlessCurrent;
+    if (step.type == 'find_error') {
+      return FixErrorExercise(
+          key: key, item: step.item, tts: widget.tts, onResult: _onOutcome);
+    }
     switch (step.mode) {
       case RenderMode.choice:
         return ChoiceExercise(

@@ -40,6 +40,7 @@ class SessionBuilder {
       'synonyms_antonyms',
       'logic_questions',
       'endings_cases',
+      'find_error',
     ]..shuffle(_r);
     for (final t in coreTypes.take(5)) {
       plan.add(SessionSlot(t, 'core'));

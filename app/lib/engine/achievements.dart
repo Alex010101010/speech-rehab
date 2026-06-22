@@ -5,7 +5,7 @@ String achievementTitle(String id) {
     case 'first':
       return 'Первое занятие';
     case 'week':
-      return 'Неделя занятий';
+      return '7 дней практики';
     case 'hundred':
       return '100 ответов';
     case 'level2':

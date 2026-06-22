@@ -27,43 +27,58 @@ class _HomeScreenState extends State<HomeScreen> {
     final p = widget.store.progress;
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(28),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Text('Занятие речью',
-                  textAlign: TextAlign.center,
-                  style:
-                      TextStyle(fontSize: 38, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 24),
-              Text(_plant(p.level),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 96)),
-              const SizedBox(height: 8),
-              Text('Уровень ${p.level} · занятий: ${p.sessions}',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 22)),
-              const SizedBox(height: 40),
-              ElevatedButton(
-                onPressed: () async {
-                  await Navigator.of(context).push(MaterialPageRoute(
-                    builder: (_) => SessionScreen(
-                        repo: widget.repo,
-                        store: widget.store,
-                        tts: widget.tts),
-                  ));
-                  if (mounted) setState(() {});
-                },
-                child: const Text('Начать занятие'),
+        child: LayoutBuilder(
+          builder: (context, c) => SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: c.maxHeight),
+              child: Padding(
+                padding: const EdgeInsets.all(28),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text('Занятие речью',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 38, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 24),
+                    Text(_plant(p.level),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 96)),
+                    const SizedBox(height: 8),
+                    Text('Уровень ${p.level} · занятий: ${p.sessions}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 22)),
+                    const SizedBox(height: 8),
+                    TextButton.icon(
+                      onPressed: () => widget.tts.speak(
+                          'Занятие речью. Нажмите «Начать занятие», чтобы заниматься. '
+                          'Кнопка «Успехи» — посмотреть результаты.'),
+                      icon: const Icon(Icons.volume_up),
+                      label: const Text('Прослушать'),
+                    ),
+                    const SizedBox(height: 32),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => SessionScreen(
+                              repo: widget.repo,
+                              store: widget.store,
+                              tts: widget.tts),
+                        ));
+                        if (mounted) setState(() {});
+                      },
+                      child: const Text('Начать занятие'),
+                    ),
+                    const SizedBox(height: 16),
+                    OutlinedButton(
+                      onPressed: () => _showProgress(context, p),
+                      child: const Text('Успехи'),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 16),
-              OutlinedButton(
-                onPressed: () => _showProgress(context, p),
-                child: const Text('Успехи'),
-              ),
-            ],
+            ),
           ),
         ),
       ),

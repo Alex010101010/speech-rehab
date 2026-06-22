@@ -498,6 +498,56 @@ class _TypedExerciseState extends State<TypedExercise> {
   }
 }
 
+// ---------- найди и исправь ошибку (устно, самооценка) ----------
+
+class FixErrorExercise extends StatefulWidget {
+  final Map<String, dynamic> item;
+  final TtsService tts;
+  final void Function(StepOutcome) onResult;
+  const FixErrorExercise(
+      {super.key,
+      required this.item,
+      required this.tts,
+      required this.onResult});
+  @override
+  State<FixErrorExercise> createState() => _FixErrorExerciseState();
+}
+
+class _FixErrorExerciseState extends State<FixErrorExercise> {
+  bool _revealed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final prompt = (widget.item['prompt'] ?? '').toString();
+    final answer = (widget.item['answer'] ?? '').toString();
+    return ExerciseScaffold(
+      prompt: 'Найдите ошибку и скажите правильно:\n$prompt',
+      tts: widget.tts,
+      solved: true, // самооценка: «Дальше» доступно всегда
+      hint: _revealed ? 'Правильно: $answer' : 'Скажите вслух, потом проверьте',
+      onNext: () => widget.onResult(
+          const StepOutcome(correct: true, unaided: true, gradeable: false)),
+      child: Column(
+        children: [
+          if (!_revealed)
+            ElevatedButton.icon(
+              onPressed: () {
+                setState(() => _revealed = true);
+                widget.tts.speak(answer);
+              },
+              icon: const Icon(Icons.check),
+              label: const Text('Показать правильно'),
+            )
+          else
+            Text(answer,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 24, color: Colors.green.shade800)),
+        ],
+      ),
+    );
+  }
+}
+
 // ---------- слухоречевая память ----------
 
 class MemoryExercise extends StatefulWidget {
