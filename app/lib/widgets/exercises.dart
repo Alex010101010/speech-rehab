@@ -452,6 +452,13 @@ class _MemoryExerciseState extends State<MemoryExercise> {
   List<String> get _row =>
       ((widget.item['row'] as List?) ?? const []).map((e) => e.toString()).toList();
 
+  /// Для показа: цифры — прописью «5 (пять)» (если есть display), иначе как есть.
+  List<String> get _shownWords {
+    final disp = widget.item['display'];
+    if (disp is List) return disp.map((e) => e.toString()).toList();
+    return _row;
+  }
+
   void _play() {
     widget.tts.speak(_row.join(', '));
     setState(() => _played = true);
@@ -482,7 +489,7 @@ class _MemoryExerciseState extends State<MemoryExercise> {
                 style: const TextStyle(fontSize: 18)),
           ),
           if (_shown)
-            Text(_row.join('  ·  '),
+            Text(_shownWords.join('  ·  '),
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 24)),
         ],
