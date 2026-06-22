@@ -62,25 +62,41 @@ class _SessionScreenState extends State<SessionScreen> {
     }
   }
 
-  Future<void> _finish() async {
+  /// Сохранить прогресс. При досрочном выходе считаем по реально сделанным
+  /// заданиям первого прохода, а не по всему плану.
+  Future<void> _persist({required bool early}) async {
     final p = widget.store.progress;
+    final answered = (early && !_reviewing) ? _i : _primaryCount;
     p.sessions += 1;
-    p.answered += _primaryCount;
+    p.answered += answered;
     p.correct += _correct;
     final now = DateTime.now();
     p.days.add(
         '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}');
-    // Адаптация: уровень растёт от точности (трудно, но выполнимо), а не от числа сессий.
-    final acc = _primaryCount == 0 ? 1.0 : _correct / _primaryCount;
-    if (acc >= 0.75 && p.level < 3) {
-      p.level += 1;
-    } else if (acc < 0.5 && p.level > 1) {
-      p.level -= 1;
+    // Адаптация: уровень растёт от точности (трудно, но выполнимо), а не от числа
+    // сессий. Меняем только если успели сделать достаточно заданий.
+    if (answered >= 3) {
+      final acc = _correct / answered;
+      if (acc >= 0.75 && p.level < 3) {
+        p.level += 1;
+      } else if (acc < 0.5 && p.level > 1) {
+        p.level -= 1;
+      }
     }
     _newAch = updateAchievements(p);
     await widget.store.save();
+  }
+
+  Future<void> _finish() async {
+    await _persist(early: false);
     widget.tts.speak('Молодец! Занятие окончено.');
     if (mounted) setState(() => _done = true);
+  }
+
+  /// «Отдохнуть»: сохранить сделанное и выйти на главный (без экрана «Молодец»).
+  Future<void> _rest() async {
+    if (_i > 0 || _reviewing) await _persist(early: true);
+    if (mounted) Navigator.pop(context);
   }
 
   Widget _render(SessionStep step) {
@@ -118,7 +134,7 @@ class _SessionScreenState extends State<SessionScreen> {
             child: const Text('Пропустить', style: TextStyle(fontSize: 18)),
           ),
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: _rest,
             child: const Text('Отдохнуть', style: TextStyle(fontSize: 18)),
           ),
         ],
