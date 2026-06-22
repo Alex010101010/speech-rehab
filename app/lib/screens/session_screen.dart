@@ -221,6 +221,14 @@ class _SessionScreenState extends State<SessionScreen> {
     final idx = _reviewing ? _ri : _i;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // убираем ← (путал с «к прошлому заданию»)
+        leadingWidth: 160,
+        leading: TextButton.icon(
+          onPressed: _rest,
+          icon: const Icon(Icons.home_outlined, size: 22),
+          label: const Text('Отдохнуть', style: TextStyle(fontSize: 16)),
+        ),
+        centerTitle: true,
         title: Text(
             _reviewing
                 ? 'Повторим • ${idx + 1} из $total'
@@ -232,10 +240,7 @@ class _SessionScreenState extends State<SessionScreen> {
                 const StepOutcome(correct: false, unaided: false, gradeable: false)),
             child: const Text('Пропустить', style: TextStyle(fontSize: 18)),
           ),
-          TextButton(
-            onPressed: _rest,
-            child: const Text('Отдохнуть', style: TextStyle(fontSize: 18)),
-          ),
+          const SizedBox(width: 8),
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4),

@@ -172,12 +172,23 @@ class ExerciseScaffold extends StatelessWidget {
                 const SizedBox(height: 20),
                 child,
                 const SizedBox(height: 12),
-                Text(hint,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: solved
-                            ? Colors.green.shade800
-                            : Colors.black54)),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: solved
+                        ? Colors.green.shade50
+                        : const Color(0xFFEAF1FB),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(hint,
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                          color: solved
+                              ? Colors.green.shade800
+                              : const Color(0xFF1A3A66))),
+                ),
               ],
             ),
           ),
