@@ -104,6 +104,8 @@ String displayPrompt(String type, Map<String, dynamic> item) {
     case 'generalization':
       return 'Назовите одним общим словом.\n'
           'Например: «стол, стул, шкаф» → «мебель».\n\n$p';
+    case 'fill_letter':
+      return 'Напишите слово целиком, вставив пропущенную букву:\n\n$p';
     default:
       return p;
   }
@@ -112,7 +114,7 @@ String displayPrompt(String type, Map<String, dynamic> item) {
 /// Длина эталона `answer` (буквы без пробелов) для живой шкалы прогресса.
 /// null — шкалу не показываем (errorless или fill_letter со своей формой).
 int? answerTargetLen(String type, Map<String, dynamic> item, bool errorless) {
-  if (errorless || type == 'fill_letter') return null;
+  if (errorless) return null;
   final letters = (item['answer'] ?? '').toString().replaceAll(RegExp(r'\s+'), '');
   return letters.isEmpty ? null : letters.runes.length;
 }
@@ -559,6 +561,7 @@ class _TypedExerciseState extends State<TypedExercise> {
   bool _hintUsed = false;
   bool _cueShown = false; // картинка/эмодзи-подсказка раскрыта по кнопке
   int _tries = 0;
+  int _letterHints = 0; // сколько раз показывали буквенную подсказку (макс. 2)
   String _hint = 'Напишите ответ';
 
   @override
@@ -640,11 +643,26 @@ class _TypedExerciseState extends State<TypedExercise> {
     }
     final ans = (widget.item['answer'] ?? '').toString();
     if (ans.isEmpty) return;
+    final runes = ans.runes.toList();
+    final len = runes.length;
+    // прогрессивно: 1-е нажатие — первая буква; 2-е — около половины (если
+    // пропущено больше 1 буквы); дальше новой информации не добавляем
+    if (_letterHints >= 2 || (_letterHints >= 1 && len <= 2)) {
+      setState(() => _hint = 'Больше подсказок нет — попробуйте или «Не знаю»');
+      return;
+    }
+    _letterHints++;
+    final reveal = _letterHints == 1
+        ? 1
+        : ((len + 1) ~/ 2).clamp(1, len - 1); // половина, но не всё слово
+    final prefix = String.fromCharCodes(runes.take(reveal));
     setState(() {
       _hintUsed = true;
-      _hint = 'Подсказка: начинается на «${ans[0]}»';
+      _hint = reveal == 1
+          ? 'Подсказка: начинается на «$prefix»'
+          : 'Подсказка: начинается на «$prefix…»';
     });
-    widget.tts.speak('Начинается на ${ans[0]}');
+    widget.tts.speak('Начинается на $prefix');
   }
 
   StepOutcome _outcome() {
