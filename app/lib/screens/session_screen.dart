@@ -183,6 +183,10 @@ class _SessionScreenState extends State<SessionScreen> {
       return FixErrorExercise(
           key: key, item: step.item, tts: widget.tts, onResult: _onOutcome);
     }
+    if (step.type == 'clock') {
+      return ClockExercise(
+          key: key, item: step.item, tts: widget.tts, onResult: _onOutcome);
+    }
     switch (step.mode) {
       case RenderMode.choice:
         return ChoiceExercise(

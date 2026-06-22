@@ -261,6 +261,18 @@
         "3": 13
       },
       "advanced": false
+    },
+    {
+      "type": "clock",
+      "title": "Сколько времени",
+      "section": "VIII. Время",
+      "file": "json/21_clock.json",
+      "count": 14,
+      "levels": {
+        "1": 5,
+        "2": 5,
+        "3": 4
+      }
     }
   ]
 }

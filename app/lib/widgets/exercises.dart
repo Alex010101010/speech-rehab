@@ -548,6 +548,73 @@ class _FixErrorExerciseState extends State<FixErrorExercise> {
   }
 }
 
+// ---------- сколько времени (электронные часы, устно) ----------
+
+class ClockExercise extends StatefulWidget {
+  final Map<String, dynamic> item;
+  final TtsService tts;
+  final void Function(StepOutcome) onResult;
+  const ClockExercise(
+      {super.key,
+      required this.item,
+      required this.tts,
+      required this.onResult});
+  @override
+  State<ClockExercise> createState() => _ClockExerciseState();
+}
+
+class _ClockExerciseState extends State<ClockExercise> {
+  bool _revealed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final time = (widget.item['time'] ?? '').toString();
+    final answer = (widget.item['answer'] ?? '').toString();
+    return ExerciseScaffold(
+      prompt: 'Сколько времени?',
+      tts: widget.tts,
+      solved: true, // самооценка: «Дальше» доступно всегда
+      hint: _revealed ? answer : 'Скажите вслух, потом проверьте',
+      onNext: () => widget.onResult(
+          const StepOutcome(correct: true, unaided: true, gradeable: false)),
+      child: Column(
+        children: [
+          Center(
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 24, horizontal: 36),
+              decoration: BoxDecoration(
+                color: const Color(0xFF111111),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Text(time,
+                  style: const TextStyle(
+                      fontSize: 84,
+                      color: Color(0xFF7CFFB2),
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 4)),
+            ),
+          ),
+          const SizedBox(height: 20),
+          if (!_revealed)
+            ElevatedButton.icon(
+              onPressed: () {
+                setState(() => _revealed = true);
+                widget.tts.speak(answer);
+              },
+              icon: const Icon(Icons.check),
+              label: const Text('Показать ответ'),
+            )
+          else
+            Text(answer,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 24, color: Colors.green.shade800)),
+        ],
+      ),
+    );
+  }
+}
+
 // ---------- слухоречевая память ----------
 
 class MemoryExercise extends StatefulWidget {
