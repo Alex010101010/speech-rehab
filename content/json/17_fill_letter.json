@@ -11,7 +11,6 @@
       "pair": "д/т",
       "prompt": "_уб",
       "answer": "дуб",
-      "image": "dub.png",
       "accept": [
         "дуб"
       ],
@@ -121,7 +120,6 @@
       "pair": "д/т",
       "prompt": "_руба",
       "answer": "труба",
-      "image": "truba.png",
       "accept": [
         "труба"
       ]
@@ -190,7 +188,6 @@
       "pair": "б/п",
       "prompt": "_очта",
       "answer": "почта",
-      "image": "pochta.png",
       "accept": [
         "почта"
       ]
@@ -300,7 +297,6 @@
       "pair": "б/п",
       "prompt": "_оплавок",
       "answer": "поплавок",
-      "image": "poplavok.png",
       "accept": [
         "поплавок"
       ]
@@ -418,7 +414,6 @@
       "pair": "г/к",
       "prompt": "_олбаса",
       "answer": "колбаса",
-      "image": "kolbasa.png",
       "accept": [
         "колбаса"
       ]
@@ -502,7 +497,6 @@
       "pair": "г/к",
       "prompt": "ис_ра",
       "answer": "искра",
-      "image": "iskra.png",
       "accept": [
         "искра"
       ]
@@ -536,7 +530,6 @@
       "pair": "г/к",
       "prompt": "_амыш",
       "answer": "камыш",
-      "image": "kamysh.png",
       "accept": [
         "камыш"
       ]
@@ -595,7 +588,6 @@
       "pair": "л/н",
       "prompt": "_иства",
       "answer": "листва",
-      "image": "listva.png",
       "accept": [
         "листва"
       ]
@@ -655,7 +647,6 @@
       "pair": "л/н",
       "prompt": "_одка",
       "answer": "лодка",
-      "image": "lodka.png",
       "accept": [
         "лодка"
       ]
@@ -667,7 +658,6 @@
       "pair": "л/н",
       "prompt": "_аживка",
       "answer": "наживка",
-      "image": "nazhivka.png",
       "accept": [
         "наживка"
       ]
@@ -691,7 +681,6 @@
       "pair": "л/н",
       "prompt": "ме_алл",
       "answer": "металл",
-      "image": "metall.png",
       "accept": [
         "металл"
       ]
@@ -703,7 +692,6 @@
       "pair": "л/н",
       "prompt": "ос_нь",
       "answer": "осень",
-      "image": "osen.png",
       "accept": [
         "осень"
       ]
@@ -973,7 +961,6 @@
       "pair": "ж/ш",
       "prompt": "_ука",
       "answer": "щука",
-      "image": "schuka.png",
       "accept": [
         "щука"
       ]
@@ -1020,7 +1007,6 @@
       "pair": "ж/ш",
       "prompt": "ё_ (лесной)",
       "answer": "ёж",
-      "image": "ezh.png",
       "accept": [
         "ёж",
         "еж"
@@ -1033,7 +1019,6 @@
       "pair": "ж/ш",
       "prompt": "камы_",
       "answer": "камыш",
-      "image": "kamysh.png",
       "accept": [
         "камыш"
       ]

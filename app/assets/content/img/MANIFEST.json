@@ -1,10 +1,4 @@
 {
-  "дуб": {
-    "slug": "dub",
-    "id": 38268,
-    "matches": 2,
-    "query": "en:oak"
-  },
   "тетерев": {
     "slug": "teterev",
     "id": 29690,
@@ -35,12 +29,6 @@
     "matches": 36,
     "query": "en:money"
   },
-  "труба": {
-    "slug": "truba",
-    "id": 4722,
-    "matches": 7,
-    "query": "en:pipe"
-  },
   "дно": {
     "slug": "dno",
     "id": 32818,
@@ -52,12 +40,6 @@
     "id": 5077,
     "matches": 4,
     "query": "en:leaves"
-  },
-  "почта": {
-    "slug": "pochta",
-    "id": 2688,
-    "matches": 8,
-    "query": "en:mail"
   },
   "булка": {
     "slug": "bulka",
@@ -143,12 +125,6 @@
     "matches": 2,
     "query": "en:cow"
   },
-  "колбаса": {
-    "slug": "kolbasa",
-    "id": 6647,
-    "matches": 13,
-    "query": "en:sausage"
-  },
   "картофель": {
     "slug": "kartofel",
     "id": 2503,
@@ -184,18 +160,6 @@
     "id": 6948,
     "matches": 4,
     "query": "en:cable"
-  },
-  "искра": {
-    "slug": "iskra",
-    "id": 3009,
-    "matches": 6,
-    "query": "en:spark"
-  },
-  "камыш": {
-    "slug": "kamysh",
-    "id": 35467,
-    "matches": 1,
-    "query": "en:reed"
   },
   "небо": {
     "slug": "nebo",
@@ -233,35 +197,11 @@
     "matches": 10,
     "query": "en:thread"
   },
-  "лодка": {
-    "slug": "lodka",
-    "id": 6932,
-    "matches": 11,
-    "query": "en:boat"
-  },
-  "наживка": {
-    "slug": "nazhivka",
-    "id": 5906,
-    "matches": 1,
-    "query": "en:bait"
-  },
   "лещ": {
     "slug": "lesch",
     "id": 37586,
     "matches": 3,
     "query": "en:bream"
-  },
-  "металл": {
-    "slug": "metall",
-    "id": 6148,
-    "matches": 9,
-    "query": "en:metal"
-  },
-  "осень": {
-    "slug": "osen",
-    "id": 5531,
-    "matches": 4,
-    "query": "en:autumn"
   },
   "солнце": {
     "slug": "solntse",
@@ -353,23 +293,11 @@
     "matches": 7,
     "query": "en:scissors"
   },
-  "щука": {
-    "slug": "schuka",
-    "id": 34288,
-    "matches": 4,
-    "query": "en:pike"
-  },
   "железо": {
     "slug": "zhelezo",
     "id": 37002,
     "matches": 1,
     "query": "ru:железо"
-  },
-  "ёж": {
-    "slug": "ezh",
-    "id": 34033,
-    "matches": 1,
-    "query": "ru:ёж"
   },
   "шарф": {
     "slug": "sharf",
@@ -437,23 +365,11 @@
     "matches": 1,
     "query": "en:prescription"
   },
-  "поплавок": {
-    "slug": "poplavok",
-    "id": 21876,
-    "matches": 10,
-    "query": "en:float"
-  },
   "нора": {
     "slug": "nora",
     "id": 7149,
     "matches": 1,
     "query": "en:den"
-  },
-  "листва": {
-    "slug": "listva",
-    "id": 5077,
-    "matches": 8,
-    "query": "en:leaf"
   },
   "шапка": {
     "slug": "shapka",
