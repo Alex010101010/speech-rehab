@@ -164,6 +164,7 @@ class _SessionScreenState extends State<SessionScreen> {
             item: step.item,
             tts: widget.tts,
             onResult: _onOutcome,
+            type: step.type,
             errorless: errorless);
       case RenderMode.memory:
         return MemoryExercise(
@@ -177,6 +178,7 @@ class _SessionScreenState extends State<SessionScreen> {
             item: step.item,
             tts: widget.tts,
             onResult: _onOutcome,
+            type: step.type,
             errorless: errorless);
     }
   }

@@ -26,22 +26,26 @@ bool checkTyped(Map<String, dynamic> item, String input) {
 
 /// Формулировка задания. Для синонимов/антонимов (`task`) явно указываем,
 /// какое слово ждём, иначе по голому слову непонятно: синоним или антоним.
-String displayPrompt(Map<String, dynamic> item) {
+String displayPrompt(String type, Map<String, dynamic> item) {
   final p = (item['prompt'] ?? '').toString();
-  final task = (item['task'] ?? '').toString();
-  if (task == 'антоним') return 'Противоположное по смыслу слову «$p»';
-  if (task == 'синоним') return 'Близкое по смыслу слову «$p» (синоним)';
-  // prepositions: пропуск ___ → вставить предлог
-  if (p.contains('__')) {
-    return 'Вставьте подходящий предлог.\n'
-        'Например: «Кот сидит ___ окне» → «на».\n\n$p';
+  switch (type) {
+    case 'synonyms_antonyms':
+      final task = (item['task'] ?? '').toString();
+      return task == 'синоним'
+          ? 'Близкое по смыслу слову «$p» (синоним)'
+          : 'Противоположное по смыслу слову «$p»';
+    case 'prepositions':
+      return 'Вставьте подходящий предлог.\n'
+          'Например: «Кот сидит ___ окне» → «на».\n\n$p';
+    case 'endings_cases':
+      return 'Поставьте слово в скобках в правильную форму.\n'
+          'Например: «много (дом…)» → «домов».\n\n$p';
+    case 'generalization':
+      return 'Назовите одним общим словом.\n'
+          'Например: «стол, стул, шкаф» → «мебель».\n\n$p';
+    default:
+      return p;
   }
-  // endings_cases: «(слово…)» → поставить слово в нужную форму (изменить окончание)
-  if (p.contains('(') && (p.contains('…') || p.contains('...'))) {
-    return 'Поставьте слово в скобках в правильную форму.\n'
-        'Например: «много (дом…)» → «домов».\n\n$p';
-  }
-  return p;
 }
 
 // ---------- общий каркас задания ----------
@@ -54,6 +58,7 @@ class ExerciseScaffold extends StatelessWidget {
   final VoidCallback onNext;
   final TtsService tts;
   final String nextLabel;
+  final String? imagePath; // картинка-подсказка (если есть)
   const ExerciseScaffold({
     super.key,
     required this.prompt,
@@ -63,6 +68,7 @@ class ExerciseScaffold extends StatelessWidget {
     required this.onNext,
     required this.tts,
     this.nextLabel = 'Дальше',
+    this.imagePath,
   });
 
   @override
@@ -75,6 +81,14 @@ class ExerciseScaffold extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                if (imagePath != null) ...[
+                  Center(
+                    child: Image.asset(imagePath!,
+                        height: 200,
+                        errorBuilder: (_, __, ___) => const SizedBox.shrink()),
+                  ),
+                  const SizedBox(height: 16),
+                ],
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -124,6 +138,7 @@ class ChoiceExercise extends StatefulWidget {
   final Map<String, dynamic> item;
   final TtsService tts;
   final void Function(StepOutcome) onResult;
+  final String type;
 
   /// Безошибочный режим (пол лестницы): сразу подсвечиваем верный, гасим
   /// неверные — задание невозможно провалить.
@@ -133,6 +148,7 @@ class ChoiceExercise extends StatefulWidget {
       required this.item,
       required this.tts,
       required this.onResult,
+      this.type = '',
       this.errorless = false});
   @override
   State<ChoiceExercise> createState() => _ChoiceExerciseState();
@@ -197,12 +213,14 @@ class _ChoiceExerciseState extends State<ChoiceExercise> {
 
   @override
   Widget build(BuildContext context) {
-    final prompt = displayPrompt(widget.item);
+    final prompt = displayPrompt(widget.type, widget.item);
+    final img = (widget.item['image'] ?? '').toString();
     final options = _options;
     final canHint = !widget.errorless && _wrongLeft(options).length > 1;
     return ExerciseScaffold(
       prompt: prompt,
       tts: widget.tts,
+      imagePath: img.isEmpty ? null : 'assets/content/img/$img',
       solved: _solved,
       hint: widget.errorless
           ? 'Это правильный ответ — нажмите его'
@@ -267,12 +285,14 @@ class TypedExercise extends StatefulWidget {
   final Map<String, dynamic> item;
   final TtsService tts;
   final void Function(StepOutcome) onResult;
+  final String type;
   final bool errorless;
   const TypedExercise(
       {super.key,
       required this.item,
       required this.tts,
       required this.onResult,
+      this.type = '',
       this.errorless = false});
   @override
   State<TypedExercise> createState() => _TypedExerciseState();
@@ -370,10 +390,12 @@ class _TypedExerciseState extends State<TypedExercise> {
 
   @override
   Widget build(BuildContext context) {
-    final prompt = displayPrompt(widget.item);
+    final prompt = displayPrompt(widget.type, widget.item);
+    final img = (widget.item['image'] ?? '').toString();
     return ExerciseScaffold(
       prompt: prompt,
       tts: widget.tts,
+      imagePath: img.isEmpty ? null : 'assets/content/img/$img',
       hint: _hint,
       solved: _solved,
       onNext: () => widget.onResult(_outcome()),
