@@ -1,0 +1,464 @@
+{
+  "дуб": {
+    "slug": "dub",
+    "id": 38268,
+    "matches": 2,
+    "query": "en:oak"
+  },
+  "тетерев": {
+    "slug": "teterev",
+    "id": 29690,
+    "matches": 1,
+    "query": "en:grouse"
+  },
+  "телефон": {
+    "slug": "telefon",
+    "id": 26479,
+    "matches": 21,
+    "query": "en:telephone"
+  },
+  "диван": {
+    "slug": "divan",
+    "id": 25479,
+    "matches": 2,
+    "query": "en:sofa"
+  },
+  "тарелка": {
+    "slug": "tarelka",
+    "id": 16857,
+    "matches": 8,
+    "query": "en:plate"
+  },
+  "деньги": {
+    "slug": "dengi",
+    "id": 4630,
+    "matches": 36,
+    "query": "en:money"
+  },
+  "труба": {
+    "slug": "truba",
+    "id": 4722,
+    "matches": 7,
+    "query": "en:pipe"
+  },
+  "дно": {
+    "slug": "dno",
+    "id": 32818,
+    "matches": 1,
+    "query": "en:seabed"
+  },
+  "листья": {
+    "slug": "listya",
+    "id": 5077,
+    "matches": 4,
+    "query": "en:leaves"
+  },
+  "почта": {
+    "slug": "pochta",
+    "id": 2688,
+    "matches": 8,
+    "query": "en:mail"
+  },
+  "булка": {
+    "slug": "bulka",
+    "id": 10231,
+    "matches": 6,
+    "query": "en:bun"
+  },
+  "пальто": {
+    "slug": "palto",
+    "id": 2242,
+    "matches": 24,
+    "query": "en:coat"
+  },
+  "полотенце": {
+    "slug": "polotentse",
+    "id": 2593,
+    "matches": 18,
+    "query": "en:towel"
+  },
+  "паспорт": {
+    "slug": "pasport",
+    "id": 6171,
+    "matches": 2,
+    "query": "en:passport"
+  },
+  "бутылка": {
+    "slug": "butylka",
+    "id": 2288,
+    "matches": 20,
+    "query": "en:bottle"
+  },
+  "помидор": {
+    "slug": "pomidor",
+    "id": 2594,
+    "matches": 8,
+    "query": "en:tomato"
+  },
+  "паук": {
+    "slug": "pauk",
+    "id": 38275,
+    "matches": 4,
+    "query": "en:spider"
+  },
+  "берег": {
+    "slug": "bereg",
+    "id": 2826,
+    "matches": 2,
+    "query": "en:shore"
+  },
+  "баллон": {
+    "slug": "ballon",
+    "id": 8048,
+    "matches": 22,
+    "query": "en:gas cylinder"
+  },
+  "перчатки": {
+    "slug": "perchatki",
+    "id": 2415,
+    "matches": 7,
+    "query": "en:gloves"
+  },
+  "бутерброд": {
+    "slug": "buterbrod",
+    "id": 2281,
+    "matches": 12,
+    "query": "en:sandwich"
+  },
+  "грибы": {
+    "slug": "griby",
+    "id": 2331,
+    "matches": 6,
+    "query": "en:mushrooms"
+  },
+  "горох": {
+    "slug": "goroh",
+    "id": 7182,
+    "matches": 2,
+    "query": "en:peas"
+  },
+  "корова": {
+    "slug": "korova",
+    "id": 2609,
+    "matches": 2,
+    "query": "en:cow"
+  },
+  "колбаса": {
+    "slug": "kolbasa",
+    "id": 6647,
+    "matches": 13,
+    "query": "en:sausage"
+  },
+  "картофель": {
+    "slug": "kartofel",
+    "id": 2503,
+    "matches": 7,
+    "query": "en:potato"
+  },
+  "капуста": {
+    "slug": "kapusta",
+    "id": 2708,
+    "matches": 1,
+    "query": "en:cabbage"
+  },
+  "газета": {
+    "slug": "gazeta",
+    "id": 2845,
+    "matches": 4,
+    "query": "en:newspaper"
+  },
+  "кастрюля": {
+    "slug": "kastryulya",
+    "id": 3231,
+    "matches": 2,
+    "query": "en:saucepan"
+  },
+  "куртка": {
+    "slug": "kurtka",
+    "id": 4872,
+    "matches": 9,
+    "query": "en:jacket"
+  },
+  "кабель": {
+    "slug": "kabel",
+    "id": 6948,
+    "matches": 4,
+    "query": "en:cable"
+  },
+  "искра": {
+    "slug": "iskra",
+    "id": 3009,
+    "matches": 6,
+    "query": "en:spark"
+  },
+  "камыш": {
+    "slug": "kamysh",
+    "id": 35467,
+    "matches": 1,
+    "query": "en:reed"
+  },
+  "небо": {
+    "slug": "nebo",
+    "id": 6978,
+    "matches": 2,
+    "query": "en:sky"
+  },
+  "луна": {
+    "slug": "luna",
+    "id": 2933,
+    "matches": 4,
+    "query": "en:moon"
+  },
+  "лампа": {
+    "slug": "lampa",
+    "id": 4936,
+    "matches": 9,
+    "query": "en:lamp"
+  },
+  "нож": {
+    "slug": "nozh",
+    "id": 4931,
+    "matches": 12,
+    "query": "en:knife"
+  },
+  "ложка": {
+    "slug": "lozhka",
+    "id": 2362,
+    "matches": 7,
+    "query": "en:spoon"
+  },
+  "нитки": {
+    "slug": "nitki",
+    "id": 2978,
+    "matches": 10,
+    "query": "en:thread"
+  },
+  "лодка": {
+    "slug": "lodka",
+    "id": 6932,
+    "matches": 11,
+    "query": "en:boat"
+  },
+  "наживка": {
+    "slug": "nazhivka",
+    "id": 5906,
+    "matches": 1,
+    "query": "en:bait"
+  },
+  "лещ": {
+    "slug": "lesch",
+    "id": 37586,
+    "matches": 3,
+    "query": "en:bream"
+  },
+  "металл": {
+    "slug": "metall",
+    "id": 6148,
+    "matches": 9,
+    "query": "en:metal"
+  },
+  "осень": {
+    "slug": "osen",
+    "id": 5531,
+    "matches": 4,
+    "query": "en:autumn"
+  },
+  "солнце": {
+    "slug": "solntse",
+    "id": 7252,
+    "matches": 9,
+    "query": "en:sun"
+  },
+  "суп": {
+    "slug": "sup",
+    "id": 2573,
+    "matches": 12,
+    "query": "en:soup"
+  },
+  "зеркало": {
+    "slug": "zerkalo",
+    "id": 8573,
+    "matches": 7,
+    "query": "en:mirror"
+  },
+  "соль": {
+    "slug": "sol",
+    "id": 25576,
+    "matches": 6,
+    "query": "en:salt"
+  },
+  "зонт": {
+    "slug": "zont",
+    "id": 2500,
+    "matches": 3,
+    "query": "en:umbrella"
+  },
+  "заяц": {
+    "slug": "zayats",
+    "id": 17265,
+    "matches": 1,
+    "query": "en:hare"
+  },
+  "роса": {
+    "slug": "rosa",
+    "id": 39419,
+    "matches": 1,
+    "query": "en:dew"
+  },
+  "озеро": {
+    "slug": "ozero",
+    "id": 6022,
+    "matches": 2,
+    "query": "en:lake"
+  },
+  "мороз": {
+    "slug": "moroz",
+    "id": 25153,
+    "matches": 2,
+    "query": "en:frost"
+  },
+  "глаз": {
+    "slug": "glaz",
+    "id": 6573,
+    "matches": 20,
+    "query": "en:eye"
+  },
+  "жук": {
+    "slug": "zhuk",
+    "id": 3301,
+    "matches": 1,
+    "query": "en:beetle"
+  },
+  "шишка": {
+    "slug": "shishka",
+    "id": 8667,
+    "matches": 10,
+    "query": "en:pine cone"
+  },
+  "жёлудь": {
+    "slug": "zhelud",
+    "id": 8041,
+    "matches": 1,
+    "query": "en:acorn"
+  },
+  "шкаф": {
+    "slug": "shkaf",
+    "id": 2258,
+    "matches": 2,
+    "query": "en:wardrobe"
+  },
+  "ножницы": {
+    "slug": "nozhnitsy",
+    "id": 2591,
+    "matches": 7,
+    "query": "en:scissors"
+  },
+  "щука": {
+    "slug": "schuka",
+    "id": 34288,
+    "matches": 4,
+    "query": "en:pike"
+  },
+  "железо": {
+    "slug": "zhelezo",
+    "id": 37002,
+    "matches": 1,
+    "query": "ru:железо"
+  },
+  "ёж": {
+    "slug": "ezh",
+    "id": 34033,
+    "matches": 1,
+    "query": "ru:ёж"
+  },
+  "шарф": {
+    "slug": "sharf",
+    "id": 2290,
+    "matches": 2,
+    "query": "en:scarf"
+  },
+  "часы": {
+    "slug": "chasy",
+    "id": 5561,
+    "matches": 41,
+    "query": "en:clock"
+  },
+  "чайник": {
+    "slug": "chaynik",
+    "id": 39004,
+    "matches": 1,
+    "query": "en:kettle"
+  },
+  "чемодан": {
+    "slug": "chemodan",
+    "id": 2931,
+    "matches": 4,
+    "query": "en:suitcase"
+  },
+  "цемент": {
+    "slug": "tsement",
+    "id": 2692,
+    "matches": 4,
+    "query": "en:cement"
+  },
+  "ручка": {
+    "slug": "ruchka",
+    "id": 10313,
+    "matches": 9,
+    "query": "en:pen"
+  },
+  "овца": {
+    "slug": "ovtsa",
+    "id": 2489,
+    "matches": 3,
+    "query": "en:sheep"
+  },
+  "черепаха": {
+    "slug": "cherepaha",
+    "id": 10241,
+    "matches": 4,
+    "query": "en:turtle"
+  },
+  "чайка": {
+    "slug": "chayka",
+    "id": 3334,
+    "matches": 1,
+    "query": "en:seagull"
+  },
+  "огурец": {
+    "slug": "ogurets",
+    "id": 2847,
+    "matches": 1,
+    "query": "en:cucumber"
+  },
+  "рецепт": {
+    "slug": "retsept",
+    "id": 38606,
+    "matches": 1,
+    "query": "en:prescription"
+  },
+  "поплавок": {
+    "slug": "poplavok",
+    "id": 21876,
+    "matches": 10,
+    "query": "en:float"
+  },
+  "нора": {
+    "slug": "nora",
+    "id": 7149,
+    "matches": 1,
+    "query": "en:den"
+  },
+  "листва": {
+    "slug": "listva",
+    "id": 5077,
+    "matches": 8,
+    "query": "en:leaf"
+  },
+  "шапка": {
+    "slug": "shapka",
+    "id": 2572,
+    "matches": 13,
+    "query": "en:hat"
+  }
+}

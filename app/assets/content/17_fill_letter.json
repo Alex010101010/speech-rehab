@@ -11,6 +11,7 @@
       "pair": "д/т",
       "prompt": "_уб",
       "answer": "дуб",
+      "image": "dub.png",
       "accept": [
         "дуб"
       ],
@@ -46,6 +47,7 @@
       "pair": "д/т",
       "prompt": "_етерев",
       "answer": "тетерев",
+      "image": "teterev.png",
       "accept": [
         "тетерев"
       ]
@@ -68,6 +70,7 @@
       "pair": "д/т",
       "prompt": "_елефон",
       "answer": "телефон",
+      "image": "telefon.png",
       "accept": [
         "телефон"
       ],
@@ -80,6 +83,7 @@
       "pair": "д/т",
       "prompt": "_иван",
       "answer": "диван",
+      "image": "divan.png",
       "accept": [
         "диван"
       ],
@@ -92,6 +96,7 @@
       "pair": "д/т",
       "prompt": "_арелка",
       "answer": "тарелка",
+      "image": "tarelka.png",
       "accept": [
         "тарелка"
       ],
@@ -104,6 +109,7 @@
       "pair": "д/т",
       "prompt": "_еньги",
       "answer": "деньги",
+      "image": "dengi.png",
       "accept": [
         "деньги"
       ]
@@ -115,6 +121,7 @@
       "pair": "д/т",
       "prompt": "_руба",
       "answer": "труба",
+      "image": "truba.png",
       "accept": [
         "труба"
       ]
@@ -159,6 +166,7 @@
       "pair": "д/т",
       "prompt": "_но (реки)",
       "answer": "дно",
+      "image": "dno.png",
       "accept": [
         "дно"
       ]
@@ -170,6 +178,7 @@
       "pair": "д/т",
       "prompt": "лис_ья",
       "answer": "листья",
+      "image": "listya.png",
       "accept": [
         "листья"
       ]
@@ -181,6 +190,7 @@
       "pair": "б/п",
       "prompt": "_очта",
       "answer": "почта",
+      "image": "pochta.png",
       "accept": [
         "почта"
       ]
@@ -192,6 +202,7 @@
       "pair": "б/п",
       "prompt": "_улка",
       "answer": "булка",
+      "image": "bulka.png",
       "accept": [
         "булка"
       ]
@@ -203,6 +214,7 @@
       "pair": "б/п",
       "prompt": "_альто",
       "answer": "пальто",
+      "image": "palto.png",
       "accept": [
         "пальто"
       ],
@@ -215,6 +227,7 @@
       "pair": "б/п",
       "prompt": "_олотенце",
       "answer": "полотенце",
+      "image": "polotentse.png",
       "accept": [
         "полотенце"
       ]
@@ -226,6 +239,7 @@
       "pair": "б/п",
       "prompt": "_аспорт",
       "answer": "паспорт",
+      "image": "pasport.png",
       "accept": [
         "паспорт"
       ]
@@ -237,6 +251,7 @@
       "pair": "б/п",
       "prompt": "_утылка",
       "answer": "бутылка",
+      "image": "butylka.png",
       "accept": [
         "бутылка"
       ]
@@ -248,6 +263,7 @@
       "pair": "б/п",
       "prompt": "_омидор",
       "answer": "помидор",
+      "image": "pomidor.png",
       "accept": [
         "помидор"
       ],
@@ -271,6 +287,7 @@
       "pair": "б/п",
       "prompt": "_аук",
       "answer": "паук",
+      "image": "pauk.png",
       "accept": [
         "паук"
       ],
@@ -283,6 +300,7 @@
       "pair": "б/п",
       "prompt": "_оплавок",
       "answer": "поплавок",
+      "image": "poplavok.png",
       "accept": [
         "поплавок"
       ]
@@ -305,6 +323,7 @@
       "pair": "б/п",
       "prompt": "_ерег",
       "answer": "берег",
+      "image": "bereg.png",
       "accept": [
         "берег"
       ]
@@ -316,6 +335,7 @@
       "pair": "б/п",
       "prompt": "_аллон",
       "answer": "баллон",
+      "image": "ballon.png",
       "accept": [
         "баллон"
       ]
@@ -327,6 +347,7 @@
       "pair": "б/п",
       "prompt": "_ерчатки",
       "answer": "перчатки",
+      "image": "perchatki.png",
       "accept": [
         "перчатки"
       ]
@@ -338,6 +359,7 @@
       "pair": "б/п",
       "prompt": "_утерброд",
       "answer": "бутерброд",
+      "image": "buterbrod.png",
       "accept": [
         "бутерброд"
       ]
@@ -349,6 +371,7 @@
       "pair": "г/к",
       "prompt": "_рибы",
       "answer": "грибы",
+      "image": "griby.png",
       "accept": [
         "грибы"
       ]
@@ -371,6 +394,7 @@
       "pair": "г/к",
       "prompt": "_орох",
       "answer": "горох",
+      "image": "goroh.png",
       "accept": [
         "горох"
       ]
@@ -382,6 +406,7 @@
       "pair": "г/к",
       "prompt": "_орова",
       "answer": "корова",
+      "image": "korova.png",
       "accept": [
         "корова"
       ]
@@ -393,6 +418,7 @@
       "pair": "г/к",
       "prompt": "_олбаса",
       "answer": "колбаса",
+      "image": "kolbasa.png",
       "accept": [
         "колбаса"
       ]
@@ -404,6 +430,7 @@
       "pair": "г/к",
       "prompt": "_артофель",
       "answer": "картофель",
+      "image": "kartofel.png",
       "accept": [
         "картофель"
       ]
@@ -415,6 +442,7 @@
       "pair": "г/к",
       "prompt": "_апуста",
       "answer": "капуста",
+      "image": "kapusta.png",
       "accept": [
         "капуста"
       ]
@@ -426,6 +454,7 @@
       "pair": "г/к",
       "prompt": "_азета",
       "answer": "газета",
+      "image": "gazeta.png",
       "accept": [
         "газета"
       ]
@@ -437,6 +466,7 @@
       "pair": "г/к",
       "prompt": "_астрюля",
       "answer": "кастрюля",
+      "image": "kastryulya.png",
       "accept": [
         "кастрюля"
       ]
@@ -448,6 +478,7 @@
       "pair": "г/к",
       "prompt": "_уртка",
       "answer": "куртка",
+      "image": "kurtka.png",
       "accept": [
         "куртка"
       ]
@@ -459,6 +490,7 @@
       "pair": "г/к",
       "prompt": "_абель",
       "answer": "кабель",
+      "image": "kabel.png",
       "accept": [
         "кабель"
       ]
@@ -470,6 +502,7 @@
       "pair": "г/к",
       "prompt": "ис_ра",
       "answer": "искра",
+      "image": "iskra.png",
       "accept": [
         "искра"
       ]
@@ -503,6 +536,7 @@
       "pair": "г/к",
       "prompt": "_амыш",
       "answer": "камыш",
+      "image": "kamysh.png",
       "accept": [
         "камыш"
       ]
@@ -525,6 +559,7 @@
       "pair": "л/н",
       "prompt": "_ебо",
       "answer": "небо",
+      "image": "nebo.png",
       "accept": [
         "небо"
       ]
@@ -536,6 +571,7 @@
       "pair": "л/н",
       "prompt": "_уна",
       "answer": "луна",
+      "image": "luna.png",
       "accept": [
         "луна"
       ]
@@ -547,6 +583,7 @@
       "pair": "л/н",
       "prompt": "_ора (лисья)",
       "answer": "нора",
+      "image": "nora.png",
       "accept": [
         "нора"
       ]
@@ -558,6 +595,7 @@
       "pair": "л/н",
       "prompt": "_иства",
       "answer": "листва",
+      "image": "listva.png",
       "accept": [
         "листва"
       ]
@@ -569,6 +607,7 @@
       "pair": "л/н",
       "prompt": "_ампа",
       "answer": "лампа",
+      "image": "lampa.png",
       "accept": [
         "лампа"
       ]
@@ -580,6 +619,7 @@
       "pair": "л/н",
       "prompt": "_ож (столовый)",
       "answer": "нож",
+      "image": "nozh.png",
       "accept": [
         "нож"
       ]
@@ -591,6 +631,7 @@
       "pair": "л/н",
       "prompt": "_ожка",
       "answer": "ложка",
+      "image": "lozhka.png",
       "accept": [
         "ложка"
       ]
@@ -602,6 +643,7 @@
       "pair": "л/н",
       "prompt": "_итки (для вязания)",
       "answer": "нитки",
+      "image": "nitki.png",
       "accept": [
         "нитки"
       ]
@@ -613,6 +655,7 @@
       "pair": "л/н",
       "prompt": "_одка",
       "answer": "лодка",
+      "image": "lodka.png",
       "accept": [
         "лодка"
       ]
@@ -624,6 +667,7 @@
       "pair": "л/н",
       "prompt": "_аживка",
       "answer": "наживка",
+      "image": "nazhivka.png",
       "accept": [
         "наживка"
       ]
@@ -635,6 +679,7 @@
       "pair": "л/н",
       "prompt": "_ещ",
       "answer": "лещ",
+      "image": "lesch.png",
       "accept": [
         "лещ"
       ]
@@ -646,6 +691,7 @@
       "pair": "л/н",
       "prompt": "ме_алл",
       "answer": "металл",
+      "image": "metall.png",
       "accept": [
         "металл"
       ]
@@ -657,6 +703,7 @@
       "pair": "л/н",
       "prompt": "ос_нь",
       "answer": "осень",
+      "image": "osen.png",
       "accept": [
         "осень"
       ]
@@ -668,6 +715,7 @@
       "pair": "л/н",
       "prompt": "со_нце",
       "answer": "солнце",
+      "image": "solntse.png",
       "accept": [
         "солнце"
       ]
@@ -679,6 +727,7 @@
       "pair": "з/с",
       "prompt": "_уп",
       "answer": "суп",
+      "image": "sup.png",
       "accept": [
         "суп"
       ]
@@ -690,6 +739,7 @@
       "pair": "з/с",
       "prompt": "_еркало",
       "answer": "зеркало",
+      "image": "zerkalo.png",
       "accept": [
         "зеркало"
       ]
@@ -701,6 +751,7 @@
       "pair": "з/с",
       "prompt": "_оль",
       "answer": "соль",
+      "image": "sol.png",
       "accept": [
         "соль"
       ]
@@ -712,6 +763,7 @@
       "pair": "з/с",
       "prompt": "_онт",
       "answer": "зонт",
+      "image": "zont.png",
       "accept": [
         "зонт"
       ]
@@ -734,6 +786,7 @@
       "pair": "з/с",
       "prompt": "_аяц",
       "answer": "заяц",
+      "image": "zayats.png",
       "accept": [
         "заяц"
       ]
@@ -767,6 +820,7 @@
       "pair": "з/с",
       "prompt": "ро_а (на траве)",
       "answer": "роса",
+      "image": "rosa.png",
       "accept": [
         "роса"
       ]
@@ -789,6 +843,7 @@
       "pair": "з/с",
       "prompt": "о_еро",
       "answer": "озеро",
+      "image": "ozero.png",
       "accept": [
         "озеро"
       ]
@@ -822,6 +877,7 @@
       "pair": "з/с",
       "prompt": "моро_",
       "answer": "мороз",
+      "image": "moroz.png",
       "accept": [
         "мороз"
       ]
@@ -833,6 +889,7 @@
       "pair": "з/с",
       "prompt": "гла_",
       "answer": "глаз",
+      "image": "glaz.png",
       "accept": [
         "глаз"
       ]
@@ -844,6 +901,7 @@
       "pair": "ж/ш",
       "prompt": "_ук",
       "answer": "жук",
+      "image": "zhuk.png",
       "accept": [
         "жук"
       ]
@@ -855,6 +913,7 @@
       "pair": "ж/ш",
       "prompt": "_ишка",
       "answer": "шишка",
+      "image": "shishka.png",
       "accept": [
         "шишка"
       ]
@@ -866,6 +925,7 @@
       "pair": "ж/ш",
       "prompt": "_ёлудь",
       "answer": "жёлудь",
+      "image": "zhelud.png",
       "accept": [
         "жёлудь"
       ]
@@ -877,6 +937,7 @@
       "pair": "ж/ш",
       "prompt": "_каф",
       "answer": "шкаф",
+      "image": "shkaf.png",
       "accept": [
         "шкаф"
       ]
@@ -888,6 +949,7 @@
       "pair": "ж/ш",
       "prompt": "но_ницы",
       "answer": "ножницы",
+      "image": "nozhnitsy.png",
       "accept": [
         "ножницы"
       ]
@@ -899,6 +961,7 @@
       "pair": "ж/ш",
       "prompt": "_апка",
       "answer": "шапка",
+      "image": "shapka.png",
       "accept": [
         "шапка"
       ]
@@ -910,6 +973,7 @@
       "pair": "ж/ш",
       "prompt": "_ука",
       "answer": "щука",
+      "image": "schuka.png",
       "accept": [
         "щука"
       ]
@@ -944,6 +1008,7 @@
       "pair": "ж/ш",
       "prompt": "_елезо",
       "answer": "железо",
+      "image": "zhelezo.png",
       "accept": [
         "железо"
       ]
@@ -955,6 +1020,7 @@
       "pair": "ж/ш",
       "prompt": "ё_ (лесной)",
       "answer": "ёж",
+      "image": "ezh.png",
       "accept": [
         "ёж",
         "еж"
@@ -967,6 +1033,7 @@
       "pair": "ж/ш",
       "prompt": "камы_",
       "answer": "камыш",
+      "image": "kamysh.png",
       "accept": [
         "камыш"
       ]
@@ -978,6 +1045,7 @@
       "pair": "ж/ш",
       "prompt": "_арф",
       "answer": "шарф",
+      "image": "sharf.png",
       "accept": [
         "шарф"
       ]
@@ -989,6 +1057,7 @@
       "pair": "ц/ч",
       "prompt": "_асы",
       "answer": "часы",
+      "image": "chasy.png",
       "accept": [
         "часы"
       ]
@@ -1000,6 +1069,7 @@
       "pair": "ц/ч",
       "prompt": "_айник",
       "answer": "чайник",
+      "image": "chaynik.png",
       "accept": [
         "чайник"
       ]
@@ -1011,6 +1081,7 @@
       "pair": "ц/ч",
       "prompt": "_емодан",
       "answer": "чемодан",
+      "image": "chemodan.png",
       "accept": [
         "чемодан"
       ]
@@ -1022,6 +1093,7 @@
       "pair": "ц/ч",
       "prompt": "_емент",
       "answer": "цемент",
+      "image": "tsement.png",
       "accept": [
         "цемент"
       ]
@@ -1044,6 +1116,7 @@
       "pair": "ц/ч",
       "prompt": "ру_ка",
       "answer": "ручка",
+      "image": "ruchka.png",
       "accept": [
         "ручка"
       ]
@@ -1066,6 +1139,7 @@
       "pair": "ц/ч",
       "prompt": "ов_а (домашняя)",
       "answer": "овца",
+      "image": "ovtsa.png",
       "accept": [
         "овца"
       ]
@@ -1077,6 +1151,7 @@
       "pair": "ц/ч",
       "prompt": "_ерепаха",
       "answer": "черепаха",
+      "image": "cherepaha.png",
       "accept": [
         "черепаха"
       ]
@@ -1088,6 +1163,7 @@
       "pair": "ц/ч",
       "prompt": "_айка (над озером)",
       "answer": "чайка",
+      "image": "chayka.png",
       "accept": [
         "чайка"
       ]
@@ -1099,6 +1175,7 @@
       "pair": "ц/ч",
       "prompt": "огуре_ (с грядки)",
       "answer": "огурец",
+      "image": "ogurets.png",
       "accept": [
         "огурец"
       ]
@@ -1110,6 +1187,7 @@
       "pair": "ц/ч",
       "prompt": "ре_епт (от врача)",
       "answer": "рецепт",
+      "image": "retsept.png",
       "accept": [
         "рецепт"
       ]

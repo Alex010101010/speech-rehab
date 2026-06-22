@@ -387,6 +387,7 @@ class _TypedExerciseState extends State<TypedExercise> {
   bool _solved = false;
   bool _revealed = false;
   bool _hintUsed = false;
+  bool _cueShown = false; // картинка/эмодзи-подсказка раскрыта по кнопке
   int _tries = 0;
   String _hint = 'Напишите ответ';
 
@@ -453,6 +454,17 @@ class _TypedExerciseState extends State<TypedExercise> {
   }
 
   void _giveHint() {
+    // первый шаг подсказки — раскрыть визуальный cue (картинку/эмодзи), если есть
+    final hasCue = (widget.item['image'] ?? '').toString().isNotEmpty ||
+        (widget.item['emoji'] ?? '').toString().isNotEmpty;
+    if (hasCue && !_cueShown) {
+      setState(() {
+        _cueShown = true;
+        _hintUsed = true;
+        _hint = 'Подсказка: смотрите картинку';
+      });
+      return;
+    }
     final ans = (widget.item['answer'] ?? '').toString();
     if (ans.isEmpty) return;
     setState(() {
@@ -477,11 +489,12 @@ class _TypedExerciseState extends State<TypedExercise> {
     final prompt = displayPrompt(widget.type, widget.item);
     final img = (widget.item['image'] ?? '').toString();
     final emoji = (widget.item['emoji'] ?? '').toString();
+    // визуальный cue показываем только после нажатия «Подсказка»
     return ExerciseScaffold(
       prompt: prompt,
       tts: widget.tts,
-      imagePath: img.isEmpty ? null : 'assets/content/img/$img',
-      emoji: emoji.isEmpty ? null : emoji,
+      imagePath: (_cueShown && img.isNotEmpty) ? 'assets/content/img/$img' : null,
+      emoji: (_cueShown && emoji.isNotEmpty) ? emoji : null,
       hint: _hint,
       solved: _solved,
       onNext: () => widget.onResult(_outcome()),
