@@ -86,6 +86,10 @@ bool checkTypedLenient(Map<String, dynamic> item, String input) {
 String displayPrompt(String type, Map<String, dynamic> item) {
   final p = (item['prompt'] ?? '').toString();
   switch (type) {
+    case 'find_error':
+      return 'Найдите одно неверное слово и повторите предложение целиком, '
+          'исправив его.\n'
+          'Например: «Зимой на улице жарко» → «Зимой на улице холодно».\n\n$p';
     case 'synonyms_antonyms':
       final task = (item['task'] ?? '').toString();
       return task == 'синоним'
