@@ -109,6 +109,53 @@ String displayPrompt(String type, Map<String, dynamic> item) {
   }
 }
 
+/// Форма ответа для «ввода по клеткам» (показ формы): слова эталона `answer`,
+/// если их ≤6 и каждое ≤14 букв. null — клетки не показываем (длинный ответ,
+/// errorless или fill_letter со своей формой). Многословные показываем группами.
+List<String>? answerShapeWords(String type, Map<String, dynamic> item, bool errorless) {
+  if (errorless || type == 'fill_letter') return null;
+  final ans = (item['answer'] ?? '').toString().trim();
+  if (ans.isEmpty) return null;
+  final words = ans.split(RegExp(r'\s+'));
+  if (words.length > 6) return null;
+  if (words.any((w) => w.runes.length > 14)) return null;
+  return words;
+}
+
+/// Пустые клетки = форма ответа (число букв в каждом слове), опора при афазии.
+/// Только подсказка формы — ввод в обычное поле (мягкая проверка сохраняется).
+class _AnswerShape extends StatelessWidget {
+  final List<String> words;
+  const _AnswerShape(this.words);
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: 20, // промежуток между словами
+      runSpacing: 10,
+      children: [
+        for (final w in words)
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (var i = 0; i < w.runes.length; i++)
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 3),
+                  width: 26,
+                  height: 34,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF3F6FB),
+                    border: Border.all(color: const Color(0xFF9DB6D6), width: 2),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+            ],
+          ),
+      ],
+    );
+  }
+}
+
 // ---------- общий каркас задания ----------
 
 class ExerciseScaffold extends StatelessWidget {
@@ -514,6 +561,9 @@ class _TypedExerciseState extends State<TypedExercise> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (ans.isNotEmpty) widget.tts.speak(ans);
       });
+    } else if (answerShapeWords(widget.type, widget.item, false) != null) {
+      // форму ответа показывают клетки — текстовая подсказка о числе слов не нужна
+      _hint = 'Напишите ответ';
     } else {
       // подсказка по форме ответа: сколько слов ожидается
       _hint = _wordsHint((widget.item['answer'] ?? '').toString());
@@ -601,6 +651,7 @@ class _TypedExerciseState extends State<TypedExercise> {
     final prompt = displayPrompt(widget.type, widget.item);
     final img = (widget.item['image'] ?? '').toString();
     final emoji = (widget.item['emoji'] ?? '').toString();
+    final shapeWords = answerShapeWords(widget.type, widget.item, widget.errorless);
     // визуальный cue показываем только после нажатия «Подсказка»
     return ExerciseScaffold(
       prompt: prompt,
@@ -612,6 +663,10 @@ class _TypedExerciseState extends State<TypedExercise> {
       onNext: () => widget.onResult(_outcome()),
       child: Column(
         children: [
+          if (shapeWords != null && !_solved) ...[
+            _AnswerShape(shapeWords),
+            const SizedBox(height: 16),
+          ],
           TextField(
             controller: _c,
             enabled: !_solved,
