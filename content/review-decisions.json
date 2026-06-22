@@ -1,0 +1,4101 @@
+{
+  "fe_001": {
+    "approved": true
+  },
+  "fe_002": {
+    "approved": true
+  },
+  "fe_003": {
+    "approved": true
+  },
+  "fe_004": {
+    "comment": "во всех этих заданиях нужно явно показывать наши ожидания на вводе. полное предложение одно исправленное слово( как будто логичнее для сложностей с набором длиных текстов",
+    "approved": true
+  },
+  "fe_005": {
+    "approved": true
+  },
+  "fe_006": {
+    "approved": true
+  },
+  "fe_007": {
+    "approved": true
+  },
+  "fe_008": {
+    "approved": true
+  },
+  "fe_009": {
+    "approved": true
+  },
+  "fe_010": {
+    "approved": true
+  },
+  "fe_011": {
+    "approved": true
+  },
+  "fe_012": {
+    "approved": true
+  },
+  "fe_013": {
+    "approved": true
+  },
+  "fe_014": {
+    "approved": true
+  },
+  "fe_015": {
+    "approved": true
+  },
+  "fe_016": {
+    "approved": true
+  },
+  "fe_017": {
+    "approved": true
+  },
+  "fe_018": {
+    "approved": true
+  },
+  "fe_019": {
+    "approved": true
+  },
+  "fe_020": {
+    "approved": true
+  },
+  "fe_021": {
+    "approved": true
+  },
+  "fe_022": {
+    "comment": "логично задавать направление размышлений в таких заданиях",
+    "approved": true
+  },
+  "fe_023": {
+    "approved": true
+  },
+  "fe_024": {
+    "approved": true
+  },
+  "fe_025": {
+    "approved": true
+  },
+  "fe_026": {
+    "approved": true
+  },
+  "fe_027": {
+    "approved": true
+  },
+  "fe_028": {
+    "approved": true
+  },
+  "fe_029": {
+    "approved": true
+  },
+  "fe_030": {
+    "approved": true
+  },
+  "fe_031": {
+    "approved": true
+  },
+  "fe_032": {
+    "approved": true
+  },
+  "fe_033": {
+    "approved": true
+  },
+  "fe_034": {
+    "approved": true
+  },
+  "fe_035": {
+    "approved": true
+  },
+  "fe_036": {
+    "approved": true,
+    "comment": "опять же как и ко всей группе данных текстов общее замечание что надо задавать направление куда исправлять "
+  },
+  "fe_037": {
+    "approved": true
+  },
+  "fe_038": {
+    "approved": true
+  },
+  "fe_039": {
+    "approved": true
+  },
+  "fe_040": {
+    "approved": true
+  },
+  "fe_041": {
+    "approved": true
+  },
+  "fe_042": {
+    "approved": true
+  },
+  "fe_043": {
+    "approved": true
+  },
+  "fe_044": {
+    "approved": true
+  },
+  "fe_045": {
+    "approved": true
+  },
+  "fe_046": {
+    "approved": true
+  },
+  "fe_047": {
+    "approved": true
+  },
+  "fe_048": {
+    "approved": true
+  },
+  "fe_049": {
+    "approved": true
+  },
+  "fe_050": {
+    "approved": true
+  },
+  "fe_051": {
+    "approved": true
+  },
+  "fe_052": {
+    "approved": true
+  },
+  "fe_053": {
+    "approved": true
+  },
+  "fe_054": {
+    "approved": true
+  },
+  "fe_055": {
+    "approved": true
+  },
+  "fe_056": {
+    "approved": true
+  },
+  "fe_057": {
+    "approved": true
+  },
+  "fe_058": {
+    "approved": true
+  },
+  "fe_059": {
+    "approved": true
+  },
+  "fe_060": {
+    "approved": true
+  },
+  "fe_061": {
+    "approved": true
+  },
+  "fe_062": {
+    "approved": true
+  },
+  "fe_063": {
+    "approved": true
+  },
+  "fe_064": {
+    "comment": "тут непонятно как отвечать вообще про крепкие ботинки как можно придумать?\n"
+  },
+  "fe_065": {
+    "approved": true
+  },
+  "fe_066": {
+    "approved": true
+  },
+  "fe_067": {
+    "comment": "непонятно как отвечать"
+  },
+  "fe_068": {
+    "comment": "нужны подсказки"
+  },
+  "fe_069": {
+    "approved": true
+  },
+  "fe_070": {
+    "approved": true,
+    "comment": "хотя релевантны оба варианта"
+  },
+  "fe_071": {
+    "approved": true
+  },
+  "fe_072": {
+    "comment": "релевантны оба варианта"
+  },
+  "fe_073": {
+    "comment": "завтрак и сидели не антонимичная замена непонятно как отвечать"
+  },
+  "fe_074": {
+    "approved": true
+  },
+  "fe_075": {
+    "approved": true
+  },
+  "fe_076": {
+    "approved": true
+  },
+  "fe_077": {
+    "comment": "много вариантов других релевантных нужно как-то дополнительно отсекать"
+  },
+  "fe_078": {
+    "approved": true
+  },
+  "fe_079": {
+    "approved": true
+  },
+  "fe_080": {
+    "approved": true
+  },
+  "cpc_001": {
+    "approved": true
+  },
+  "cpc_002": {
+    "approved": true
+  },
+  "cpc_003": {
+    "approved": true
+  },
+  "cpc_004": {
+    "approved": true
+  },
+  "cpc_005": {
+    "approved": true
+  },
+  "cpc_006": {
+    "approved": true
+  },
+  "cpc_007": {
+    "approved": true
+  },
+  "cpc_008": {
+    "approved": true
+  },
+  "cpc_009": {
+    "approved": true
+  },
+  "cpc_010": {
+    "approved": true
+  },
+  "cpc_011": {
+    "approved": true
+  },
+  "cpc_012": {
+    "approved": true
+  },
+  "cpc_013": {
+    "approved": true
+  },
+  "cpc_014": {
+    "approved": true
+  },
+  "cpc_015": {
+    "approved": true,
+    "comment": "хотя капли метала тоже летят\n"
+  },
+  "cpc_016": {
+    "approved": true
+  },
+  "cpc_017": {
+    "approved": true
+  },
+  "cpc_018": {
+    "approved": true
+  },
+  "cpc_019": {
+    "approved": true
+  },
+  "cpc_020": {
+    "approved": true
+  },
+  "cpc_021": {
+    "approved": true
+  },
+  "cpc_022": {
+    "approved": true
+  },
+  "cpc_023": {
+    "approved": true
+  },
+  "cpc_024": {
+    "approved": true
+  },
+  "cpc_025": {
+    "approved": true
+  },
+  "cpc_026": {
+    "approved": true
+  },
+  "cpc_027": {
+    "approved": true
+  },
+  "cpc_028": {
+    "approved": true,
+    "comment": "всегда правильный первый ответ в этих заданиях стоит перемешивать"
+  },
+  "cpc_029": {
+    "approved": true
+  },
+  "cpc_030": {
+    "approved": true
+  },
+  "cpc_031": {
+    "approved": true
+  },
+  "cpc_032": {
+    "approved": true
+  },
+  "cpc_033": {
+    "approved": true
+  },
+  "cpc_034": {
+    "approved": true
+  },
+  "cpc_035": {
+    "approved": true
+  },
+  "cpc_036": {
+    "approved": true
+  },
+  "cpc_037": {
+    "approved": true
+  },
+  "cpc_038": {
+    "approved": true
+  },
+  "cpc_039": {
+    "approved": true
+  },
+  "cpc_040": {
+    "approved": true
+  },
+  "cpc_041": {
+    "approved": true
+  },
+  "cpc_042": {
+    "approved": true
+  },
+  "cpc_043": {
+    "approved": true
+  },
+  "cpc_044": {
+    "approved": true
+  },
+  "cpc_045": {
+    "approved": true
+  },
+  "cpc_046": {
+    "approved": true
+  },
+  "cpc_047": {
+    "approved": true
+  },
+  "cpc_048": {
+    "approved": true
+  },
+  "cpc_049": {
+    "approved": true
+  },
+  "cpc_050": {
+    "approved": true
+  },
+  "cpc_051": {
+    "approved": true
+  },
+  "cpc_052": {
+    "approved": true
+  },
+  "cpc_053": {
+    "approved": true
+  },
+  "cpc_054": {
+    "approved": true
+  },
+  "cpc_055": {
+    "approved": true
+  },
+  "cpc_056": {
+    "approved": true
+  },
+  "cpc_057": {
+    "approved": true
+  },
+  "cpc_058": {
+    "approved": true
+  },
+  "cpc_059": {
+    "approved": true
+  },
+  "cpc_060": {
+    "approved": true
+  },
+  "cpc_061": {
+    "approved": true
+  },
+  "cpc_062": {
+    "approved": true
+  },
+  "cpc_063": {
+    "approved": true
+  },
+  "cpc_064": {
+    "approved": true
+  },
+  "cpc_065": {
+    "approved": true
+  },
+  "cpc_066": {
+    "approved": true
+  },
+  "cpc_067": {
+    "approved": true
+  },
+  "cpc_068": {
+    "approved": true
+  },
+  "cpc_069": {
+    "approved": true
+  },
+  "cpc_070": {
+    "approved": true
+  },
+  "cpc_071": {
+    "approved": true
+  },
+  "cpc_072": {
+    "approved": true
+  },
+  "cpc_073": {
+    "approved": true
+  },
+  "cpc_074": {
+    "approved": true
+  },
+  "cpc_075": {
+    "approved": true
+  },
+  "cpc_076": {
+    "approved": false
+  },
+  "cpc_077": {
+    "approved": true
+  },
+  "cpc_078": {
+    "approved": true
+  },
+  "cpc_079": {
+    "approved": true
+  },
+  "cpc_080": {
+    "approved": true
+  },
+  "cpc_081": {
+    "approved": true
+  },
+  "cpc_082": {
+    "approved": true
+  },
+  "cpc_083": {
+    "approved": true
+  },
+  "cpc_084": {
+    "approved": true
+  },
+  "cpc_085": {
+    "approved": true
+  },
+  "cpc_086": {
+    "approved": true
+  },
+  "cpc_087": {
+    "approved": true
+  },
+  "cpc_088": {
+    "approved": true
+  },
+  "cpc_089": {
+    "approved": true
+  },
+  "cpc_090": {
+    "approved": true
+  },
+  "lq_001": {
+    "approved": true
+  },
+  "lq_002": {
+    "approved": true
+  },
+  "lq_003": {
+    "approved": true
+  },
+  "lq_004": {
+    "approved": true
+  },
+  "lq_005": {
+    "approved": true
+  },
+  "lq_006": {
+    "approved": true
+  },
+  "lq_007": {
+    "approved": true
+  },
+  "lq_008": {
+    "approved": true
+  },
+  "lq_009": {
+    "approved": true
+  },
+  "lq_010": {
+    "approved": true
+  },
+  "lq_011": {
+    "approved": true
+  },
+  "lq_012": {
+    "approved": true
+  },
+  "lq_013": {
+    "approved": true
+  },
+  "lq_014": {
+    "approved": true
+  },
+  "lq_015": {
+    "approved": true
+  },
+  "lq_016": {
+    "approved": true
+  },
+  "lq_017": {
+    "approved": true
+  },
+  "lq_018": {
+    "approved": true
+  },
+  "lq_019": {
+    "approved": true
+  },
+  "lq_020": {
+    "approved": true
+  },
+  "lq_021": {
+    "approved": true
+  },
+  "lq_022": {
+    "approved": true
+  },
+  "lq_023": {
+    "approved": true
+  },
+  "lq_024": {
+    "approved": true
+  },
+  "lq_025": {
+    "approved": true
+  },
+  "lq_026": {
+    "approved": true
+  },
+  "lq_027": {
+    "approved": true
+  },
+  "lq_028": {
+    "approved": true
+  },
+  "lq_029": {
+    "approved": true
+  },
+  "lq_030": {
+    "approved": true
+  },
+  "lq_031": {
+    "approved": true
+  },
+  "lq_032": {
+    "approved": true
+  },
+  "lq_033": {
+    "approved": true
+  },
+  "lq_034": {
+    "approved": true
+  },
+  "lq_035": {
+    "approved": true
+  },
+  "lq_036": {
+    "approved": true
+  },
+  "lq_037": {
+    "approved": true
+  },
+  "lq_038": {
+    "approved": true
+  },
+  "lq_039": {
+    "approved": true
+  },
+  "lq_040": {
+    "approved": true
+  },
+  "lq_041": {
+    "approved": true
+  },
+  "lq_042": {
+    "approved": true
+  },
+  "lq_043": {
+    "approved": true
+  },
+  "lq_044": {
+    "approved": true
+  },
+  "lq_045": {
+    "approved": true
+  },
+  "lq_046": {
+    "approved": true
+  },
+  "lq_047": {
+    "approved": true
+  },
+  "lq_048": {
+    "approved": true
+  },
+  "lq_049": {
+    "approved": true
+  },
+  "lq_050": {
+    "approved": true
+  },
+  "lq_051": {
+    "approved": true
+  },
+  "lq_052": {
+    "approved": true
+  },
+  "lq_053": {
+    "approved": true
+  },
+  "lq_054": {
+    "approved": true
+  },
+  "lq_055": {
+    "approved": true
+  },
+  "lq_056": {
+    "approved": true
+  },
+  "lq_057": {
+    "approved": true
+  },
+  "lq_058": {
+    "approved": true
+  },
+  "lq_059": {
+    "approved": true
+  },
+  "lq_060": {
+    "approved": true
+  },
+  "lq_061": {
+    "approved": true
+  },
+  "lq_062": {
+    "approved": true
+  },
+  "lq_063": {
+    "approved": true
+  },
+  "lq_064": {
+    "approved": true
+  },
+  "lq_065": {
+    "approved": true
+  },
+  "lq_066": {
+    "approved": true
+  },
+  "lq_067": {
+    "approved": true,
+    "comment": "нужно в таких случаях явно указывать количество слов "
+  },
+  "lq_068": {
+    "approved": true
+  },
+  "lq_069": {
+    "approved": true
+  },
+  "lq_070": {
+    "approved": true
+  },
+  "lq_071": {
+    "approved": true
+  },
+  "lq_072": {
+    "approved": true
+  },
+  "lq_073": {
+    "approved": true
+  },
+  "lq_074": {
+    "approved": true
+  },
+  "lq_075": {
+    "approved": true
+  },
+  "lq_076": {
+    "approved": true
+  },
+  "lq_077": {
+    "approved": true
+  },
+  "lq_078": {
+    "approved": true
+  },
+  "lq_079": {
+    "approved": true
+  },
+  "lq_080": {
+    "approved": true
+  },
+  "lq_081": {
+    "approved": true
+  },
+  "so_001": {
+    "approved": true
+  },
+  "so_002": {
+    "approved": true
+  },
+  "so_003": {
+    "approved": true
+  },
+  "so_004": {
+    "approved": true
+  },
+  "so_005": {
+    "approved": true
+  },
+  "so_006": {
+    "approved": true
+  },
+  "so_007": {
+    "approved": true
+  },
+  "so_008": {
+    "approved": true
+  },
+  "so_009": {
+    "approved": true
+  },
+  "so_010": {
+    "approved": true
+  },
+  "so_011": {
+    "approved": true
+  },
+  "so_012": {
+    "approved": true
+  },
+  "so_013": {
+    "approved": true
+  },
+  "so_014": {
+    "approved": true
+  },
+  "so_015": {
+    "approved": true
+  },
+  "so_016": {
+    "approved": true
+  },
+  "so_017": {
+    "approved": true
+  },
+  "so_018": {
+    "approved": true
+  },
+  "so_019": {
+    "approved": true
+  },
+  "so_020": {
+    "approved": true
+  },
+  "so_021": {
+    "approved": true
+  },
+  "so_022": {
+    "approved": false
+  },
+  "so_023": {
+    "approved": true
+  },
+  "so_024": {
+    "approved": true
+  },
+  "so_025": {
+    "approved": true
+  },
+  "so_026": {
+    "approved": true
+  },
+  "so_027": {
+    "approved": false
+  },
+  "so_028": {
+    "approved": true
+  },
+  "so_029": {
+    "approved": true
+  },
+  "so_030": {
+    "approved": true
+  },
+  "so_031": {
+    "approved": true
+  },
+  "so_032": {
+    "approved": true
+  },
+  "so_033": {
+    "approved": true
+  },
+  "so_034": {
+    "approved": false
+  },
+  "so_035": {
+    "approved": true
+  },
+  "so_036": {
+    "approved": true
+  },
+  "so_037": {
+    "approved": true
+  },
+  "so_039": {
+    "approved": true
+  },
+  "so_040": {
+    "approved": true
+  },
+  "pr_001": {
+    "approved": true
+  },
+  "pr_002": {
+    "approved": true
+  },
+  "pr_003": {
+    "approved": true
+  },
+  "pr_004": {
+    "approved": true
+  },
+  "pr_005": {
+    "approved": true
+  },
+  "pr_006": {
+    "approved": true
+  },
+  "pr_007": {
+    "approved": true
+  },
+  "pr_008": {
+    "approved": true
+  },
+  "pr_009": {
+    "approved": true
+  },
+  "pr_010": {
+    "approved": true
+  },
+  "pr_011": {
+    "approved": true
+  },
+  "pr_012": {
+    "approved": true
+  },
+  "pr_013": {
+    "approved": true
+  },
+  "pr_014": {
+    "approved": true
+  },
+  "pr_015": {
+    "approved": true
+  },
+  "pr_016": {
+    "approved": true
+  },
+  "pr_017": {
+    "approved": true
+  },
+  "pr_018": {
+    "approved": true
+  },
+  "pr_019": {
+    "approved": true
+  },
+  "pr_020": {
+    "approved": true
+  },
+  "pr_021": {
+    "approved": true
+  },
+  "pr_022": {
+    "approved": true
+  },
+  "pr_023": {
+    "approved": true
+  },
+  "pr_024": {
+    "approved": true
+  },
+  "pr_025": {
+    "approved": true
+  },
+  "pr_026": {
+    "approved": true
+  },
+  "pr_027": {
+    "approved": true
+  },
+  "pr_028": {
+    "approved": true
+  },
+  "pr_029": {
+    "approved": true
+  },
+  "pr_030": {
+    "approved": true
+  },
+  "pr_031": {
+    "approved": true
+  },
+  "pr_032": {
+    "approved": true
+  },
+  "pr_033": {
+    "approved": true
+  },
+  "pr_034": {
+    "approved": true
+  },
+  "pr_035": {
+    "approved": true
+  },
+  "pr_036": {
+    "approved": true
+  },
+  "pr_037": {
+    "approved": true
+  },
+  "pr_038": {
+    "approved": true
+  },
+  "pr_039": {
+    "approved": true
+  },
+  "pr_040": {
+    "approved": true
+  },
+  "pr_041": {
+    "approved": false
+  },
+  "pr_042": {
+    "approved": false
+  },
+  "pr_043": {
+    "approved": false
+  },
+  "pr_044": {
+    "approved": true
+  },
+  "pr_045": {
+    "approved": true
+  },
+  "pr_047": {
+    "approved": true
+  },
+  "pr_048": {
+    "approved": true
+  },
+  "pr_049": {
+    "approved": true
+  },
+  "pr_050": {
+    "approved": true
+  },
+  "pr_051": {
+    "approved": true
+  },
+  "pr_052": {
+    "approved": true
+  },
+  "pr_053": {
+    "approved": true
+  },
+  "pr_054": {
+    "approved": true
+  },
+  "pr_055": {
+    "approved": true
+  },
+  "pr_056": {
+    "approved": true
+  },
+  "pr_057": {
+    "approved": true
+  },
+  "pr_058": {
+    "approved": true
+  },
+  "pr_059": {
+    "approved": false
+  },
+  "pr_060": {
+    "approved": true
+  },
+  "pr_061": {
+    "approved": true
+  },
+  "pr_062": {
+    "approved": true
+  },
+  "pr_063": {
+    "approved": true
+  },
+  "pr_064": {
+    "approved": true
+  },
+  "pr_065": {
+    "approved": false
+  },
+  "pr_066": {
+    "approved": true
+  },
+  "pr_067": {
+    "approved": true
+  },
+  "pr_068": {
+    "approved": true
+  },
+  "pr_069": {
+    "approved": true
+  },
+  "pr_070": {
+    "approved": true
+  },
+  "pr_071": {
+    "approved": false
+  },
+  "pr_072": {
+    "approved": false
+  },
+  "nd_001": {
+    "approved": true
+  },
+  "nd_002": {
+    "approved": true
+  },
+  "nd_003": {
+    "approved": true
+  },
+  "nd_004": {
+    "approved": true
+  },
+  "nd_005": {
+    "approved": true
+  },
+  "nd_006": {
+    "approved": true
+  },
+  "nd_007": {
+    "approved": true
+  },
+  "nd_008": {
+    "approved": true
+  },
+  "nd_009": {
+    "approved": true
+  },
+  "nd_010": {
+    "approved": true
+  },
+  "nd_011": {
+    "approved": true
+  },
+  "nd_012": {
+    "approved": true
+  },
+  "nd_013": {
+    "approved": true
+  },
+  "nd_014": {
+    "approved": true
+  },
+  "nd_015": {
+    "approved": true
+  },
+  "nd_016": {
+    "approved": true
+  },
+  "nd_017": {
+    "approved": true
+  },
+  "nd_018": {
+    "approved": true
+  },
+  "nd_019": {
+    "approved": true
+  },
+  "nd_020": {
+    "approved": true
+  },
+  "nd_021": {
+    "approved": true
+  },
+  "nd_022": {
+    "approved": true
+  },
+  "nd_023": {
+    "approved": true
+  },
+  "nd_024": {
+    "approved": true
+  },
+  "nd_025": {
+    "approved": true
+  },
+  "nd_026": {
+    "approved": true
+  },
+  "nd_027": {
+    "approved": true
+  },
+  "nd_028": {
+    "approved": true
+  },
+  "nd_029": {
+    "approved": true
+  },
+  "nd_030": {
+    "approved": true
+  },
+  "nd_031": {
+    "approved": true
+  },
+  "nd_032": {
+    "approved": true
+  },
+  "nd_033": {
+    "approved": true
+  },
+  "nd_034": {
+    "approved": true
+  },
+  "nd_035": {
+    "approved": true
+  },
+  "nd_036": {
+    "approved": true
+  },
+  "nd_037": {
+    "approved": true
+  },
+  "nd_038": {
+    "approved": true
+  },
+  "nd_039": {
+    "approved": true
+  },
+  "nd_040": {
+    "approved": true
+  },
+  "nd_041": {
+    "approved": true
+  },
+  "nd_042": {
+    "approved": true
+  },
+  "nd_043": {
+    "approved": true
+  },
+  "nd_044": {
+    "approved": true
+  },
+  "nd_045": {
+    "approved": true
+  },
+  "nd_046": {
+    "approved": true
+  },
+  "nd_047": {
+    "approved": true
+  },
+  "nd_048": {
+    "approved": true
+  },
+  "nd_049": {
+    "approved": true
+  },
+  "nd_050": {
+    "approved": true
+  },
+  "nd_051": {
+    "approved": true
+  },
+  "nd_052": {
+    "approved": true
+  },
+  "nd_053": {
+    "approved": true
+  },
+  "nd_054": {
+    "approved": true
+  },
+  "nd_055": {
+    "approved": true
+  },
+  "nd_056": {
+    "approved": true
+  },
+  "nd_057": {
+    "approved": true
+  },
+  "nd_058": {
+    "approved": true
+  },
+  "nd_059": {
+    "approved": true
+  },
+  "nd_060": {
+    "approved": true
+  },
+  "nd_061": {
+    "approved": true
+  },
+  "nd_062": {
+    "approved": true
+  },
+  "nd_063": {
+    "approved": true
+  },
+  "nd_064": {
+    "approved": true
+  },
+  "nd_065": {
+    "approved": true
+  },
+  "nd_066": {
+    "approved": true
+  },
+  "nd_067": {
+    "approved": true
+  },
+  "nd_068": {
+    "approved": true
+  },
+  "nd_069": {
+    "approved": true
+  },
+  "nd_070": {
+    "approved": true
+  },
+  "nd_071": {
+    "approved": true
+  },
+  "nd_072": {
+    "approved": true
+  },
+  "nd_073": {
+    "approved": true
+  },
+  "nd_074": {
+    "approved": true
+  },
+  "nd_075": {
+    "approved": true
+  },
+  "nd_076": {
+    "approved": true
+  },
+  "nd_077": {
+    "approved": true
+  },
+  "nd_078": {
+    "approved": true
+  },
+  "nd_079": {
+    "approved": true
+  },
+  "nd_080": {
+    "approved": true
+  },
+  "nd_081": {
+    "approved": true
+  },
+  "nd_082": {
+    "approved": true
+  },
+  "nd_083": {
+    "approved": true
+  },
+  "nd_084": {
+    "approved": true
+  },
+  "nd_085": {
+    "approved": true
+  },
+  "nd_086": {
+    "approved": true
+  },
+  "nd_087": {
+    "approved": true
+  },
+  "nd_088": {
+    "approved": true
+  },
+  "nd_089": {
+    "approved": true
+  },
+  "nd_090": {
+    "approved": true
+  },
+  "nd_091": {
+    "approved": true,
+    "comment": "бродни тоже подходит"
+  },
+  "pf_001": {
+    "approved": true
+  },
+  "pf_002": {
+    "approved": true
+  },
+  "pf_003": {
+    "approved": true
+  },
+  "pf_004": {
+    "approved": true
+  },
+  "pf_005": {
+    "approved": true
+  },
+  "pf_006": {
+    "approved": true
+  },
+  "pf_007": {
+    "approved": true
+  },
+  "pf_008": {
+    "approved": true
+  },
+  "pf_009": {
+    "approved": true
+  },
+  "pf_010": {
+    "approved": false
+  },
+  "pf_012": {
+    "approved": true
+  },
+  "pf_013": {
+    "approved": true
+  },
+  "pf_014": {
+    "approved": true
+  },
+  "pf_015": {
+    "approved": true
+  },
+  "pf_016": {
+    "approved": true
+  },
+  "pf_017": {
+    "approved": true
+  },
+  "pf_018": {
+    "approved": true
+  },
+  "pf_019": {
+    "approved": true
+  },
+  "pf_020": {
+    "approved": false
+  },
+  "pf_021": {
+    "approved": true
+  },
+  "pf_022": {
+    "approved": true
+  },
+  "pf_023": {
+    "approved": true
+  },
+  "pf_024": {
+    "approved": true
+  },
+  "pf_025": {
+    "approved": true
+  },
+  "pf_026": {
+    "approved": true
+  },
+  "pf_027": {
+    "approved": true
+  },
+  "pf_028": {
+    "approved": true
+  },
+  "pf_029": {
+    "approved": true
+  },
+  "pf_030": {
+    "approved": true
+  },
+  "pf_031": {
+    "approved": true
+  },
+  "pf_032": {
+    "approved": true
+  },
+  "pf_033": {
+    "approved": true
+  },
+  "pf_034": {
+    "approved": true
+  },
+  "pf_035": {
+    "approved": true
+  },
+  "pf_036": {
+    "approved": true
+  },
+  "pf_037": {
+    "approved": true
+  },
+  "pf_038": {
+    "approved": true
+  },
+  "pf_039": {
+    "approved": true
+  },
+  "pf_040": {
+    "approved": true
+  },
+  "pf_041": {
+    "approved": true
+  },
+  "pf_042": {
+    "approved": true
+  },
+  "pf_043": {
+    "approved": true
+  },
+  "pf_044": {
+    "approved": true
+  },
+  "pf_045": {
+    "approved": true
+  },
+  "pf_046": {
+    "approved": true
+  },
+  "pf_047": {
+    "approved": true
+  },
+  "pf_048": {
+    "approved": true
+  },
+  "pf_049": {
+    "approved": true
+  },
+  "pf_050": {
+    "approved": true
+  },
+  "gn_001": {
+    "approved": true
+  },
+  "gn_002": {
+    "approved": true
+  },
+  "gn_003": {
+    "approved": true
+  },
+  "gn_004": {
+    "approved": true,
+    "comment": ""
+  },
+  "gn_005": {
+    "approved": true
+  },
+  "gn_006": {
+    "approved": true
+  },
+  "gn_007": {
+    "approved": true
+  },
+  "gn_008": {
+    "approved": true
+  },
+  "gn_009": {
+    "approved": true
+  },
+  "gn_010": {
+    "approved": true
+  },
+  "gn_011": {
+    "approved": true
+  },
+  "gn_012": {
+    "approved": true
+  },
+  "gn_013": {
+    "approved": true
+  },
+  "gn_014": {
+    "approved": true
+  },
+  "gn_015": {
+    "approved": true
+  },
+  "gn_016": {
+    "approved": true
+  },
+  "gn_017": {
+    "approved": true
+  },
+  "gn_018": {
+    "approved": true
+  },
+  "gn_019": {
+    "approved": true
+  },
+  "gn_020": {
+    "approved": true
+  },
+  "gn_021": {
+    "approved": true
+  },
+  "gn_022": {
+    "approved": true
+  },
+  "gn_023": {
+    "approved": true
+  },
+  "gn_024": {
+    "approved": true
+  },
+  "gn_025": {
+    "approved": true
+  },
+  "gn_026": {
+    "approved": true
+  },
+  "gn_027": {
+    "approved": true
+  },
+  "gn_028": {
+    "approved": true
+  },
+  "gn_029": {
+    "approved": true
+  },
+  "gn_030": {
+    "approved": true
+  },
+  "gn_031": {
+    "approved": true
+  },
+  "gn_032": {
+    "approved": true
+  },
+  "gn_033": {
+    "approved": true
+  },
+  "gn_034": {
+    "approved": true
+  },
+  "gn_035": {
+    "approved": true
+  },
+  "gn_036": {
+    "approved": true
+  },
+  "gn_037": {
+    "approved": true
+  },
+  "gn_038": {
+    "approved": false
+  },
+  "gn_039": {
+    "approved": true
+  },
+  "gn_040": {
+    "approved": true
+  },
+  "gn_041": {
+    "approved": true
+  },
+  "gn_042": {
+    "approved": true
+  },
+  "gn_043": {
+    "approved": true
+  },
+  "gn_044": {
+    "approved": true
+  },
+  "gn_045": {
+    "approved": true
+  },
+  "gn_046": {
+    "approved": true
+  },
+  "gn_047": {
+    "approved": true
+  },
+  "gn_048": {
+    "approved": true
+  },
+  "gn_049": {
+    "approved": true
+  },
+  "gn_050": {
+    "approved": true
+  },
+  "gn_051": {
+    "approved": true
+  },
+  "gn_052": {
+    "approved": true
+  },
+  "gn_053": {
+    "approved": true
+  },
+  "gn_054": {
+    "approved": true
+  },
+  "gn_055": {
+    "approved": true
+  },
+  "gn_056": {
+    "approved": true
+  },
+  "gn_057": {
+    "approved": true
+  },
+  "gn_058": {
+    "approved": true
+  },
+  "gn_059": {
+    "approved": true
+  },
+  "gn_060": {
+    "approved": true
+  },
+  "gn_061": {
+    "approved": true
+  },
+  "gn_062": {
+    "approved": true
+  },
+  "gn_063": {
+    "approved": true
+  },
+  "gn_064": {
+    "approved": true
+  },
+  "gn_065": {
+    "approved": true
+  },
+  "gn_066": {
+    "approved": true
+  },
+  "gn_067": {
+    "approved": true
+  },
+  "gn_068": {
+    "approved": false
+  },
+  "gn_069": {
+    "approved": true
+  },
+  "gn_070": {
+    "approved": true
+  },
+  "pw_001": {
+    "approved": true
+  },
+  "pw_002": {
+    "approved": true
+  },
+  "pw_003": {
+    "approved": true
+  },
+  "pw_004": {
+    "approved": true
+  },
+  "pw_005": {
+    "approved": true
+  },
+  "pw_006": {
+    "approved": true
+  },
+  "pw_007": {
+    "approved": true
+  },
+  "pw_008": {
+    "approved": true
+  },
+  "pw_009": {
+    "approved": true
+  },
+  "pw_010": {
+    "approved": true
+  },
+  "pw_011": {
+    "approved": true
+  },
+  "pw_012": {
+    "approved": true
+  },
+  "pw_013": {
+    "approved": true
+  },
+  "pw_014": {
+    "approved": true
+  },
+  "pw_015": {
+    "approved": true
+  },
+  "pw_016": {
+    "approved": true
+  },
+  "pw_017": {
+    "approved": true
+  },
+  "pw_018": {
+    "approved": true
+  },
+  "pw_019": {
+    "approved": true
+  },
+  "pw_020": {
+    "approved": true
+  },
+  "pw_021": {
+    "approved": true
+  },
+  "pw_022": {
+    "approved": true
+  },
+  "pw_023": {
+    "approved": true,
+    "comment": "больница тоже подходит и аптечка"
+  },
+  "pw_024": {
+    "approved": false
+  },
+  "pw_025": {
+    "approved": true
+  },
+  "pw_026": {
+    "approved": true
+  },
+  "pw_027": {
+    "approved": true
+  },
+  "pw_028": {
+    "approved": true
+  },
+  "pw_029": {
+    "approved": true
+  },
+  "pw_030": {
+    "approved": true
+  },
+  "pw_031": {
+    "approved": true
+  },
+  "pw_032": {
+    "approved": true
+  },
+  "pw_033": {
+    "approved": true
+  },
+  "pw_034": {
+    "approved": true
+  },
+  "pw_035": {
+    "approved": true
+  },
+  "pw_036": {
+    "approved": true
+  },
+  "pw_037": {
+    "approved": true
+  },
+  "pw_038": {
+    "approved": true
+  },
+  "pw_039": {
+    "approved": false
+  },
+  "pw_040": {
+    "approved": true
+  },
+  "pw_041": {
+    "approved": true
+  },
+  "pw_042": {
+    "approved": true
+  },
+  "pw_043": {
+    "approved": true
+  },
+  "pw_044": {
+    "approved": true
+  },
+  "pw_045": {
+    "approved": true
+  },
+  "pw_046": {
+    "approved": true
+  },
+  "pw_047": {
+    "approved": true
+  },
+  "pw_048": {
+    "approved": true
+  },
+  "pw_049": {
+    "approved": true
+  },
+  "pw_050": {
+    "approved": true
+  },
+  "pw_051": {
+    "approved": true
+  },
+  "pw_052": {
+    "approved": true
+  },
+  "pw_053": {
+    "approved": true
+  },
+  "pw_054": {
+    "approved": true
+  },
+  "pw_055": {
+    "approved": true
+  },
+  "pw_056": {
+    "approved": true
+  },
+  "pw_057": {
+    "approved": true
+  },
+  "pw_058": {
+    "approved": true
+  },
+  "pw_059": {
+    "approved": true
+  },
+  "pw_060": {
+    "approved": true
+  },
+  "sa_001": {
+    "approved": true
+  },
+  "sa_002": {
+    "approved": true
+  },
+  "sa_003": {
+    "approved": true
+  },
+  "sa_004": {
+    "approved": true
+  },
+  "sa_005": {
+    "approved": true
+  },
+  "sa_006": {
+    "approved": true
+  },
+  "sa_007": {
+    "approved": true
+  },
+  "sa_008": {
+    "approved": true
+  },
+  "sa_009": {
+    "approved": true
+  },
+  "sa_010": {
+    "approved": true
+  },
+  "sa_011": {
+    "approved": true
+  },
+  "sa_012": {
+    "approved": true
+  },
+  "sa_013": {
+    "approved": true
+  },
+  "sa_014": {
+    "approved": true
+  },
+  "sa_015": {
+    "approved": true
+  },
+  "sa_016": {
+    "approved": true,
+    "comment": "еще как будто синонимы есть и не понятно что про рыбалку"
+  },
+  "sa_017": {
+    "approved": true
+  },
+  "sa_018": {
+    "approved": true
+  },
+  "sa_019": {
+    "approved": true
+  },
+  "sa_020": {
+    "approved": true
+  },
+  "sa_021": {
+    "approved": true
+  },
+  "sa_022": {
+    "approved": true
+  },
+  "sa_023": {
+    "approved": true,
+    "comment": "худой тоже антоним\n"
+  },
+  "sa_024": {
+    "approved": true
+  },
+  "sa_025": {
+    "approved": true
+  },
+  "sa_026": {
+    "approved": true
+  },
+  "sa_027": {
+    "approved": true
+  },
+  "sa_028": {
+    "approved": true
+  },
+  "sa_030": {
+    "approved": true
+  },
+  "sa_031": {
+    "approved": true
+  },
+  "sa_032": {
+    "approved": true
+  },
+  "sa_033": {
+    "approved": true
+  },
+  "sa_034": {
+    "approved": true
+  },
+  "sa_035": {
+    "approved": true
+  },
+  "sa_036": {
+    "approved": true
+  },
+  "sa_037": {
+    "approved": true
+  },
+  "sa_038": {
+    "approved": true
+  },
+  "sa_039": {
+    "approved": true
+  },
+  "sa_040": {
+    "approved": true
+  },
+  "sa_041": {
+    "approved": true
+  },
+  "sa_042": {
+    "approved": true
+  },
+  "sa_043": {
+    "approved": true
+  },
+  "sa_044": {
+    "approved": true
+  },
+  "sa_045": {
+    "approved": true
+  },
+  "sa_046": {
+    "approved": true
+  },
+  "sa_047": {
+    "approved": true
+  },
+  "sa_048": {
+    "approved": true
+  },
+  "sa_049": {
+    "approved": true
+  },
+  "sa_050": {
+    "approved": true
+  },
+  "sa_051": {
+    "approved": true
+  },
+  "sa_052": {
+    "approved": true
+  },
+  "sa_053": {
+    "approved": true
+  },
+  "sa_054": {
+    "approved": true
+  },
+  "sa_055": {
+    "approved": true
+  },
+  "sa_056": {
+    "approved": true
+  },
+  "sa_057": {
+    "approved": true
+  },
+  "sa_058": {
+    "approved": true
+  },
+  "sa_059": {
+    "approved": true
+  },
+  "sa_060": {
+    "approved": true
+  },
+  "sa_061": {
+    "approved": true
+  },
+  "sa_062": {
+    "approved": true
+  },
+  "sa_063": {
+    "approved": true
+  },
+  "sa_064": {
+    "approved": true
+  },
+  "sa_065": {
+    "approved": true
+  },
+  "sa_066": {
+    "approved": true
+  },
+  "sa_067": {
+    "approved": true
+  },
+  "sa_068": {
+    "approved": true
+  },
+  "sa_069": {
+    "approved": true
+  },
+  "sa_070": {
+    "approved": true
+  },
+  "sa_071": {
+    "approved": true
+  },
+  "sa_072": {
+    "approved": true
+  },
+  "wf_001": {
+    "comment": "нужны в этом блоке везде примеры чтобы было понятно в какую сторону думать возможно проверочные вопросы к существительному прилагательному глаголу и прочим частям речи",
+    "approved": true
+  },
+  "wf_002": {
+    "approved": true
+  },
+  "wf_003": {
+    "approved": true
+  },
+  "wf_004": {
+    "approved": true
+  },
+  "wf_005": {
+    "approved": true
+  },
+  "wf_006": {
+    "approved": true
+  },
+  "wf_007": {
+    "approved": true
+  },
+  "wf_008": {
+    "approved": true
+  },
+  "wf_009": {
+    "approved": true
+  },
+  "wf_010": {
+    "approved": true
+  },
+  "wf_011": {
+    "approved": true
+  },
+  "wf_012": {
+    "approved": true
+  },
+  "wf_013": {
+    "approved": true
+  },
+  "wf_014": {
+    "approved": true
+  },
+  "wf_015": {
+    "approved": true
+  },
+  "wf_016": {
+    "approved": true
+  },
+  "wf_017": {
+    "approved": true
+  },
+  "wf_018": {
+    "approved": true
+  },
+  "wf_019": {
+    "approved": true
+  },
+  "wf_020": {
+    "approved": true
+  },
+  "wf_021": {
+    "approved": true
+  },
+  "wf_022": {
+    "approved": true
+  },
+  "wf_023": {
+    "approved": true
+  },
+  "wf_024": {
+    "approved": true
+  },
+  "wf_025": {
+    "approved": true
+  },
+  "wf_026": {
+    "approved": false
+  },
+  "wf_027": {
+    "approved": true
+  },
+  "wf_028": {
+    "approved": true
+  },
+  "wf_029": {
+    "approved": true
+  },
+  "wf_030": {
+    "approved": true
+  },
+  "wf_031": {
+    "approved": true
+  },
+  "wf_032": {
+    "approved": true
+  },
+  "wf_033": {
+    "approved": true
+  },
+  "wf_034": {
+    "approved": true
+  },
+  "wf_035": {
+    "approved": true
+  },
+  "wf_036": {
+    "approved": true
+  },
+  "wf_037": {
+    "approved": true
+  },
+  "wf_038": {
+    "approved": true
+  },
+  "wf_039": {
+    "approved": true
+  },
+  "wf_040": {
+    "approved": true
+  },
+  "wf_041": {
+    "approved": true
+  },
+  "wf_042": {
+    "approved": true
+  },
+  "wf_043": {
+    "approved": true
+  },
+  "wf_044": {
+    "approved": true
+  },
+  "wf_045": {
+    "approved": true
+  },
+  "wf_046": {
+    "approved": true
+  },
+  "wf_047": {
+    "approved": true
+  },
+  "wf_048": {
+    "approved": true
+  },
+  "wf_049": {
+    "approved": true
+  },
+  "wf_050": {
+    "approved": true
+  },
+  "wf_051": {
+    "approved": true
+  },
+  "wf_052": {
+    "approved": true
+  },
+  "wf_053": {
+    "approved": true
+  },
+  "wf_054": {
+    "approved": true
+  },
+  "wf_056": {
+    "approved": true
+  },
+  "wf_055": {
+    "approved": true
+  },
+  "wf_057": {
+    "approved": true
+  },
+  "wf_058": {
+    "approved": true
+  },
+  "wf_059": {
+    "approved": true
+  },
+  "wf_060": {
+    "approved": true
+  },
+  "wf_061": {
+    "approved": true
+  },
+  "wf_062": {
+    "approved": true
+  },
+  "wf_063": {
+    "approved": true
+  },
+  "wf_064": {
+    "approved": true
+  },
+  "wf_065": {
+    "approved": true
+  },
+  "wf_066": {
+    "approved": true
+  },
+  "wf_067": {
+    "approved": true
+  },
+  "wf_068": {
+    "approved": true
+  },
+  "wf_069": {
+    "approved": true
+  },
+  "wf_070": {
+    "approved": true
+  },
+  "pn_001": {
+    "approved": true
+  },
+  "pn_002": {
+    "approved": true
+  },
+  "pn_003": {
+    "approved": true
+  },
+  "pn_004": {
+    "approved": true
+  },
+  "pn_005": {
+    "approved": true
+  },
+  "pn_006": {
+    "approved": true,
+    "comment": ""
+  },
+  "pn_007": {
+    "approved": true
+  },
+  "pn_008": {
+    "approved": true
+  },
+  "pn_009": {
+    "approved": true
+  },
+  "pn_010": {
+    "approved": true
+  },
+  "pn_011": {
+    "approved": true
+  },
+  "pn_012": {
+    "approved": true
+  },
+  "pn_013": {
+    "approved": true
+  },
+  "pn_014": {
+    "approved": true
+  },
+  "pn_015": {
+    "approved": true
+  },
+  "pn_016": {
+    "approved": true
+  },
+  "pn_017": {
+    "approved": true
+  },
+  "pn_018": {
+    "approved": true
+  },
+  "pn_019": {
+    "approved": true
+  },
+  "pn_020": {
+    "approved": true
+  },
+  "pn_021": {
+    "approved": true
+  },
+  "pn_022": {
+    "approved": true
+  },
+  "pn_023": {
+    "approved": true
+  },
+  "pn_024": {
+    "approved": true
+  },
+  "pn_025": {
+    "approved": true
+  },
+  "pn_026": {
+    "approved": true
+  },
+  "pn_027": {
+    "approved": true
+  },
+  "pn_028": {
+    "approved": true
+  },
+  "pn_029": {
+    "approved": true
+  },
+  "pn_030": {
+    "approved": true
+  },
+  "pn_031": {
+    "approved": true
+  },
+  "pn_032": {
+    "approved": true
+  },
+  "pn_033": {
+    "approved": true
+  },
+  "pn_034": {
+    "approved": true
+  },
+  "pn_035": {
+    "approved": true
+  },
+  "pn_036": {
+    "approved": true,
+    "comment": "хотя порос камышом тоже звучит адекватно"
+  },
+  "pn_037": {
+    "comment": "оба варианта релевантны"
+  },
+  "pn_038": {
+    "comment": "оба варианта норм"
+  },
+  "pn_039": {
+    "comment": "оба варианта норм"
+  },
+  "pn_040": {
+    "approved": true
+  },
+  "pn_041": {
+    "approved": true
+  },
+  "pn_042": {
+    "approved": true
+  },
+  "pn_043": {
+    "approved": true
+  },
+  "pn_045": {
+    "approved": true
+  },
+  "pn_046": {
+    "approved": true
+  },
+  "pn_047": {
+    "approved": true
+  },
+  "pn_048": {
+    "approved": true
+  },
+  "pn_049": {
+    "approved": false,
+    "comment": "подходят оба варианта"
+  },
+  "pn_050": {
+    "approved": true
+  },
+  "cpo_001": {
+    "approved": true
+  },
+  "cpo_002": {
+    "approved": true
+  },
+  "cpo_003": {
+    "approved": true
+  },
+  "cpo_004": {
+    "approved": true
+  },
+  "cpo_005": {
+    "approved": true
+  },
+  "cpo_006": {
+    "approved": true,
+    "comment": "в принципе почти кто угодно мог прятаться"
+  },
+  "cpo_008": {
+    "approved": true
+  },
+  "cpo_009": {
+    "approved": true
+  },
+  "cpo_010": {
+    "approved": true
+  },
+  "cpo_011": {
+    "approved": true
+  },
+  "cpo_012": {
+    "approved": true
+  },
+  "cpo_013": {
+    "approved": true
+  },
+  "cpo_014": {
+    "approved": true
+  },
+  "cpo_015": {
+    "approved": true
+  },
+  "cpo_016": {
+    "approved": true
+  },
+  "cpo_017": {
+    "approved": true
+  },
+  "cpo_018": {
+    "approved": true
+  },
+  "cpo_019": {
+    "approved": true
+  },
+  "cpo_020": {
+    "approved": true
+  },
+  "cpo_021": {
+    "approved": true
+  },
+  "cpo_022": {
+    "approved": true
+  },
+  "cpo_023": {
+    "approved": true
+  },
+  "cpo_024": {
+    "approved": true
+  },
+  "cpo_025": {
+    "approved": true
+  },
+  "cpo_026": {
+    "approved": true
+  },
+  "cpo_027": {
+    "approved": true
+  },
+  "cpo_028": {
+    "approved": true
+  },
+  "cpo_029": {
+    "approved": true
+  },
+  "cpo_030": {
+    "approved": true
+  },
+  "cpo_031": {
+    "approved": true
+  },
+  "cpo_032": {
+    "approved": true
+  },
+  "cpo_033": {
+    "approved": true
+  },
+  "cpo_034": {
+    "approved": true
+  },
+  "cpo_035": {
+    "approved": true
+  },
+  "cpo_036": {
+    "approved": true
+  },
+  "cpo_037": {
+    "approved": true
+  },
+  "cpo_038": {
+    "approved": true
+  },
+  "cpo_039": {
+    "approved": true
+  },
+  "cpo_040": {
+    "approved": true
+  },
+  "cpo_041": {
+    "approved": true
+  },
+  "cpo_042": {
+    "approved": true
+  },
+  "cpo_043": {
+    "approved": true
+  },
+  "cpo_044": {
+    "approved": true
+  },
+  "cpo_045": {
+    "approved": true
+  },
+  "cpo_046": {
+    "approved": true
+  },
+  "cpo_047": {
+    "approved": true
+  },
+  "cpo_048": {
+    "approved": true
+  },
+  "cpo_049": {
+    "approved": true
+  },
+  "cpo_050": {
+    "approved": true
+  },
+  "cpo_051": {
+    "approved": true
+  },
+  "cpo_052": {
+    "approved": true
+  },
+  "cpo_053": {
+    "approved": true
+  },
+  "cpo_054": {
+    "approved": true
+  },
+  "cpo_055": {
+    "approved": true
+  },
+  "cpo_056": {
+    "approved": true
+  },
+  "cpo_057": {
+    "approved": true
+  },
+  "cpo_058": {
+    "approved": true
+  },
+  "cpo_059": {
+    "approved": true
+  },
+  "cpo_060": {
+    "approved": true
+  },
+  "cpo_061": {
+    "approved": true
+  },
+  "cpo_062": {
+    "approved": true
+  },
+  "cpo_063": {
+    "approved": true
+  },
+  "cpo_064": {
+    "approved": true
+  },
+  "cpo_065": {
+    "approved": true
+  },
+  "cpo_066": {
+    "approved": true
+  },
+  "cpo_067": {
+    "approved": true
+  },
+  "cpo_068": {
+    "approved": true,
+    "comment": "интернете тоже вариант"
+  },
+  "cpo_069": {
+    "comment": "что угодно мало контекста"
+  },
+  "cpo_070": {
+    "approved": true
+  },
+  "cpo_071": {
+    "approved": true
+  },
+  "cpo_072": {
+    "approved": true
+  },
+  "cpo_073": {
+    "approved": true
+  },
+  "cpo_074": {
+    "approved": true
+  },
+  "cpo_075": {
+    "approved": true
+  },
+  "cpo_076": {
+    "approved": true
+  },
+  "cpo_077": {
+    "approved": true
+  },
+  "cpo_078": {
+    "approved": true
+  },
+  "cpo_079": {
+    "approved": true
+  },
+  "cpo_080": {
+    "approved": true
+  },
+  "pp_001": {
+    "approved": true
+  },
+  "pp_002": {
+    "approved": true
+  },
+  "pp_003": {
+    "approved": true
+  },
+  "pp_004": {
+    "approved": true
+  },
+  "pp_005": {
+    "approved": true
+  },
+  "pp_006": {
+    "approved": true
+  },
+  "pp_007": {
+    "approved": true
+  },
+  "pp_008": {
+    "approved": true
+  },
+  "pp_009": {
+    "approved": false,
+    "comment": "скорее в камышах"
+  },
+  "pp_010": {
+    "approved": true
+  },
+  "pp_011": {
+    "approved": true
+  },
+  "pp_012": {
+    "approved": true
+  },
+  "pp_013": {
+    "approved": true
+  },
+  "pp_014": {
+    "approved": true
+  },
+  "pp_015": {
+    "approved": true
+  },
+  "pp_016": {
+    "approved": true
+  },
+  "pp_017": {
+    "approved": true
+  },
+  "pp_018": {
+    "approved": true
+  },
+  "pp_019": {
+    "approved": true
+  },
+  "pp_020": {
+    "approved": false,
+    "comment": "нал всей рекой иначе не согласовано"
+  },
+  "pp_021": {
+    "approved": true
+  },
+  "pp_022": {
+    "approved": true
+  },
+  "pp_023": {
+    "approved": true
+  },
+  "pp_024": {
+    "approved": true
+  },
+  "pp_025": {
+    "approved": true
+  },
+  "pp_026": {
+    "approved": true
+  },
+  "pp_027": {
+    "approved": true
+  },
+  "pp_028": {
+    "approved": true
+  },
+  "pp_029": {
+    "comment": "между цехом и складом"
+  },
+  "pp_030": {
+    "comment": "",
+    "approved": true
+  },
+  "pp_031": {
+    "approved": true
+  },
+  "pp_032": {
+    "approved": true
+  },
+  "pp_033": {
+    "approved": true
+  },
+  "pp_034": {
+    "approved": true
+  },
+  "pp_035": {
+    "approved": true
+  },
+  "pp_036": {
+    "approved": true
+  },
+  "pp_037": {
+    "approved": true
+  },
+  "pp_038": {
+    "approved": true
+  },
+  "pp_039": {
+    "approved": true
+  },
+  "pp_040": {
+    "approved": true
+  },
+  "pp_041": {
+    "approved": true
+  },
+  "pp_042": {
+    "approved": true
+  },
+  "pp_043": {
+    "approved": true
+  },
+  "pp_044": {
+    "approved": true
+  },
+  "pp_045": {
+    "approved": true
+  },
+  "pp_046": {
+    "approved": true
+  },
+  "pp_047": {
+    "approved": true
+  },
+  "pp_048": {
+    "approved": true
+  },
+  "pp_049": {
+    "approved": true
+  },
+  "pp_050": {
+    "approved": true
+  },
+  "pp_051": {
+    "approved": true
+  },
+  "pp_052": {
+    "approved": true
+  },
+  "pp_054": {
+    "approved": true
+  },
+  "pp_055": {
+    "approved": true
+  },
+  "pp_056": {
+    "approved": true
+  },
+  "pp_057": {
+    "approved": true
+  },
+  "pp_058": {
+    "approved": true
+  },
+  "pp_059": {
+    "approved": true
+  },
+  "pp_060": {
+    "approved": true
+  },
+  "pp_061": {
+    "approved": true
+  },
+  "pp_062": {
+    "approved": true
+  },
+  "pp_063": {
+    "approved": true
+  },
+  "pp_064": {
+    "approved": true
+  },
+  "pp_065": {
+    "approved": true
+  },
+  "pp_066": {
+    "approved": true
+  },
+  "pp_067": {
+    "approved": true
+  },
+  "pp_068": {
+    "approved": true
+  },
+  "pp_069": {
+    "approved": true
+  },
+  "pp_070": {
+    "approved": true
+  },
+  "pp_071": {
+    "approved": true
+  },
+  "pp_072": {
+    "approved": true
+  },
+  "pp_073": {
+    "approved": true
+  },
+  "pp_074": {
+    "approved": true
+  },
+  "pp_075": {
+    "approved": true
+  },
+  "pp_076": {
+    "approved": true
+  },
+  "pp_077": {
+    "approved": true
+  },
+  "pp_078": {
+    "approved": true
+  },
+  "pp_079": {
+    "approved": true
+  },
+  "pp_080": {
+    "approved": true
+  },
+  "ec_001": {
+    "approved": true
+  },
+  "ec_002": {
+    "approved": true
+  },
+  "ec_003": {
+    "approved": true
+  },
+  "ec_004": {
+    "approved": true
+  },
+  "ec_005": {
+    "approved": true
+  },
+  "ec_006": {
+    "approved": true
+  },
+  "ec_007": {
+    "approved": true
+  },
+  "ec_008": {
+    "approved": true
+  },
+  "ec_009": {
+    "approved": true
+  },
+  "ec_010": {
+    "approved": true
+  },
+  "ec_011": {
+    "approved": true
+  },
+  "ec_012": {
+    "approved": true
+  },
+  "ec_013": {
+    "approved": true
+  },
+  "ec_014": {
+    "approved": true
+  },
+  "ec_015": {
+    "approved": true
+  },
+  "ec_016": {
+    "approved": true
+  },
+  "ec_017": {
+    "approved": true
+  },
+  "ec_018": {
+    "approved": true
+  },
+  "ec_019": {
+    "approved": true
+  },
+  "ec_020": {
+    "approved": true
+  },
+  "ec_021": {
+    "approved": true
+  },
+  "ec_022": {
+    "approved": true
+  },
+  "ec_023": {
+    "approved": true
+  },
+  "ec_024": {
+    "approved": true
+  },
+  "ec_025": {
+    "approved": true
+  },
+  "ec_026": {
+    "approved": true
+  },
+  "ec_027": {
+    "approved": true
+  },
+  "ec_028": {
+    "approved": true
+  },
+  "ec_029": {
+    "approved": true
+  },
+  "ec_030": {
+    "approved": true
+  },
+  "ec_031": {
+    "approved": true
+  },
+  "ec_032": {
+    "approved": true
+  },
+  "ec_033": {
+    "approved": true
+  },
+  "ec_034": {
+    "approved": true
+  },
+  "ec_035": {
+    "approved": true
+  },
+  "ec_036": {
+    "approved": true
+  },
+  "ec_037": {
+    "approved": true
+  },
+  "ec_039": {
+    "approved": true
+  },
+  "ec_040": {
+    "approved": true
+  },
+  "ec_041": {
+    "approved": true
+  },
+  "ec_042": {
+    "approved": true
+  },
+  "ec_043": {
+    "approved": true
+  },
+  "ec_044": {
+    "approved": true
+  },
+  "ec_045": {
+    "approved": true
+  },
+  "ec_046": {
+    "approved": true
+  },
+  "ec_047": {
+    "approved": false
+  },
+  "ec_048": {
+    "approved": true
+  },
+  "ec_049": {
+    "approved": true
+  },
+  "ec_050": {
+    "approved": true
+  },
+  "ec_051": {
+    "approved": true
+  },
+  "ec_052": {
+    "approved": true
+  },
+  "ec_053": {
+    "approved": true
+  },
+  "ec_054": {
+    "approved": true
+  },
+  "ec_055": {
+    "approved": true
+  },
+  "ec_056": {
+    "approved": true
+  },
+  "ec_057": {
+    "approved": true
+  },
+  "ec_058": {
+    "approved": true
+  },
+  "ec_059": {
+    "approved": true
+  },
+  "ec_060": {
+    "approved": true
+  },
+  "ec_061": {
+    "approved": true
+  },
+  "ec_062": {
+    "approved": true
+  },
+  "ec_063": {
+    "approved": true
+  },
+  "ec_064": {
+    "approved": true
+  },
+  "ec_065": {
+    "approved": true
+  },
+  "ec_066": {
+    "approved": true
+  },
+  "ec_067": {
+    "approved": true
+  },
+  "ec_068": {
+    "approved": true
+  },
+  "ec_069": {
+    "approved": true
+  },
+  "ec_070": {
+    "approved": true
+  },
+  "ec_071": {
+    "approved": true
+  },
+  "ec_072": {
+    "approved": true
+  },
+  "ec_073": {
+    "approved": true
+  },
+  "ec_074": {
+    "approved": true
+  },
+  "ec_075": {
+    "approved": true
+  },
+  "ec_076": {
+    "approved": true
+  },
+  "ec_077": {
+    "approved": true
+  },
+  "ec_078": {
+    "approved": true
+  },
+  "ec_079": {
+    "approved": true
+  },
+  "ec_080": {
+    "approved": true
+  },
+  "ec_081": {
+    "approved": true
+  },
+  "ec_082": {
+    "approved": true
+  },
+  "ec_083": {
+    "approved": true
+  },
+  "ec_084": {
+    "approved": true
+  },
+  "ec_085": {
+    "approved": true
+  },
+  "ec_086": {
+    "approved": true
+  },
+  "ec_087": {
+    "approved": true
+  },
+  "ec_088": {
+    "approved": true
+  },
+  "ec_089": {
+    "approved": true
+  },
+  "ec_090": {
+    "approved": true
+  },
+  "st_001": {
+    "approved": true
+  },
+  "st_002": {
+    "approved": true
+  },
+  "st_003": {
+    "approved": true
+  },
+  "st_004": {
+    "approved": true
+  },
+  "st_005": {
+    "approved": true
+  },
+  "st_006": {
+    "approved": true
+  },
+  "st_007": {
+    "approved": true
+  },
+  "st_008": {
+    "approved": true
+  },
+  "st_009": {
+    "approved": true
+  },
+  "st_010": {
+    "approved": true
+  },
+  "st_011": {
+    "approved": true
+  },
+  "st_012": {
+    "approved": true
+  },
+  "st_013": {
+    "approved": true
+  },
+  "st_014": {
+    "approved": true
+  },
+  "st_015": {
+    "approved": true
+  },
+  "st_016": {
+    "approved": true
+  },
+  "st_017": {
+    "approved": true
+  },
+  "st_018": {
+    "approved": true,
+    "comment": "вопрос реализации в приложении для всего блока как помечать ударение?"
+  },
+  "st_019": {
+    "approved": true
+  },
+  "st_020": {
+    "approved": true
+  },
+  "st_021": {
+    "approved": true
+  },
+  "st_022": {
+    "approved": true
+  },
+  "st_023": {
+    "approved": true
+  },
+  "st_024": {
+    "approved": true
+  },
+  "st_025": {
+    "approved": true
+  },
+  "st_026": {
+    "approved": true
+  },
+  "st_027": {
+    "approved": true
+  },
+  "st_028": {
+    "approved": true
+  },
+  "st_029": {
+    "approved": true
+  },
+  "st_030": {
+    "approved": true
+  },
+  "st_031": {
+    "approved": true
+  },
+  "st_032": {
+    "approved": true
+  },
+  "st_033": {
+    "approved": true
+  },
+  "st_034": {
+    "approved": true
+  },
+  "st_035": {
+    "approved": true
+  },
+  "st_036": {
+    "approved": true
+  },
+  "st_037": {
+    "approved": true
+  },
+  "st_038": {
+    "approved": true
+  },
+  "st_039": {
+    "approved": true
+  },
+  "st_040": {
+    "approved": true
+  },
+  "st_041": {
+    "approved": true
+  },
+  "st_042": {
+    "approved": true
+  },
+  "st_043": {
+    "approved": true
+  },
+  "st_044": {
+    "approved": true
+  },
+  "st_045": {
+    "approved": true
+  },
+  "st_046": {
+    "approved": true
+  },
+  "st_047": {
+    "approved": true
+  },
+  "st_048": {
+    "approved": true
+  },
+  "st_049": {
+    "approved": true
+  },
+  "st_050": {
+    "approved": true
+  },
+  "fl_001": {
+    "approved": true
+  },
+  "fl_002": {
+    "approved": true
+  },
+  "fl_003": {
+    "approved": true
+  },
+  "fl_004": {
+    "approved": true
+  },
+  "fl_005": {
+    "approved": true
+  },
+  "fl_006": {
+    "approved": true
+  },
+  "fl_007": {
+    "approved": true
+  },
+  "fl_008": {
+    "approved": true,
+    "comment": ""
+  },
+  "fl_009": {
+    "approved": true
+  },
+  "fl_010": {
+    "approved": true
+  },
+  "fl_011": {
+    "approved": true
+  },
+  "fl_012": {
+    "approved": true
+  },
+  "fl_013": {
+    "approved": true
+  },
+  "fl_014": {
+    "approved": true
+  },
+  "fl_015": {
+    "approved": true
+  },
+  "fl_016": {
+    "approved": true
+  },
+  "fl_017": {
+    "approved": true
+  },
+  "fl_018": {
+    "approved": true
+  },
+  "fl_019": {
+    "approved": true
+  },
+  "fl_020": {
+    "approved": true
+  },
+  "fl_021": {
+    "approved": true
+  },
+  "fl_022": {
+    "approved": true
+  },
+  "fl_023": {
+    "approved": true
+  },
+  "fl_024": {
+    "approved": true
+  },
+  "fl_025": {
+    "approved": true
+  },
+  "fl_026": {
+    "approved": true
+  },
+  "fl_027": {
+    "approved": true
+  },
+  "fl_028": {
+    "approved": true
+  },
+  "fl_029": {
+    "approved": true
+  },
+  "fl_030": {
+    "approved": true
+  },
+  "fl_031": {
+    "approved": true
+  },
+  "fl_032": {
+    "approved": true
+  },
+  "fl_033": {
+    "approved": true
+  },
+  "fl_034": {
+    "approved": true
+  },
+  "fl_035": {
+    "approved": true
+  },
+  "fl_036": {
+    "approved": true
+  },
+  "fl_037": {
+    "approved": true
+  },
+  "fl_038": {
+    "approved": true
+  },
+  "fl_039": {
+    "approved": true
+  },
+  "fl_040": {
+    "approved": true
+  },
+  "fl_041": {
+    "approved": true
+  },
+  "fl_042": {
+    "approved": true
+  },
+  "fl_043": {
+    "approved": true
+  },
+  "fl_044": {
+    "approved": true
+  },
+  "fl_045": {
+    "approved": true
+  },
+  "fl_046": {
+    "approved": true
+  },
+  "fl_047": {
+    "approved": true
+  },
+  "fl_048": {
+    "approved": true
+  },
+  "fl_049": {
+    "approved": true
+  },
+  "fl_050": {
+    "approved": true
+  },
+  "fl_051": {
+    "approved": true
+  },
+  "fl_052": {
+    "approved": true
+  },
+  "fl_053": {
+    "approved": true
+  },
+  "fl_054": {
+    "approved": true
+  },
+  "fl_055": {
+    "approved": true
+  },
+  "fl_056": {
+    "approved": true
+  },
+  "fl_057": {
+    "approved": true
+  },
+  "fl_058": {
+    "approved": true
+  },
+  "fl_059": {
+    "approved": true
+  },
+  "fl_060": {
+    "approved": true
+  },
+  "fl_061": {
+    "approved": true
+  },
+  "fl_062": {
+    "approved": true
+  },
+  "fl_063": {
+    "approved": true
+  },
+  "fl_064": {
+    "approved": true
+  },
+  "fl_065": {
+    "approved": true
+  },
+  "fl_066": {
+    "approved": true
+  },
+  "fl_067": {
+    "approved": true
+  },
+  "fl_068": {
+    "approved": true
+  },
+  "fl_069": {
+    "approved": true
+  },
+  "fl_070": {
+    "approved": true
+  },
+  "fl_071": {
+    "approved": true
+  },
+  "fl_072": {
+    "approved": true
+  },
+  "fl_073": {
+    "approved": true
+  },
+  "fl_074": {
+    "approved": true
+  },
+  "fl_075": {
+    "approved": true
+  },
+  "fl_076": {
+    "approved": true
+  },
+  "fl_077": {
+    "approved": true
+  },
+  "fl_078": {
+    "approved": true
+  },
+  "fl_079": {
+    "approved": true
+  },
+  "fl_080": {
+    "approved": true
+  },
+  "fl_081": {
+    "approved": true
+  },
+  "fl_082": {
+    "approved": true
+  },
+  "fl_083": {
+    "approved": true
+  },
+  "fl_084": {
+    "approved": true
+  },
+  "fl_085": {
+    "approved": true
+  },
+  "fl_086": {
+    "approved": true
+  },
+  "fl_087": {
+    "approved": true
+  },
+  "fl_088": {
+    "approved": true
+  },
+  "fl_089": {
+    "approved": true
+  },
+  "fl_090": {
+    "approved": true
+  },
+  "fl_091": {
+    "approved": true
+  },
+  "fl_092": {
+    "approved": true
+  },
+  "fl_093": {
+    "approved": true
+  },
+  "fl_094": {
+    "approved": true
+  },
+  "fl_095": {
+    "approved": true,
+    "comment": "капля подходит тоже"
+  },
+  "fl_096": {
+    "approved": true
+  },
+  "fl_097": {
+    "approved": true
+  },
+  "fl_098": {
+    "approved": true
+  },
+  "fl_099": {
+    "approved": true
+  },
+  "fl_100": {
+    "approved": true
+  },
+  "rt_001": {
+    "approved": true
+  },
+  "rt_002": {
+    "approved": true
+  },
+  "rt_003": {
+    "approved": true
+  },
+  "rt_004": {
+    "approved": true
+  },
+  "rt_005": {
+    "approved": true
+  },
+  "rt_006": {
+    "approved": true
+  },
+  "rt_007": {
+    "approved": true
+  },
+  "rt_008": {
+    "approved": true
+  },
+  "rt_009": {
+    "approved": true
+  },
+  "rt_010": {
+    "approved": true
+  },
+  "rt_012": {
+    "approved": true
+  },
+  "rt_013": {
+    "approved": true
+  },
+  "rt_014": {
+    "approved": true
+  },
+  "rt_015": {
+    "approved": true
+  },
+  "rt_016": {
+    "approved": true
+  },
+  "rt_017": {
+    "approved": true
+  },
+  "rt_018": {
+    "approved": true
+  },
+  "rt_019": {
+    "approved": true
+  },
+  "rt_020": {
+    "approved": true
+  },
+  "rt_021": {
+    "approved": true
+  },
+  "rt_022": {
+    "approved": true
+  },
+  "rt_023": {
+    "approved": true
+  },
+  "rt_024": {
+    "approved": true
+  },
+  "rt_025": {
+    "approved": true
+  },
+  "rt_026": {
+    "approved": true
+  },
+  "mr_001": {
+    "approved": true
+  },
+  "mr_002": {
+    "approved": true
+  },
+  "mr_003": {
+    "approved": true
+  },
+  "mr_004": {
+    "approved": true
+  },
+  "mr_005": {
+    "approved": true
+  },
+  "mr_006": {
+    "approved": true
+  },
+  "mr_007": {
+    "approved": true
+  },
+  "mr_008": {
+    "approved": true
+  },
+  "mr_009": {
+    "approved": true
+  },
+  "mr_010": {
+    "approved": true
+  },
+  "mr_011": {
+    "approved": true
+  },
+  "mr_012": {
+    "approved": true
+  },
+  "mr_013": {
+    "approved": true
+  },
+  "mr_014": {
+    "approved": true
+  },
+  "mr_015": {
+    "approved": true
+  },
+  "mr_016": {
+    "approved": true
+  },
+  "mr_017": {
+    "approved": true
+  },
+  "mr_018": {
+    "approved": true
+  },
+  "mr_019": {
+    "approved": true
+  },
+  "mr_020": {
+    "approved": true
+  },
+  "mr_021": {
+    "approved": true
+  },
+  "mr_022": {
+    "approved": true
+  },
+  "mr_023": {
+    "approved": true
+  },
+  "mr_024": {
+    "approved": true
+  },
+  "mr_025": {
+    "approved": true
+  },
+  "mr_026": {
+    "approved": true
+  },
+  "mr_027": {
+    "approved": true
+  },
+  "mr_028": {
+    "approved": true
+  },
+  "mr_029": {
+    "approved": true
+  },
+  "mr_030": {
+    "approved": true
+  },
+  "mr_031": {
+    "approved": true
+  },
+  "mr_032": {
+    "approved": true
+  },
+  "mr_033": {
+    "approved": true
+  },
+  "mr_034": {
+    "approved": true
+  },
+  "mr_035": {
+    "approved": true
+  },
+  "mr_036": {
+    "approved": true
+  },
+  "mr_037": {
+    "approved": true
+  },
+  "mr_038": {
+    "approved": true
+  },
+  "mr_039": {
+    "approved": true
+  },
+  "mr_040": {
+    "approved": true
+  },
+  "mr_041": {
+    "approved": true
+  },
+  "mr_042": {
+    "approved": true
+  },
+  "mr_043": {
+    "approved": true
+  },
+  "mr_044": {
+    "approved": true
+  },
+  "mr_045": {
+    "approved": true
+  },
+  "mr_046": {
+    "approved": true
+  },
+  "mr_047": {
+    "approved": true
+  },
+  "mr_048": {
+    "approved": true
+  },
+  "mr_049": {
+    "approved": true
+  },
+  "mr_050": {
+    "approved": true
+  },
+  "mr_051": {
+    "approved": true
+  },
+  "mr_052": {
+    "approved": true
+  },
+  "mr_053": {
+    "approved": true
+  },
+  "mr_054": {
+    "approved": true
+  },
+  "mr_055": {
+    "approved": true
+  },
+  "mr_056": {
+    "approved": true
+  },
+  "mr_057": {
+    "approved": true
+  },
+  "mr_058": {
+    "comment": "нужно добавить как читается и звуковые подсказки во все подобные задания",
+    "approved": true
+  },
+  "mr_059": {
+    "approved": true
+  },
+  "mr_060": {
+    "approved": true
+  },
+  "mr_061": {
+    "approved": true
+  },
+  "mr_062": {
+    "approved": true
+  },
+  "mr_063": {
+    "approved": true
+  },
+  "mr_064": {
+    "approved": true
+  },
+  "mr_065": {
+    "approved": true
+  },
+  "mr_066": {
+    "approved": true
+  },
+  "mr_067": {
+    "approved": true
+  },
+  "mr_068": {
+    "approved": true
+  },
+  "mr_069": {
+    "approved": true
+  },
+  "mr_070": {
+    "approved": true
+  },
+  "mr_071": {
+    "approved": true
+  },
+  "mr_072": {
+    "approved": true
+  },
+  "mr_073": {
+    "approved": true
+  },
+  "mr_074": {
+    "approved": true
+  },
+  "mr_075": {
+    "approved": true
+  },
+  "mr_076": {
+    "approved": true
+  },
+  "mr_077": {
+    "approved": true
+  },
+  "mr_078": {
+    "approved": true
+  },
+  "mr_079": {
+    "approved": true
+  },
+  "mr_080": {
+    "approved": true
+  },
+  "mr_081": {
+    "approved": true
+  },
+  "mr_082": {
+    "approved": true
+  },
+  "mr_083": {
+    "approved": true
+  },
+  "mr_084": {
+    "approved": true
+  },
+  "mr_085": {
+    "approved": true
+  },
+  "mr_086": {
+    "approved": true
+  },
+  "mr_087": {
+    "approved": true
+  },
+  "mr_088": {
+    "approved": true
+  },
+  "mr_089": {
+    "approved": true
+  },
+  "mr_090": {
+    "approved": true
+  },
+  "mr_091": {
+    "approved": true
+  },
+  "mr_092": {
+    "approved": true
+  },
+  "mr_093": {
+    "approved": true
+  },
+  "mr_094": {
+    "approved": true
+  },
+  "mr_095": {
+    "approved": true
+  },
+  "mr_096": {
+    "approved": true
+  },
+  "mr_097": {
+    "approved": true
+  },
+  "mr_098": {
+    "approved": true
+  },
+  "mr_099": {
+    "approved": true
+  },
+  "mr_100": {
+    "approved": true
+  },
+  "rx_001": {
+    "approved": true
+  },
+  "rx_002": {
+    "approved": true
+  },
+  "rx_003": {
+    "approved": true
+  },
+  "rx_004": {
+    "approved": true
+  },
+  "rx_005": {
+    "approved": true
+  },
+  "rx_006": {
+    "approved": true
+  },
+  "rx_007": {
+    "approved": true
+  },
+  "rx_008": {
+    "approved": true
+  },
+  "rx_009": {
+    "approved": true
+  },
+  "rx_010": {
+    "approved": true
+  },
+  "rx_011": {
+    "approved": true
+  },
+  "rx_012": {
+    "approved": true
+  },
+  "rx_013": {
+    "approved": true
+  },
+  "rx_014": {
+    "approved": true
+  },
+  "rx_015": {
+    "approved": true
+  }
+}
