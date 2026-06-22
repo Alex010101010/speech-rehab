@@ -24,6 +24,16 @@ bool checkTyped(Map<String, dynamic> item, String input) {
   return candidates.any((c) => normalize(c) == n);
 }
 
+/// Формулировка задания. Для синонимов/антонимов (`task`) явно указываем,
+/// какое слово ждём, иначе по голому слову непонятно: синоним или антоним.
+String displayPrompt(Map<String, dynamic> item) {
+  final p = (item['prompt'] ?? '').toString();
+  final task = (item['task'] ?? '').toString();
+  if (task == 'антоним') return 'Противоположное по смыслу слову «$p»';
+  if (task == 'синоним') return 'Близкое по смыслу слову «$p» (синоним)';
+  return p;
+}
+
 // ---------- общий каркас задания ----------
 
 class ExerciseScaffold extends StatelessWidget {
@@ -177,7 +187,7 @@ class _ChoiceExerciseState extends State<ChoiceExercise> {
 
   @override
   Widget build(BuildContext context) {
-    final prompt = (widget.item['prompt'] ?? '').toString();
+    final prompt = displayPrompt(widget.item);
     final options = _options;
     final canHint = !widget.errorless && _wrongLeft(options).length > 1;
     return ExerciseScaffold(
@@ -277,7 +287,26 @@ class _TypedExerciseState extends State<TypedExercise> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (ans.isNotEmpty) widget.tts.speak(ans);
       });
+    } else {
+      // подсказка по форме ответа: сколько слов ожидается
+      _hint = _wordsHint((widget.item['answer'] ?? '').toString());
     }
+  }
+
+  static String _plural(int n) {
+    final m10 = n % 10, m100 = n % 100;
+    if (m10 == 1 && m100 != 11) return 'слово';
+    if (m10 >= 2 && m10 <= 4 && !(m100 >= 12 && m100 <= 14)) return 'слова';
+    return 'слов';
+  }
+
+  String _wordsHint(String answer) {
+    final n = answer.trim().isEmpty
+        ? 0
+        : answer.trim().split(RegExp(r'\s+')).length;
+    if (n <= 0) return 'Напишите ответ';
+    if (n == 1) return 'Ответ — одно слово';
+    return 'Ответ — $n ${_plural(n)}';
   }
 
   @override
@@ -331,7 +360,7 @@ class _TypedExerciseState extends State<TypedExercise> {
 
   @override
   Widget build(BuildContext context) {
-    final prompt = (widget.item['prompt'] ?? '').toString();
+    final prompt = displayPrompt(widget.item);
     return ExerciseScaffold(
       prompt: prompt,
       tts: widget.tts,
