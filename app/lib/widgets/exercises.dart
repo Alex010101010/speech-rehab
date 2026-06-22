@@ -239,9 +239,12 @@ class _ChoiceExerciseState extends State<ChoiceExercise> {
       checkTyped(widget.item, o) ||
       normalize(o) == normalize((widget.item['answer'] ?? '').toString());
 
-  List<String> get _options => ((widget.item['options'] as List?) ?? const [])
+  // Перемешанный один раз порядок: в контенте правильный ответ всегда стоит
+  // первым, поэтому без перемешивания он бы всегда был верхней кнопкой.
+  late final List<String> _options = ((widget.item['options'] as List?) ?? const [])
       .map((e) => e.toString())
-      .toList();
+      .toList()
+    ..shuffle();
 
   List<String> _wrongLeft(List<String> options) =>
       options.where((o) => !_isCorrect(o) && !_faded.contains(o)).toList();
