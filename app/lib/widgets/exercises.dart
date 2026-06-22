@@ -646,6 +646,186 @@ class _ClockExerciseState extends State<ClockExercise> {
   }
 }
 
+// ---------- ударение: нажать ударную гласную ----------
+
+const _vowels = 'аеёиоуыэюяАЕЁИОУЫЭЮЯ';
+
+class StressExercise extends StatefulWidget {
+  final Map<String, dynamic> item;
+  final TtsService tts;
+  final void Function(StepOutcome) onResult;
+  final bool errorless;
+  const StressExercise(
+      {super.key,
+      required this.item,
+      required this.tts,
+      required this.onResult,
+      this.errorless = false});
+  @override
+  State<StressExercise> createState() => _StressExerciseState();
+}
+
+class _StressExerciseState extends State<StressExercise> {
+  late final String _word; // слово без знака ударения
+  late final int _stress; // индекс ударной гласной в _word (-1 если не нашли)
+  late final String _note; // значение из скобок промпта (для гомографов)
+  int? _wrongPick;
+  int _wrongCount = 0;
+  bool _solved = false;
+  bool _revealed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // выводим слово и позицию ударения из answer (комбинирующий акут U+0301 / ё)
+    const accent = '́'; // комбинирующий акут
+    final raw = (widget.item['answer'] ?? '').toString();
+    final sb = StringBuffer();
+    int stress = -1;
+    for (final ch in raw.split('')) {
+      if (ch == accent) {
+        stress = sb.length - 1; // ударная — предыдущая гласная
+      } else {
+        sb.write(ch);
+      }
+    }
+    _word = sb.toString();
+    if (stress < 0) {
+      final yo = _word.indexOf('ё');
+      if (yo >= 0) {
+        stress = yo; // ё всегда ударная
+      } else {
+        // единственная гласная — она и ударная
+        final idxs = [
+          for (var i = 0; i < _word.length; i++)
+            if (_vowels.contains(_word[i])) i
+        ];
+        if (idxs.length == 1) stress = idxs.first;
+      }
+    }
+    _stress = stress;
+    final m = RegExp(r'\(([^)]*)\)').firstMatch(
+        (widget.item['prompt'] ?? '').toString());
+    _note = m != null ? m.group(1)!.trim() : '';
+
+    if (widget.errorless) {
+      _solved = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (_word.isNotEmpty) widget.tts.speak('Ударение здесь. $_word');
+      });
+    }
+  }
+
+  void _tap(int i) {
+    if (_solved) return;
+    if (i == _stress) {
+      setState(() => _solved = true);
+      widget.tts.speak(_word);
+    } else {
+      setState(() {
+        _wrongPick = i;
+        _wrongCount++;
+      });
+    }
+  }
+
+  StepOutcome _outcome() {
+    if (widget.errorless) {
+      return const StepOutcome(correct: true, unaided: false, gradeable: false);
+    }
+    return StepOutcome(
+      correct: !_revealed,
+      unaided: !_revealed && _wrongCount == 0,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final hint = _solved
+        ? (_revealed ? 'Ударение показано' : 'Верно!')
+        : (_wrongPick != null
+            ? 'Не здесь — попробуйте ещё раз'
+            : 'Нажмите ударную гласную');
+    return ExerciseScaffold(
+      prompt: _note.isEmpty
+          ? 'На какую букву падает ударение?'
+          : 'На какую букву падает ударение?\nЗначение: $_note',
+      tts: widget.tts,
+      solved: _solved,
+      hint: hint,
+      onNext: () => widget.onResult(_outcome()),
+      child: Column(
+        children: [
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 6,
+            runSpacing: 6,
+            children: [
+              for (var i = 0; i < _word.length; i++)
+                _Tile(
+                  ch: _word[i],
+                  vowel: _vowels.contains(_word[i]),
+                  correct: _solved && i == _stress,
+                  wrong: _wrongPick == i,
+                  onTap: _vowels.contains(_word[i]) ? () => _tap(i) : null,
+                ),
+            ],
+          ),
+          const SizedBox(height: 18),
+          if (!_solved)
+            OutlinedButton(
+              onPressed: () {
+                setState(() {
+                  _revealed = true;
+                  _solved = true;
+                });
+                widget.tts.speak(_word);
+              },
+              child: const Text('Не знаю'),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Tile extends StatelessWidget {
+  final String ch;
+  final bool vowel;
+  final bool correct;
+  final bool wrong;
+  final VoidCallback? onTap;
+  const _Tile(
+      {required this.ch,
+      required this.vowel,
+      required this.correct,
+      required this.wrong,
+      this.onTap});
+  @override
+  Widget build(BuildContext context) {
+    final bg = correct
+        ? Colors.green.shade300
+        : (wrong ? Colors.orange.shade200 : (vowel ? Colors.blue.shade50 : null));
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: 46,
+        height: 64,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: bg,
+          borderRadius: BorderRadius.circular(8),
+          border: vowel ? Border.all(color: Colors.blue.shade200, width: 2) : null,
+        ),
+        child: Text(ch,
+            style: TextStyle(
+                fontSize: 38,
+                fontWeight: vowel ? FontWeight.bold : FontWeight.normal)),
+      ),
+    );
+  }
+}
+
 // ---------- слухоречевая память ----------
 
 class MemoryExercise extends StatefulWidget {

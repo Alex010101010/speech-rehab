@@ -42,6 +42,7 @@ class SessionBuilder {
       'endings_cases',
       'find_error',
       'clock',
+      'stress',
     ]..shuffle(_r);
     for (final t in coreTypes.take(5)) {
       plan.add(SessionSlot(t, 'core'));
