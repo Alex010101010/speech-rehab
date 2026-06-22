@@ -109,49 +109,53 @@ String displayPrompt(String type, Map<String, dynamic> item) {
   }
 }
 
-/// Форма ответа для «ввода по клеткам» (показ формы): слова эталона `answer`,
-/// если их ≤6 и каждое ≤14 букв. null — клетки не показываем (длинный ответ,
-/// errorless или fill_letter со своей формой). Многословные показываем группами.
-List<String>? answerShapeWords(String type, Map<String, dynamic> item, bool errorless) {
+/// Длина эталона `answer` (буквы без пробелов) для живой шкалы прогресса.
+/// null — шкалу не показываем (errorless или fill_letter со своей формой).
+int? answerTargetLen(String type, Map<String, dynamic> item, bool errorless) {
   if (errorless || type == 'fill_letter') return null;
-  final ans = (item['answer'] ?? '').toString().trim();
-  if (ans.isEmpty) return null;
-  final words = ans.split(RegExp(r'\s+'));
-  if (words.length > 6) return null;
-  if (words.any((w) => w.runes.length > 14)) return null;
-  return words;
+  final letters = (item['answer'] ?? '').toString().replaceAll(RegExp(r'\s+'), '');
+  return letters.isEmpty ? null : letters.runes.length;
 }
 
-/// Пустые клетки = форма ответа (число букв в каждом слове), опора при афазии.
-/// Только подсказка формы — ввод в обычное поле (мягкая проверка сохраняется).
-class _AnswerShape extends StatelessWidget {
-  final List<String> words;
-  const _AnswerShape(this.words);
+/// Живая шкала длины ответа: по мере ввода показывает «мало / столько же /
+/// лишнее» (цвет + короткая подпись). Опора при афазии без счёта букв.
+class _LengthGauge extends StatelessWidget {
+  final int target;
+  final int current;
+  const _LengthGauge({required this.target, required this.current});
+
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      alignment: WrapAlignment.center,
-      spacing: 20, // промежуток между словами
-      runSpacing: 12,
+    final over = current > target;
+    final exact = current == target && current > 0;
+    final ratio = target == 0 ? 0.0 : (current / target).clamp(0.0, 1.0);
+    final Color fill = over
+        ? const Color(0xFFE8A33D) // лишнее — янтарный
+        : (exact ? const Color(0xFF2E9E5B) : const Color(0xFF4C84D6));
+    final String label = current == 0
+        ? 'Начните писать'
+        : over
+            ? 'Длинновато — проверьте'
+            : (exact ? 'Длина совпала — проверьте' : 'Пишите…');
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (final w in words)
-          // клетки слова — тоже Wrap: на узкой ширине переносятся, а не вылазят
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
-            children: [
-              for (var i = 0; i < w.runes.length; i++)
-                Container(
-                  width: 26,
-                  height: 34,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF3F6FB),
-                    border: Border.all(color: const Color(0xFF9DB6D6), width: 2),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-            ],
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            height: 22,
+            color: const Color(0xFFE7EAF0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: FractionallySizedBox(
+                widthFactor: ratio == 0 ? 0.001 : ratio,
+                child: Container(color: fill),
+              ),
+            ),
           ),
+        ),
+        const SizedBox(height: 6),
+        Text(label, style: TextStyle(fontSize: 18, color: fill, fontWeight: FontWeight.w600)),
       ],
     );
   }
@@ -568,8 +572,8 @@ class _TypedExerciseState extends State<TypedExercise> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (ans.isNotEmpty) widget.tts.speak(ans);
       });
-    } else if (answerShapeWords(widget.type, widget.item, false) != null) {
-      // форму ответа показывают клетки — текстовая подсказка о числе слов не нужна
+    } else if (answerTargetLen(widget.type, widget.item, false) != null) {
+      // длину показывает живая шкала — текстовая подсказка о числе слов не нужна
       _hint = 'Напишите ответ';
     } else {
       // подсказка по форме ответа: сколько слов ожидается
@@ -658,7 +662,8 @@ class _TypedExerciseState extends State<TypedExercise> {
     final prompt = displayPrompt(widget.type, widget.item);
     final img = (widget.item['image'] ?? '').toString();
     final emoji = (widget.item['emoji'] ?? '').toString();
-    final shapeWords = answerShapeWords(widget.type, widget.item, widget.errorless);
+    final target = answerTargetLen(widget.type, widget.item, widget.errorless);
+    final typedLen = _c.text.replaceAll(RegExp(r'\s+'), '').runes.length;
     // визуальный cue показываем только после нажатия «Подсказка»
     return ExerciseScaffold(
       prompt: prompt,
@@ -670,8 +675,8 @@ class _TypedExerciseState extends State<TypedExercise> {
       onNext: () => widget.onResult(_outcome()),
       child: Column(
         children: [
-          if (shapeWords != null && !_solved) ...[
-            _AnswerShape(shapeWords),
+          if (target != null && !_solved) ...[
+            _LengthGauge(target: target, current: typedLen),
             const SizedBox(height: 16),
           ],
           TextField(
@@ -680,6 +685,7 @@ class _TypedExerciseState extends State<TypedExercise> {
             style: const TextStyle(fontSize: 26),
             decoration: const InputDecoration(border: OutlineInputBorder()),
             textInputAction: TextInputAction.done,
+            onChanged: (_) => setState(() {}), // живой пересчёт шкалы длины
             onSubmitted: (_) => _check(),
           ),
           const SizedBox(height: 14),
