@@ -93,9 +93,12 @@ class _SessionScreenState extends State<SessionScreen> {
     }
   }
 
+  // длина блока «Повторим» ограничена — чтобы не утомлять длинным хвостом
+  int get _reviewCount => _missed.length > 3 ? 3 : _missed.length;
+
   void _onOutcome(StepOutcome o) {
     if (_reviewing) {
-      if (_ri + 1 >= _missed.length) {
+      if (_ri + 1 >= _reviewCount) {
         _finish();
       } else {
         setState(() => _ri++);
@@ -187,7 +190,7 @@ class _SessionScreenState extends State<SessionScreen> {
   Widget build(BuildContext context) {
     if (_done) return _DoneView(newAch: _newAch);
     final step = _reviewing ? _missed[_ri] : _current;
-    final total = _reviewing ? _missed.length : _plan.length;
+    final total = _reviewing ? _reviewCount : _plan.length;
     final idx = _reviewing ? _ri : _i;
     return Scaffold(
       appBar: AppBar(

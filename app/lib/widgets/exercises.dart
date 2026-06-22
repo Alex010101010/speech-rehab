@@ -24,6 +24,63 @@ bool checkTyped(Map<String, dynamic> item, String input) {
   return candidates.any((c) => normalize(c) == n);
 }
 
+int _editDistance(String a, String b) {
+  final la = a.length, lb = b.length;
+  if (la == 0) return lb;
+  if (lb == 0) return la;
+  var prev = List<int>.generate(lb + 1, (i) => i);
+  var cur = List<int>.filled(lb + 1, 0);
+  for (var i = 1; i <= la; i++) {
+    cur[0] = i;
+    for (var j = 1; j <= lb; j++) {
+      final cost = a[i - 1] == b[j - 1] ? 0 : 1;
+      cur[j] = [cur[j - 1] + 1, prev[j] + 1, prev[j - 1] + cost]
+          .reduce((x, y) => x < y ? x : y);
+    }
+    final t = prev;
+    prev = cur;
+    cur = t;
+  }
+  return prev[lb];
+}
+
+/// Похожи ли слова с допуском на опечатки (короткие — строго).
+bool _fuzzyWord(String a, String b) {
+  if (a == b) return true;
+  final m = a.length > b.length ? a.length : b.length;
+  if (m <= 3) return false; // короткие слова — только точное совпадение
+  final tol = m <= 5 ? 1 : 2;
+  return _editDistance(a, b) <= tol;
+}
+
+/// Мягкая проверка ТОЛЬКО для свободного ввода: терпит опечатки и лишние
+/// слова (все слова ответа должны присутствовать). Для выбора вариантов НЕ
+/// использовать — там нужен строгий [checkTyped], иначе примет похожий дистрактор.
+bool checkTypedLenient(Map<String, dynamic> item, String input) {
+  final n = normalize(input);
+  if (n.isEmpty) return false;
+  final inTokens = n.split(' ');
+  final candidates = <String>[];
+  if (item['answer'] != null) candidates.add(item['answer'].toString());
+  if (item['accept'] is List) {
+    for (final a in (item['accept'] as List)) {
+      candidates.add(a.toString());
+    }
+  }
+  for (final c in candidates) {
+    final cn = normalize(c);
+    if (cn.isEmpty) continue;
+    if (cn == n) return true; // точное
+    if (_fuzzyWord(cn, n)) return true; // опечатка в целой фразе
+    // все слова ответа есть во вводе (порядок и лишние слова не важны)
+    final cTokens = cn.split(' ');
+    if (cTokens.every((ct) => inTokens.any((it) => _fuzzyWord(ct, it)))) {
+      return true;
+    }
+  }
+  return false;
+}
+
 /// Формулировка задания. Для синонимов/антонимов (`task`) явно указываем,
 /// какое слово ждём, иначе по голому слову непонятно: синоним или антоним.
 String displayPrompt(String type, Map<String, dynamic> item) {
@@ -355,7 +412,7 @@ class _TypedExerciseState extends State<TypedExercise> {
   }
 
   void _check() {
-    if (checkTyped(widget.item, _c.text)) {
+    if (checkTypedLenient(widget.item, _c.text)) {
       setState(() {
         _solved = true;
         _hint = 'Верно!';
@@ -650,7 +707,11 @@ class _ReadingExerciseState extends State<ReadingExercise> {
               const SizedBox(width: 12),
               Expanded(
                 child: OutlinedButton(
-                  onPressed: () => widget.onResult(_selfReport),
+                  // вернуться к тексту и перечитать заново
+                  onPressed: () => setState(() {
+                    _phase = 0;
+                    _revealed.clear();
+                  }),
                   child: const Text('Ещё раз'),
                 ),
               ),
