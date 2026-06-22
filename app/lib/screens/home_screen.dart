@@ -19,6 +19,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool _ruVoiceOk = true; // пока не проверили — не пугаем подсказкой
+
+  @override
+  void initState() {
+    super.initState();
+    widget.tts.ensureReady().then((ok) {
+      if (mounted) setState(() => _ruVoiceOk = ok);
+    });
+  }
+
   String _plant(int level) =>
       level >= 3 ? '🌳' : (level >= 2 ? '🌿' : '🌱');
 
@@ -37,6 +47,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    if (!_ruVoiceOk) ...[
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.amber.shade100,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.amber.shade700),
+                        ),
+                        child: const Text(
+                          '⚠️ Русский голос не установлен — озвучка работать '
+                          'не будет.\nУстановите его в настройках планшета: '
+                          'Настройки → Система → Язык и ввод → Синтез речи → '
+                          'добавить русский голос.',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                    ],
                     const Text('Занятие речью',
                         textAlign: TextAlign.center,
                         style: TextStyle(

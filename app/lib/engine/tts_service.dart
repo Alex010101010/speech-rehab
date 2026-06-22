@@ -5,8 +5,18 @@ class TtsService {
   final FlutterTts _tts = FlutterTts();
   bool _ready = false;
 
+  /// Доступен ли русский голос на устройстве. Если нет — вся озвучка молча
+  /// не работает, поэтому главный экран показывает подсказку об установке.
+  bool ruAvailable = true;
+
   Future<void> _init() async {
     if (_ready) return;
+    try {
+      final avail = await _tts.isLanguageAvailable('ru-RU');
+      ruAvailable = avail == true || avail == 1;
+    } catch (_) {
+      ruAvailable = false;
+    }
     try {
       await _tts.setLanguage('ru-RU');
       await _tts.setSpeechRate(0.42); // медленнее обычного
@@ -16,6 +26,12 @@ class TtsService {
       // голос может отсутствовать — не критично
     }
     _ready = true;
+  }
+
+  /// Прогреть движок и вернуть доступность русского голоса.
+  Future<bool> ensureReady() async {
+    await _init();
+    return ruAvailable;
   }
 
   Future<void> speak(String text) async {
