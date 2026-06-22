@@ -132,15 +132,16 @@ class _AnswerShape extends StatelessWidget {
     return Wrap(
       alignment: WrapAlignment.center,
       spacing: 20, // промежуток между словами
-      runSpacing: 10,
+      runSpacing: 12,
       children: [
         for (final w in words)
-          Row(
-            mainAxisSize: MainAxisSize.min,
+          // клетки слова — тоже Wrap: на узкой ширине переносятся, а не вылазят
+          Wrap(
+            spacing: 6,
+            runSpacing: 6,
             children: [
               for (var i = 0; i < w.runes.length; i++)
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 3),
                   width: 26,
                   height: 34,
                   decoration: BoxDecoration(
@@ -195,7 +196,12 @@ class ExerciseScaffold extends StatelessWidget {
                   Center(
                     child: Image.asset(imagePath!,
                         height: 200,
-                        errorBuilder: (_, __, ___) => const SizedBox.shrink()),
+                        // картинка не загрузилась — показываем emoji как запасную опору
+                        errorBuilder: (_, __, ___) =>
+                            (emoji != null && emoji!.isNotEmpty)
+                                ? Text(emoji!,
+                                    style: const TextStyle(fontSize: 110))
+                                : const SizedBox.shrink()),
                   ),
                   const SizedBox(height: 16),
                 ] else if (emoji != null && emoji!.isNotEmpty) ...[
@@ -473,7 +479,8 @@ class _PictureWordExerciseState extends State<PictureWordExercise> {
       prompt: 'Как это называется?',
       tts: widget.tts,
       imagePath: img.isEmpty ? null : 'assets/content/img/$img',
-      emoji: img.isEmpty && emoji.isNotEmpty ? emoji : null,
+      // emoji передаём всегда: при картинке — как фолбэк, без картинки — основной cue
+      emoji: emoji.isEmpty ? null : emoji,
       solved: _solved,
       hint: widget.errorless
           ? 'Это правильный ответ — нажмите его'

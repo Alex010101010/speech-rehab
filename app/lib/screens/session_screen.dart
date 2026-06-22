@@ -108,10 +108,14 @@ class _SessionScreenState extends State<SessionScreen> {
     final t = slot.type;
     final cur = _levelFor(t);
     final floor = _isPicturable(t) ? 0 : 1; // у словарных навыков пол — L0 (картинка)
+    // в ручном картиночном режиме экран всё равно зафиксирован на L0 —
+    // не двигаем уровни навыков (иначе при выключении режима они уедут в
+    // текстовый трек завышенными по результатам узнавания), но errorless-
+    // поддержку на повторных ошибках оставляем
     if (o.correct && o.unaided) {
       _up[t] = (_up[t] ?? 0) + 1;
       _down[t] = 0;
-      if (_up[t]! >= 3 && cur < 3) {
+      if (!_pictureMode && _up[t]! >= 3 && cur < 3) {
         _skill[t] = cur + 1;
         _up[t] = 0;
       }
@@ -119,7 +123,7 @@ class _SessionScreenState extends State<SessionScreen> {
       _down[t] = (_down[t] ?? 0) + 1;
       _up[t] = 0;
       if (_down[t]! >= 2) {
-        if (cur > floor) {
+        if (!_pictureMode && cur > floor) {
           _skill[t] = cur - 1;
           _down[t] = 0;
         } else {
