@@ -114,11 +114,31 @@ class ChoiceExercise extends StatefulWidget {
 
 class _ChoiceExerciseState extends State<ChoiceExercise> {
   String? _wrongPick;
+  final Set<String> _faded = {}; // погашенные подсказкой неверные варианты
   bool _solved = false;
+  bool _revealed = false; // ответ показан по «Не знаю» — засчитываем как неверный
 
   bool _isCorrect(String o) =>
       checkTyped(widget.item, o) ||
       normalize(o) == normalize((widget.item['answer'] ?? '').toString());
+
+  List<String> _wrongLeft(List<String> options) =>
+      options.where((o) => !_isCorrect(o) && !_faded.contains(o)).toList();
+
+  void _hint(List<String> options) {
+    final left = _wrongLeft(options);
+    if (left.length <= 1) return; // оставляем хотя бы один неверный вариант
+    setState(() => _faded.add(left.first));
+  }
+
+  void _reveal(List<String> options) {
+    final correct = options.firstWhere(_isCorrect, orElse: () => '');
+    setState(() {
+      _revealed = true;
+      _solved = true;
+    });
+    if (correct.isNotEmpty) widget.tts.speak('Правильный ответ. $correct');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,14 +146,15 @@ class _ChoiceExerciseState extends State<ChoiceExercise> {
     final options = ((widget.item['options'] as List?) ?? const [])
         .map((e) => e.toString())
         .toList();
+    final canHint = _wrongLeft(options).length > 1;
     return ExerciseScaffold(
       prompt: prompt,
       tts: widget.tts,
       solved: _solved,
       hint: _solved
-          ? 'Верно!'
+          ? (_revealed ? 'Правильный ответ показан' : 'Верно!')
           : (_wrongPick != null ? 'Попробуйте ещё раз' : 'Выберите ответ'),
-      onNext: () => widget.onResult(true),
+      onNext: () => widget.onResult(!_revealed),
       child: Column(
         children: [
           for (final o in options)
@@ -145,7 +166,7 @@ class _ChoiceExerciseState extends State<ChoiceExercise> {
                       ? Colors.green.shade100
                       : (_wrongPick == o ? Colors.orange.shade100 : null),
                 ),
-                onPressed: _solved
+                onPressed: (_solved || _faded.contains(o))
                     ? null
                     : () {
                         if (_isCorrect(o)) {
@@ -157,6 +178,27 @@ class _ChoiceExerciseState extends State<ChoiceExercise> {
                       },
                 child: Text(o, textAlign: TextAlign.center),
               ),
+            ),
+          if (!_solved)
+            Row(
+              children: [
+                if (canHint) ...[
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: () => _hint(options),
+                      icon: const Icon(Icons.lightbulb_outline),
+                      label: const Text('Подсказка'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                ],
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () => _reveal(options),
+                    child: const Text('Не знаю'),
+                  ),
+                ),
+              ],
             ),
         ],
       ),
@@ -215,6 +257,13 @@ class _TypedExerciseState extends State<TypedExercise> {
     }
   }
 
+  void _giveHint() {
+    final ans = (widget.item['answer'] ?? '').toString();
+    if (ans.isEmpty) return;
+    setState(() => _hint = 'Подсказка: начинается на «${ans[0]}»');
+    widget.tts.speak('Начинается на ${ans[0]}');
+  }
+
   @override
   Widget build(BuildContext context) {
     final prompt = (widget.item['prompt'] ?? '').toString();
@@ -236,7 +285,19 @@ class _TypedExerciseState extends State<TypedExercise> {
           ),
           const SizedBox(height: 14),
           if (!_solved)
-            ElevatedButton(onPressed: _check, child: const Text('Проверить')),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                      onPressed: _check, child: const Text('Проверить')),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: OutlinedButton(
+                      onPressed: _giveHint, child: const Text('Подсказка')),
+                ),
+              ],
+            ),
         ],
       ),
     );

@@ -22,6 +22,9 @@ class SessionScreen extends StatefulWidget {
 
 class _SessionScreenState extends State<SessionScreen> {
   late List<SessionStep> _steps;
+  late int _primaryCount; // длина первого прохода — для статистики и уровня
+  final List<SessionStep> _missed = []; // пропущенное на первом проходе
+  bool _reviewing = false;
   int _i = 0;
   int _correct = 0;
   bool _done = false;
@@ -31,13 +34,29 @@ class _SessionScreenState extends State<SessionScreen> {
   void initState() {
     super.initState();
     _steps = SessionBuilder(widget.repo).build(widget.store.progress.level);
+    _primaryCount = _steps.length;
     if (_steps.isEmpty) _done = true;
   }
 
   void _onResult(bool ok) {
-    if (ok) _correct++;
+    if (!_reviewing) {
+      if (ok) {
+        _correct++;
+      } else {
+        _missed.add(_steps[_i]);
+      }
+    }
     if (_i + 1 >= _steps.length) {
-      _finish();
+      if (!_reviewing && _missed.isNotEmpty) {
+        // мягкий повтор пропущенного, без штрафа
+        setState(() {
+          _reviewing = true;
+          _steps = List.of(_missed);
+          _i = 0;
+        });
+      } else {
+        _finish();
+      }
     } else {
       setState(() => _i++);
     }
@@ -46,12 +65,18 @@ class _SessionScreenState extends State<SessionScreen> {
   Future<void> _finish() async {
     final p = widget.store.progress;
     p.sessions += 1;
-    p.answered += _steps.length;
+    p.answered += _primaryCount;
     p.correct += _correct;
     final now = DateTime.now();
     p.days.add(
         '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}');
-    p.level = p.sessions >= 10 ? 3 : (p.sessions >= 4 ? 2 : 1);
+    // Адаптация: уровень растёт от точности (трудно, но выполнимо), а не от числа сессий.
+    final acc = _primaryCount == 0 ? 1.0 : _correct / _primaryCount;
+    if (acc >= 0.75 && p.level < 3) {
+      p.level += 1;
+    } else if (acc < 0.5 && p.level > 1) {
+      p.level -= 1;
+    }
     _newAch = updateAchievements(p);
     await widget.store.save();
     widget.tts.speak('Молодец! Занятие окончено.');
@@ -59,7 +84,7 @@ class _SessionScreenState extends State<SessionScreen> {
   }
 
   Widget _render(SessionStep step) {
-    final key = ValueKey(_i);
+    final key = ValueKey('${_reviewing ? 'r' : 'p'}$_i');
     switch (step.mode) {
       case RenderMode.choice:
         return ChoiceExercise(
@@ -82,7 +107,10 @@ class _SessionScreenState extends State<SessionScreen> {
     final step = _steps[_i];
     return Scaffold(
       appBar: AppBar(
-        title: Text('${_i + 1} из ${_steps.length}',
+        title: Text(
+            _reviewing
+                ? 'Повторим • ${_i + 1} из ${_steps.length}'
+                : '${_i + 1} из ${_steps.length}',
             style: const TextStyle(fontSize: 20)),
         actions: [
           TextButton(
