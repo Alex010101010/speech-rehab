@@ -4,111 +4,1115 @@
   "section": "VI. Звуки",
   "count": 100,
   "items": [
-    { "id": "fl_001", "level": 1, "theme": "природа", "pair": "д/т", "prompt": "_уб", "answer": "дуб", "accept": ["дуб"] },
-    { "id": "fl_002", "level": 1, "theme": "природа", "pair": "д/т", "prompt": "_рава", "answer": "трава", "accept": ["трава"] },
-    { "id": "fl_003", "level": 1, "theme": "природа", "pair": "д/т", "prompt": "_орога", "answer": "дорога", "accept": ["дорога"] },
-    { "id": "fl_004", "level": 1, "theme": "природа", "pair": "д/т", "prompt": "_етерев", "answer": "тетерев", "accept": ["тетерев"] },
-    { "id": "fl_005", "level": 2, "theme": "природа", "pair": "д/т", "prompt": "_ятел", "answer": "дятел", "accept": ["дятел"] },
-    { "id": "fl_006", "level": 1, "theme": "быт", "pair": "д/т", "prompt": "_елефон", "answer": "телефон", "accept": ["телефон"] },
-    { "id": "fl_007", "level": 1, "theme": "быт", "pair": "д/т", "prompt": "_иван", "answer": "диван", "accept": ["диван"] },
-    { "id": "fl_008", "level": 2, "theme": "быт", "pair": "д/т", "prompt": "_арелка", "answer": "тарелка", "accept": ["тарелка"] },
-    { "id": "fl_009", "level": 2, "theme": "быт", "pair": "д/т", "prompt": "_еньги", "answer": "деньги", "accept": ["деньги"] },
-    { "id": "fl_010", "level": 1, "theme": "сварка", "pair": "д/т", "prompt": "_руба", "answer": "труба", "accept": ["труба"] },
-    { "id": "fl_011", "level": 2, "theme": "сварка", "pair": "д/т", "prompt": "_еталь", "answer": "деталь", "accept": ["деталь"] },
-    { "id": "fl_012", "level": 2, "theme": "сварка", "pair": "д/т", "prompt": "элек_род", "answer": "электрод", "accept": ["электрод"] },
-    { "id": "fl_013", "level": 1, "theme": "рыбалка", "pair": "д/т", "prompt": "у_очка", "answer": "удочка", "accept": ["удочка"] },
-    { "id": "fl_014", "level": 2, "theme": "рыбалка", "pair": "д/т", "prompt": "_но (реки)", "answer": "дно", "accept": ["дно"] },
-    { "id": "fl_015", "level": 3, "theme": "природа", "pair": "д/т", "prompt": "лис_ья", "answer": "листья", "accept": ["листья"] },
-
-    { "id": "fl_016", "level": 1, "theme": "быт", "pair": "б/п", "prompt": "_очта", "answer": "почта", "accept": ["почта"] },
-    { "id": "fl_017", "level": 1, "theme": "быт", "pair": "б/п", "prompt": "_улка", "answer": "булка", "accept": ["булка"] },
-    { "id": "fl_018", "level": 1, "theme": "быт", "pair": "б/п", "prompt": "_альто", "answer": "пальто", "accept": ["пальто"] },
-    { "id": "fl_019", "level": 1, "theme": "быт", "pair": "б/п", "prompt": "_олотенце", "answer": "полотенце", "accept": ["полотенце"] },
-    { "id": "fl_020", "level": 2, "theme": "быт", "pair": "б/п", "prompt": "_аспорт", "answer": "паспорт", "accept": ["паспорт"] },
-    { "id": "fl_021", "level": 2, "theme": "быт", "pair": "б/п", "prompt": "_утылка", "answer": "бутылка", "accept": ["бутылка"] },
-    { "id": "fl_022", "level": 2, "theme": "быт", "pair": "б/п", "prompt": "_омидор", "answer": "помидор", "accept": ["помидор"] },
-    { "id": "fl_023", "level": 1, "theme": "природа", "pair": "б/п", "prompt": "_ерёза", "answer": "берёза", "accept": ["берёза"] },
-    { "id": "fl_024", "level": 2, "theme": "природа", "pair": "б/п", "prompt": "_аук", "answer": "паук", "accept": ["паук"] },
-    { "id": "fl_025", "level": 1, "theme": "рыбалка", "pair": "б/п", "prompt": "_оплавок", "answer": "поплавок", "accept": ["поплавок"] },
-    { "id": "fl_026", "level": 2, "theme": "рыбалка", "pair": "б/п", "prompt": "ры_алка", "answer": "рыбалка", "accept": ["рыбалка"] },
-    { "id": "fl_027", "level": 1, "theme": "рыбалка", "pair": "б/п", "prompt": "_ерег", "answer": "берег", "accept": ["берег"] },
-    { "id": "fl_028", "level": 2, "theme": "сварка", "pair": "б/п", "prompt": "_аллон", "answer": "баллон", "accept": ["баллон"] },
-    { "id": "fl_029", "level": 2, "theme": "сварка", "pair": "б/п", "prompt": "_ерчатки", "answer": "перчатки", "accept": ["перчатки"] },
-    { "id": "fl_030", "level": 3, "theme": "быт", "pair": "б/п", "prompt": "_утерброд", "answer": "бутерброд", "accept": ["бутерброд"] },
-
-    { "id": "fl_031", "level": 1, "theme": "природа", "pair": "г/к", "prompt": "_рибы", "answer": "грибы", "accept": ["грибы"] },
-    { "id": "fl_032", "level": 1, "theme": "природа", "pair": "г/к", "prompt": "_лён", "answer": "клён", "accept": ["клён"] },
-    { "id": "fl_033", "level": 1, "theme": "природа", "pair": "г/к", "prompt": "_орох", "answer": "горох", "accept": ["горох"] },
-    { "id": "fl_034", "level": 2, "theme": "природа", "pair": "г/к", "prompt": "_орова", "answer": "корова", "accept": ["корова"] },
-    { "id": "fl_035", "level": 1, "theme": "быт", "pair": "г/к", "prompt": "_олбаса", "answer": "колбаса", "accept": ["колбаса"] },
-    { "id": "fl_036", "level": 1, "theme": "быт", "pair": "г/к", "prompt": "_артофель", "answer": "картофель", "accept": ["картофель"] },
-    { "id": "fl_037", "level": 1, "theme": "быт", "pair": "г/к", "prompt": "_апуста", "answer": "капуста", "accept": ["капуста"] },
-    { "id": "fl_038", "level": 2, "theme": "быт", "pair": "г/к", "prompt": "_азета", "answer": "газета", "accept": ["газета"] },
-    { "id": "fl_039", "level": 2, "theme": "быт", "pair": "г/к", "prompt": "_астрюля", "answer": "кастрюля", "accept": ["кастрюля"] },
-    { "id": "fl_040", "level": 2, "theme": "быт", "pair": "г/к", "prompt": "_уртка", "answer": "куртка", "accept": ["куртка"] },
-    { "id": "fl_041", "level": 1, "theme": "сварка", "pair": "г/к", "prompt": "_абель", "answer": "кабель", "accept": ["кабель"] },
-    { "id": "fl_042", "level": 2, "theme": "сварка", "pair": "г/к", "prompt": "ис_ра", "answer": "искра", "accept": ["искра"] },
-    { "id": "fl_043", "level": 1, "theme": "рыбалка", "pair": "г/к", "prompt": "_рючок", "answer": "крючок", "accept": ["крючок"] },
-    { "id": "fl_044", "level": 2, "theme": "рыбалка", "pair": "г/к", "prompt": "_оряга", "answer": "коряга", "accept": ["коряга"] },
-    { "id": "fl_045", "level": 3, "theme": "природа", "pair": "г/к", "prompt": "_амыш", "answer": "камыш", "accept": ["камыш"] },
-
-    { "id": "fl_046", "level": 1, "theme": "природа", "pair": "л/н", "prompt": "_ес", "answer": "лес", "accept": ["лес"] },
-    { "id": "fl_047", "level": 1, "theme": "природа", "pair": "л/н", "prompt": "_ебо", "answer": "небо", "accept": ["небо"] },
-    { "id": "fl_048", "level": 1, "theme": "природа", "pair": "л/н", "prompt": "_уна", "answer": "луна", "accept": ["луна"] },
-    { "id": "fl_049", "level": 2, "theme": "природа", "pair": "л/н", "prompt": "_ора (лисья)", "answer": "нора", "accept": ["нора"] },
-    { "id": "fl_050", "level": 2, "theme": "природа", "pair": "л/н", "prompt": "_иства", "answer": "листва", "accept": ["листва"] },
-    { "id": "fl_051", "level": 1, "theme": "быт", "pair": "л/н", "prompt": "_ампа", "answer": "лампа", "accept": ["лампа"] },
-    { "id": "fl_052", "level": 1, "theme": "быт", "pair": "л/н", "prompt": "_ож (столовый)", "answer": "нож", "accept": ["нож"] },
-    { "id": "fl_053", "level": 2, "theme": "быт", "pair": "л/н", "prompt": "_ожка", "answer": "ложка", "accept": ["ложка"] },
-    { "id": "fl_054", "level": 2, "theme": "быт", "pair": "л/н", "prompt": "_итки (для вязания)", "answer": "нитки", "accept": ["нитки"] },
-    { "id": "fl_055", "level": 1, "theme": "рыбалка", "pair": "л/н", "prompt": "_одка", "answer": "лодка", "accept": ["лодка"] },
-    { "id": "fl_056", "level": 2, "theme": "рыбалка", "pair": "л/н", "prompt": "_аживка", "answer": "наживка", "accept": ["наживка"] },
-    { "id": "fl_057", "level": 1, "theme": "рыбалка", "pair": "л/н", "prompt": "_ещ", "answer": "лещ", "accept": ["лещ"] },
-    { "id": "fl_058", "level": 2, "theme": "сварка", "pair": "л/н", "prompt": "ме_алл", "answer": "металл", "accept": ["металл"] },
-    { "id": "fl_059", "level": 3, "theme": "природа", "pair": "л/н", "prompt": "ос_нь", "answer": "осень", "accept": ["осень"] },
-    { "id": "fl_060", "level": 3, "theme": "природа", "pair": "л/н", "prompt": "со_нце", "answer": "солнце", "accept": ["солнце"] },
-
-    { "id": "fl_061", "level": 1, "theme": "быт", "pair": "з/с", "prompt": "_уп", "answer": "суп", "accept": ["суп"] },
-    { "id": "fl_062", "level": 1, "theme": "быт", "pair": "з/с", "prompt": "_еркало", "answer": "зеркало", "accept": ["зеркало"] },
-    { "id": "fl_063", "level": 1, "theme": "быт", "pair": "з/с", "prompt": "_оль", "answer": "соль", "accept": ["соль"] },
-    { "id": "fl_064", "level": 2, "theme": "быт", "pair": "з/с", "prompt": "_онт", "answer": "зонт", "accept": ["зонт"] },
-    { "id": "fl_065", "level": 2, "theme": "быт", "pair": "з/с", "prompt": "_тол", "answer": "стол", "accept": ["стол"] },
-    { "id": "fl_066", "level": 1, "theme": "природа", "pair": "з/с", "prompt": "_аяц", "answer": "заяц", "accept": ["заяц"] },
-    { "id": "fl_067", "level": 1, "theme": "природа", "pair": "з/с", "prompt": "_осна", "answer": "сосна", "accept": ["сосна"] },
-    { "id": "fl_068", "level": 2, "theme": "природа", "pair": "з/с", "prompt": "_вери", "answer": "звери", "accept": ["звери"] },
-    { "id": "fl_069", "level": 2, "theme": "природа", "pair": "з/с", "prompt": "ро_а (на траве)", "answer": "роса", "accept": ["роса"] },
-    { "id": "fl_070", "level": 1, "theme": "рыбалка", "pair": "з/с", "prompt": "_еть", "answer": "сеть", "accept": ["сеть"] },
-    { "id": "fl_071", "level": 2, "theme": "рыбалка", "pair": "з/с", "prompt": "о_еро", "answer": "озеро", "accept": ["озеро"] },
-    { "id": "fl_072", "level": 1, "theme": "сварка", "pair": "з/с", "prompt": "_варка", "answer": "сварка", "accept": ["сварка"] },
-    { "id": "fl_073", "level": 2, "theme": "сварка", "pair": "з/с", "prompt": "_аготовка", "answer": "заготовка", "accept": ["заготовка"] },
-    { "id": "fl_074", "level": 3, "theme": "природа", "pair": "з/с", "prompt": "моро_", "answer": "мороз", "accept": ["мороз"] },
-    { "id": "fl_075", "level": 3, "theme": "быт", "pair": "з/с", "prompt": "гла_", "answer": "глаз", "accept": ["глаз"] },
-
-    { "id": "fl_076", "level": 1, "theme": "природа", "pair": "ж/ш", "prompt": "_ук", "answer": "жук", "accept": ["жук"] },
-    { "id": "fl_077", "level": 1, "theme": "природа", "pair": "ж/ш", "prompt": "_ишка", "answer": "шишка", "accept": ["шишка"] },
-    { "id": "fl_078", "level": 2, "theme": "природа", "pair": "ж/ш", "prompt": "_ёлудь", "answer": "жёлудь", "accept": ["жёлудь"] },
-    { "id": "fl_079", "level": 1, "theme": "быт", "pair": "ж/ш", "prompt": "_каф", "answer": "шкаф", "accept": ["шкаф"] },
-    { "id": "fl_080", "level": 2, "theme": "быт", "pair": "ж/ш", "prompt": "но_ницы", "answer": "ножницы", "accept": ["ножницы"] },
-    { "id": "fl_081", "level": 2, "theme": "быт", "pair": "ж/ш", "prompt": "_апка", "answer": "шапка", "accept": ["шапка"] },
-    { "id": "fl_082", "level": 1, "theme": "рыбалка", "pair": "ж/ш", "prompt": "_ука", "answer": "щука", "accept": ["щука"] },
-    { "id": "fl_083", "level": 2, "theme": "рыбалка", "pair": "ж/ш", "prompt": "е_ (рыба)", "answer": "ёрш", "accept": ["ёрш", "ерш"] },
-    { "id": "fl_084", "level": 2, "theme": "сварка", "pair": "ж/ш", "prompt": "_ов", "answer": "шов", "accept": ["шов"] },
-    { "id": "fl_085", "level": 3, "theme": "сварка", "pair": "ж/ш", "prompt": "_елезо", "answer": "железо", "accept": ["железо"] },
-    { "id": "fl_086", "level": 2, "theme": "природа", "pair": "ж/ш", "prompt": "ё_ (лесной)", "answer": "ёж", "accept": ["ёж", "еж"] },
-    { "id": "fl_087", "level": 3, "theme": "природа", "pair": "ж/ш", "prompt": "камы_", "answer": "камыш", "accept": ["камыш"] },
-    { "id": "fl_088", "level": 1, "theme": "быт", "pair": "ж/ш", "prompt": "_арф", "answer": "шарф", "accept": ["шарф"] },
-
-    { "id": "fl_089", "level": 1, "theme": "быт", "pair": "ц/ч", "prompt": "_асы", "answer": "часы", "accept": ["часы"] },
-    { "id": "fl_090", "level": 1, "theme": "быт", "pair": "ц/ч", "prompt": "_айник", "answer": "чайник", "accept": ["чайник"] },
-    { "id": "fl_091", "level": 1, "theme": "быт", "pair": "ц/ч", "prompt": "_емодан", "answer": "чемодан", "accept": ["чемодан"] },
-    { "id": "fl_092", "level": 2, "theme": "быт", "pair": "ц/ч", "prompt": "_емент", "answer": "цемент", "accept": ["цемент"] },
-    { "id": "fl_093", "level": 2, "theme": "быт", "pair": "ц/ч", "prompt": "ули_а", "answer": "улица", "accept": ["улица"] },
-    { "id": "fl_094", "level": 2, "theme": "быт", "pair": "ц/ч", "prompt": "ру_ка", "answer": "ручка", "accept": ["ручка"] },
-    { "id": "fl_095", "level": 1, "theme": "природа", "pair": "ц/ч", "prompt": "_апля", "answer": "цапля", "accept": ["цапля"] },
-    { "id": "fl_096", "level": 2, "theme": "природа", "pair": "ц/ч", "prompt": "ов_а (домашняя)", "answer": "овца", "accept": ["овца"] },
-    { "id": "fl_097", "level": 2, "theme": "природа", "pair": "ц/ч", "prompt": "_ерепаха", "answer": "черепаха", "accept": ["черепаха"] },
-    { "id": "fl_098", "level": 3, "theme": "рыбалка", "pair": "ц/ч", "prompt": "_айка (над озером)", "answer": "чайка", "accept": ["чайка"] },
-    { "id": "fl_099", "level": 3, "theme": "природа", "pair": "ц/ч", "prompt": "огуре_ (с грядки)", "answer": "огурец", "accept": ["огурец"] },
-    { "id": "fl_100", "level": 3, "theme": "быт", "pair": "ц/ч", "prompt": "ре_епт (от врача)", "answer": "рецепт", "accept": ["рецепт"] }
+    {
+      "id": "fl_001",
+      "level": 1,
+      "theme": "природа",
+      "pair": "д/т",
+      "prompt": "_уб",
+      "answer": "дуб",
+      "accept": [
+        "дуб"
+      ],
+      "emoji": "🌳"
+    },
+    {
+      "id": "fl_002",
+      "level": 1,
+      "theme": "природа",
+      "pair": "д/т",
+      "prompt": "_рава",
+      "answer": "трава",
+      "accept": [
+        "трава"
+      ],
+      "emoji": "🌿"
+    },
+    {
+      "id": "fl_003",
+      "level": 1,
+      "theme": "природа",
+      "pair": "д/т",
+      "prompt": "_орога",
+      "answer": "дорога",
+      "accept": [
+        "дорога"
+      ]
+    },
+    {
+      "id": "fl_004",
+      "level": 1,
+      "theme": "природа",
+      "pair": "д/т",
+      "prompt": "_етерев",
+      "answer": "тетерев",
+      "accept": [
+        "тетерев"
+      ]
+    },
+    {
+      "id": "fl_005",
+      "level": 2,
+      "theme": "природа",
+      "pair": "д/т",
+      "prompt": "_ятел",
+      "answer": "дятел",
+      "accept": [
+        "дятел"
+      ]
+    },
+    {
+      "id": "fl_006",
+      "level": 1,
+      "theme": "быт",
+      "pair": "д/т",
+      "prompt": "_елефон",
+      "answer": "телефон",
+      "accept": [
+        "телефон"
+      ],
+      "emoji": "☎️"
+    },
+    {
+      "id": "fl_007",
+      "level": 1,
+      "theme": "быт",
+      "pair": "д/т",
+      "prompt": "_иван",
+      "answer": "диван",
+      "accept": [
+        "диван"
+      ],
+      "emoji": "🛋️"
+    },
+    {
+      "id": "fl_008",
+      "level": 2,
+      "theme": "быт",
+      "pair": "д/т",
+      "prompt": "_арелка",
+      "answer": "тарелка",
+      "accept": [
+        "тарелка"
+      ],
+      "emoji": "🍽️"
+    },
+    {
+      "id": "fl_009",
+      "level": 2,
+      "theme": "быт",
+      "pair": "д/т",
+      "prompt": "_еньги",
+      "answer": "деньги",
+      "accept": [
+        "деньги"
+      ]
+    },
+    {
+      "id": "fl_010",
+      "level": 1,
+      "theme": "сварка",
+      "pair": "д/т",
+      "prompt": "_руба",
+      "answer": "труба",
+      "accept": [
+        "труба"
+      ]
+    },
+    {
+      "id": "fl_011",
+      "level": 2,
+      "theme": "сварка",
+      "pair": "д/т",
+      "prompt": "_еталь",
+      "answer": "деталь",
+      "accept": [
+        "деталь"
+      ]
+    },
+    {
+      "id": "fl_012",
+      "level": 2,
+      "theme": "сварка",
+      "pair": "д/т",
+      "prompt": "элек_род",
+      "answer": "электрод",
+      "accept": [
+        "электрод"
+      ]
+    },
+    {
+      "id": "fl_013",
+      "level": 1,
+      "theme": "рыбалка",
+      "pair": "д/т",
+      "prompt": "у_очка",
+      "answer": "удочка",
+      "accept": [
+        "удочка"
+      ]
+    },
+    {
+      "id": "fl_014",
+      "level": 2,
+      "theme": "рыбалка",
+      "pair": "д/т",
+      "prompt": "_но (реки)",
+      "answer": "дно",
+      "accept": [
+        "дно"
+      ]
+    },
+    {
+      "id": "fl_015",
+      "level": 3,
+      "theme": "природа",
+      "pair": "д/т",
+      "prompt": "лис_ья",
+      "answer": "листья",
+      "accept": [
+        "листья"
+      ]
+    },
+    {
+      "id": "fl_016",
+      "level": 1,
+      "theme": "быт",
+      "pair": "б/п",
+      "prompt": "_очта",
+      "answer": "почта",
+      "accept": [
+        "почта"
+      ]
+    },
+    {
+      "id": "fl_017",
+      "level": 1,
+      "theme": "быт",
+      "pair": "б/п",
+      "prompt": "_улка",
+      "answer": "булка",
+      "accept": [
+        "булка"
+      ]
+    },
+    {
+      "id": "fl_018",
+      "level": 1,
+      "theme": "быт",
+      "pair": "б/п",
+      "prompt": "_альто",
+      "answer": "пальто",
+      "accept": [
+        "пальто"
+      ],
+      "emoji": "🧥"
+    },
+    {
+      "id": "fl_019",
+      "level": 1,
+      "theme": "быт",
+      "pair": "б/п",
+      "prompt": "_олотенце",
+      "answer": "полотенце",
+      "accept": [
+        "полотенце"
+      ]
+    },
+    {
+      "id": "fl_020",
+      "level": 2,
+      "theme": "быт",
+      "pair": "б/п",
+      "prompt": "_аспорт",
+      "answer": "паспорт",
+      "accept": [
+        "паспорт"
+      ]
+    },
+    {
+      "id": "fl_021",
+      "level": 2,
+      "theme": "быт",
+      "pair": "б/п",
+      "prompt": "_утылка",
+      "answer": "бутылка",
+      "accept": [
+        "бутылка"
+      ]
+    },
+    {
+      "id": "fl_022",
+      "level": 2,
+      "theme": "быт",
+      "pair": "б/п",
+      "prompt": "_омидор",
+      "answer": "помидор",
+      "accept": [
+        "помидор"
+      ],
+      "emoji": "🍅"
+    },
+    {
+      "id": "fl_023",
+      "level": 1,
+      "theme": "природа",
+      "pair": "б/п",
+      "prompt": "_ерёза",
+      "answer": "берёза",
+      "accept": [
+        "берёза"
+      ]
+    },
+    {
+      "id": "fl_024",
+      "level": 2,
+      "theme": "природа",
+      "pair": "б/п",
+      "prompt": "_аук",
+      "answer": "паук",
+      "accept": [
+        "паук"
+      ],
+      "emoji": "🕷️"
+    },
+    {
+      "id": "fl_025",
+      "level": 1,
+      "theme": "рыбалка",
+      "pair": "б/п",
+      "prompt": "_оплавок",
+      "answer": "поплавок",
+      "accept": [
+        "поплавок"
+      ]
+    },
+    {
+      "id": "fl_026",
+      "level": 2,
+      "theme": "рыбалка",
+      "pair": "б/п",
+      "prompt": "ры_алка",
+      "answer": "рыбалка",
+      "accept": [
+        "рыбалка"
+      ]
+    },
+    {
+      "id": "fl_027",
+      "level": 1,
+      "theme": "рыбалка",
+      "pair": "б/п",
+      "prompt": "_ерег",
+      "answer": "берег",
+      "accept": [
+        "берег"
+      ]
+    },
+    {
+      "id": "fl_028",
+      "level": 2,
+      "theme": "сварка",
+      "pair": "б/п",
+      "prompt": "_аллон",
+      "answer": "баллон",
+      "accept": [
+        "баллон"
+      ]
+    },
+    {
+      "id": "fl_029",
+      "level": 2,
+      "theme": "сварка",
+      "pair": "б/п",
+      "prompt": "_ерчатки",
+      "answer": "перчатки",
+      "accept": [
+        "перчатки"
+      ]
+    },
+    {
+      "id": "fl_030",
+      "level": 3,
+      "theme": "быт",
+      "pair": "б/п",
+      "prompt": "_утерброд",
+      "answer": "бутерброд",
+      "accept": [
+        "бутерброд"
+      ]
+    },
+    {
+      "id": "fl_031",
+      "level": 1,
+      "theme": "природа",
+      "pair": "г/к",
+      "prompt": "_рибы",
+      "answer": "грибы",
+      "accept": [
+        "грибы"
+      ]
+    },
+    {
+      "id": "fl_032",
+      "level": 1,
+      "theme": "природа",
+      "pair": "г/к",
+      "prompt": "_лён",
+      "answer": "клён",
+      "accept": [
+        "клён"
+      ]
+    },
+    {
+      "id": "fl_033",
+      "level": 1,
+      "theme": "природа",
+      "pair": "г/к",
+      "prompt": "_орох",
+      "answer": "горох",
+      "accept": [
+        "горох"
+      ]
+    },
+    {
+      "id": "fl_034",
+      "level": 2,
+      "theme": "природа",
+      "pair": "г/к",
+      "prompt": "_орова",
+      "answer": "корова",
+      "accept": [
+        "корова"
+      ]
+    },
+    {
+      "id": "fl_035",
+      "level": 1,
+      "theme": "быт",
+      "pair": "г/к",
+      "prompt": "_олбаса",
+      "answer": "колбаса",
+      "accept": [
+        "колбаса"
+      ]
+    },
+    {
+      "id": "fl_036",
+      "level": 1,
+      "theme": "быт",
+      "pair": "г/к",
+      "prompt": "_артофель",
+      "answer": "картофель",
+      "accept": [
+        "картофель"
+      ]
+    },
+    {
+      "id": "fl_037",
+      "level": 1,
+      "theme": "быт",
+      "pair": "г/к",
+      "prompt": "_апуста",
+      "answer": "капуста",
+      "accept": [
+        "капуста"
+      ]
+    },
+    {
+      "id": "fl_038",
+      "level": 2,
+      "theme": "быт",
+      "pair": "г/к",
+      "prompt": "_азета",
+      "answer": "газета",
+      "accept": [
+        "газета"
+      ]
+    },
+    {
+      "id": "fl_039",
+      "level": 2,
+      "theme": "быт",
+      "pair": "г/к",
+      "prompt": "_астрюля",
+      "answer": "кастрюля",
+      "accept": [
+        "кастрюля"
+      ]
+    },
+    {
+      "id": "fl_040",
+      "level": 2,
+      "theme": "быт",
+      "pair": "г/к",
+      "prompt": "_уртка",
+      "answer": "куртка",
+      "accept": [
+        "куртка"
+      ]
+    },
+    {
+      "id": "fl_041",
+      "level": 1,
+      "theme": "сварка",
+      "pair": "г/к",
+      "prompt": "_абель",
+      "answer": "кабель",
+      "accept": [
+        "кабель"
+      ]
+    },
+    {
+      "id": "fl_042",
+      "level": 2,
+      "theme": "сварка",
+      "pair": "г/к",
+      "prompt": "ис_ра",
+      "answer": "искра",
+      "accept": [
+        "искра"
+      ]
+    },
+    {
+      "id": "fl_043",
+      "level": 1,
+      "theme": "рыбалка",
+      "pair": "г/к",
+      "prompt": "_рючок",
+      "answer": "крючок",
+      "accept": [
+        "крючок"
+      ]
+    },
+    {
+      "id": "fl_044",
+      "level": 2,
+      "theme": "рыбалка",
+      "pair": "г/к",
+      "prompt": "_оряга",
+      "answer": "коряга",
+      "accept": [
+        "коряга"
+      ]
+    },
+    {
+      "id": "fl_045",
+      "level": 3,
+      "theme": "природа",
+      "pair": "г/к",
+      "prompt": "_амыш",
+      "answer": "камыш",
+      "accept": [
+        "камыш"
+      ]
+    },
+    {
+      "id": "fl_046",
+      "level": 1,
+      "theme": "природа",
+      "pair": "л/н",
+      "prompt": "_ес",
+      "answer": "лес",
+      "accept": [
+        "лес"
+      ]
+    },
+    {
+      "id": "fl_047",
+      "level": 1,
+      "theme": "природа",
+      "pair": "л/н",
+      "prompt": "_ебо",
+      "answer": "небо",
+      "accept": [
+        "небо"
+      ]
+    },
+    {
+      "id": "fl_048",
+      "level": 1,
+      "theme": "природа",
+      "pair": "л/н",
+      "prompt": "_уна",
+      "answer": "луна",
+      "accept": [
+        "луна"
+      ]
+    },
+    {
+      "id": "fl_049",
+      "level": 2,
+      "theme": "природа",
+      "pair": "л/н",
+      "prompt": "_ора (лисья)",
+      "answer": "нора",
+      "accept": [
+        "нора"
+      ]
+    },
+    {
+      "id": "fl_050",
+      "level": 2,
+      "theme": "природа",
+      "pair": "л/н",
+      "prompt": "_иства",
+      "answer": "листва",
+      "accept": [
+        "листва"
+      ]
+    },
+    {
+      "id": "fl_051",
+      "level": 1,
+      "theme": "быт",
+      "pair": "л/н",
+      "prompt": "_ампа",
+      "answer": "лампа",
+      "accept": [
+        "лампа"
+      ]
+    },
+    {
+      "id": "fl_052",
+      "level": 1,
+      "theme": "быт",
+      "pair": "л/н",
+      "prompt": "_ож (столовый)",
+      "answer": "нож",
+      "accept": [
+        "нож"
+      ]
+    },
+    {
+      "id": "fl_053",
+      "level": 2,
+      "theme": "быт",
+      "pair": "л/н",
+      "prompt": "_ожка",
+      "answer": "ложка",
+      "accept": [
+        "ложка"
+      ]
+    },
+    {
+      "id": "fl_054",
+      "level": 2,
+      "theme": "быт",
+      "pair": "л/н",
+      "prompt": "_итки (для вязания)",
+      "answer": "нитки",
+      "accept": [
+        "нитки"
+      ]
+    },
+    {
+      "id": "fl_055",
+      "level": 1,
+      "theme": "рыбалка",
+      "pair": "л/н",
+      "prompt": "_одка",
+      "answer": "лодка",
+      "accept": [
+        "лодка"
+      ]
+    },
+    {
+      "id": "fl_056",
+      "level": 2,
+      "theme": "рыбалка",
+      "pair": "л/н",
+      "prompt": "_аживка",
+      "answer": "наживка",
+      "accept": [
+        "наживка"
+      ]
+    },
+    {
+      "id": "fl_057",
+      "level": 1,
+      "theme": "рыбалка",
+      "pair": "л/н",
+      "prompt": "_ещ",
+      "answer": "лещ",
+      "accept": [
+        "лещ"
+      ]
+    },
+    {
+      "id": "fl_058",
+      "level": 2,
+      "theme": "сварка",
+      "pair": "л/н",
+      "prompt": "ме_алл",
+      "answer": "металл",
+      "accept": [
+        "металл"
+      ]
+    },
+    {
+      "id": "fl_059",
+      "level": 3,
+      "theme": "природа",
+      "pair": "л/н",
+      "prompt": "ос_нь",
+      "answer": "осень",
+      "accept": [
+        "осень"
+      ]
+    },
+    {
+      "id": "fl_060",
+      "level": 3,
+      "theme": "природа",
+      "pair": "л/н",
+      "prompt": "со_нце",
+      "answer": "солнце",
+      "accept": [
+        "солнце"
+      ]
+    },
+    {
+      "id": "fl_061",
+      "level": 1,
+      "theme": "быт",
+      "pair": "з/с",
+      "prompt": "_уп",
+      "answer": "суп",
+      "accept": [
+        "суп"
+      ]
+    },
+    {
+      "id": "fl_062",
+      "level": 1,
+      "theme": "быт",
+      "pair": "з/с",
+      "prompt": "_еркало",
+      "answer": "зеркало",
+      "accept": [
+        "зеркало"
+      ]
+    },
+    {
+      "id": "fl_063",
+      "level": 1,
+      "theme": "быт",
+      "pair": "з/с",
+      "prompt": "_оль",
+      "answer": "соль",
+      "accept": [
+        "соль"
+      ]
+    },
+    {
+      "id": "fl_064",
+      "level": 2,
+      "theme": "быт",
+      "pair": "з/с",
+      "prompt": "_онт",
+      "answer": "зонт",
+      "accept": [
+        "зонт"
+      ]
+    },
+    {
+      "id": "fl_065",
+      "level": 2,
+      "theme": "быт",
+      "pair": "з/с",
+      "prompt": "_тол",
+      "answer": "стол",
+      "accept": [
+        "стол"
+      ]
+    },
+    {
+      "id": "fl_066",
+      "level": 1,
+      "theme": "природа",
+      "pair": "з/с",
+      "prompt": "_аяц",
+      "answer": "заяц",
+      "accept": [
+        "заяц"
+      ]
+    },
+    {
+      "id": "fl_067",
+      "level": 1,
+      "theme": "природа",
+      "pair": "з/с",
+      "prompt": "_осна",
+      "answer": "сосна",
+      "accept": [
+        "сосна"
+      ]
+    },
+    {
+      "id": "fl_068",
+      "level": 2,
+      "theme": "природа",
+      "pair": "з/с",
+      "prompt": "_вери",
+      "answer": "звери",
+      "accept": [
+        "звери"
+      ]
+    },
+    {
+      "id": "fl_069",
+      "level": 2,
+      "theme": "природа",
+      "pair": "з/с",
+      "prompt": "ро_а (на траве)",
+      "answer": "роса",
+      "accept": [
+        "роса"
+      ]
+    },
+    {
+      "id": "fl_070",
+      "level": 1,
+      "theme": "рыбалка",
+      "pair": "з/с",
+      "prompt": "_еть",
+      "answer": "сеть",
+      "accept": [
+        "сеть"
+      ]
+    },
+    {
+      "id": "fl_071",
+      "level": 2,
+      "theme": "рыбалка",
+      "pair": "з/с",
+      "prompt": "о_еро",
+      "answer": "озеро",
+      "accept": [
+        "озеро"
+      ]
+    },
+    {
+      "id": "fl_072",
+      "level": 1,
+      "theme": "сварка",
+      "pair": "з/с",
+      "prompt": "_варка",
+      "answer": "сварка",
+      "accept": [
+        "сварка"
+      ]
+    },
+    {
+      "id": "fl_073",
+      "level": 2,
+      "theme": "сварка",
+      "pair": "з/с",
+      "prompt": "_аготовка",
+      "answer": "заготовка",
+      "accept": [
+        "заготовка"
+      ]
+    },
+    {
+      "id": "fl_074",
+      "level": 3,
+      "theme": "природа",
+      "pair": "з/с",
+      "prompt": "моро_",
+      "answer": "мороз",
+      "accept": [
+        "мороз"
+      ]
+    },
+    {
+      "id": "fl_075",
+      "level": 3,
+      "theme": "быт",
+      "pair": "з/с",
+      "prompt": "гла_",
+      "answer": "глаз",
+      "accept": [
+        "глаз"
+      ]
+    },
+    {
+      "id": "fl_076",
+      "level": 1,
+      "theme": "природа",
+      "pair": "ж/ш",
+      "prompt": "_ук",
+      "answer": "жук",
+      "accept": [
+        "жук"
+      ]
+    },
+    {
+      "id": "fl_077",
+      "level": 1,
+      "theme": "природа",
+      "pair": "ж/ш",
+      "prompt": "_ишка",
+      "answer": "шишка",
+      "accept": [
+        "шишка"
+      ]
+    },
+    {
+      "id": "fl_078",
+      "level": 2,
+      "theme": "природа",
+      "pair": "ж/ш",
+      "prompt": "_ёлудь",
+      "answer": "жёлудь",
+      "accept": [
+        "жёлудь"
+      ]
+    },
+    {
+      "id": "fl_079",
+      "level": 1,
+      "theme": "быт",
+      "pair": "ж/ш",
+      "prompt": "_каф",
+      "answer": "шкаф",
+      "accept": [
+        "шкаф"
+      ]
+    },
+    {
+      "id": "fl_080",
+      "level": 2,
+      "theme": "быт",
+      "pair": "ж/ш",
+      "prompt": "но_ницы",
+      "answer": "ножницы",
+      "accept": [
+        "ножницы"
+      ]
+    },
+    {
+      "id": "fl_081",
+      "level": 2,
+      "theme": "быт",
+      "pair": "ж/ш",
+      "prompt": "_апка",
+      "answer": "шапка",
+      "accept": [
+        "шапка"
+      ]
+    },
+    {
+      "id": "fl_082",
+      "level": 1,
+      "theme": "рыбалка",
+      "pair": "ж/ш",
+      "prompt": "_ука",
+      "answer": "щука",
+      "accept": [
+        "щука"
+      ]
+    },
+    {
+      "id": "fl_083",
+      "level": 2,
+      "theme": "рыбалка",
+      "pair": "ж/ш",
+      "prompt": "е_ (рыба)",
+      "answer": "ёрш",
+      "accept": [
+        "ёрш",
+        "ерш"
+      ]
+    },
+    {
+      "id": "fl_084",
+      "level": 2,
+      "theme": "сварка",
+      "pair": "ж/ш",
+      "prompt": "_ов",
+      "answer": "шов",
+      "accept": [
+        "шов"
+      ]
+    },
+    {
+      "id": "fl_085",
+      "level": 3,
+      "theme": "сварка",
+      "pair": "ж/ш",
+      "prompt": "_елезо",
+      "answer": "железо",
+      "accept": [
+        "железо"
+      ]
+    },
+    {
+      "id": "fl_086",
+      "level": 2,
+      "theme": "природа",
+      "pair": "ж/ш",
+      "prompt": "ё_ (лесной)",
+      "answer": "ёж",
+      "accept": [
+        "ёж",
+        "еж"
+      ]
+    },
+    {
+      "id": "fl_087",
+      "level": 3,
+      "theme": "природа",
+      "pair": "ж/ш",
+      "prompt": "камы_",
+      "answer": "камыш",
+      "accept": [
+        "камыш"
+      ]
+    },
+    {
+      "id": "fl_088",
+      "level": 1,
+      "theme": "быт",
+      "pair": "ж/ш",
+      "prompt": "_арф",
+      "answer": "шарф",
+      "accept": [
+        "шарф"
+      ]
+    },
+    {
+      "id": "fl_089",
+      "level": 1,
+      "theme": "быт",
+      "pair": "ц/ч",
+      "prompt": "_асы",
+      "answer": "часы",
+      "accept": [
+        "часы"
+      ]
+    },
+    {
+      "id": "fl_090",
+      "level": 1,
+      "theme": "быт",
+      "pair": "ц/ч",
+      "prompt": "_айник",
+      "answer": "чайник",
+      "accept": [
+        "чайник"
+      ]
+    },
+    {
+      "id": "fl_091",
+      "level": 1,
+      "theme": "быт",
+      "pair": "ц/ч",
+      "prompt": "_емодан",
+      "answer": "чемодан",
+      "accept": [
+        "чемодан"
+      ]
+    },
+    {
+      "id": "fl_092",
+      "level": 2,
+      "theme": "быт",
+      "pair": "ц/ч",
+      "prompt": "_емент",
+      "answer": "цемент",
+      "accept": [
+        "цемент"
+      ]
+    },
+    {
+      "id": "fl_093",
+      "level": 2,
+      "theme": "быт",
+      "pair": "ц/ч",
+      "prompt": "ули_а",
+      "answer": "улица",
+      "accept": [
+        "улица"
+      ]
+    },
+    {
+      "id": "fl_094",
+      "level": 2,
+      "theme": "быт",
+      "pair": "ц/ч",
+      "prompt": "ру_ка",
+      "answer": "ручка",
+      "accept": [
+        "ручка"
+      ]
+    },
+    {
+      "id": "fl_095",
+      "level": 1,
+      "theme": "природа",
+      "pair": "ц/ч",
+      "prompt": "_апля",
+      "answer": "цапля",
+      "accept": [
+        "цапля"
+      ]
+    },
+    {
+      "id": "fl_096",
+      "level": 2,
+      "theme": "природа",
+      "pair": "ц/ч",
+      "prompt": "ов_а (домашняя)",
+      "answer": "овца",
+      "accept": [
+        "овца"
+      ]
+    },
+    {
+      "id": "fl_097",
+      "level": 2,
+      "theme": "природа",
+      "pair": "ц/ч",
+      "prompt": "_ерепаха",
+      "answer": "черепаха",
+      "accept": [
+        "черепаха"
+      ]
+    },
+    {
+      "id": "fl_098",
+      "level": 3,
+      "theme": "рыбалка",
+      "pair": "ц/ч",
+      "prompt": "_айка (над озером)",
+      "answer": "чайка",
+      "accept": [
+        "чайка"
+      ]
+    },
+    {
+      "id": "fl_099",
+      "level": 3,
+      "theme": "природа",
+      "pair": "ц/ч",
+      "prompt": "огуре_ (с грядки)",
+      "answer": "огурец",
+      "accept": [
+        "огурец"
+      ]
+    },
+    {
+      "id": "fl_100",
+      "level": 3,
+      "theme": "быт",
+      "pair": "ц/ч",
+      "prompt": "ре_епт (от врача)",
+      "answer": "рецепт",
+      "accept": [
+        "рецепт"
+      ]
+    }
   ]
 }

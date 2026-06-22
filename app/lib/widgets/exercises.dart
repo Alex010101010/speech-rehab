@@ -59,6 +59,7 @@ class ExerciseScaffold extends StatelessWidget {
   final TtsService tts;
   final String nextLabel;
   final String? imagePath; // картинка-подсказка (если есть)
+  final String? emoji; // значок-подсказка (если нет картинки)
   const ExerciseScaffold({
     super.key,
     required this.prompt,
@@ -69,6 +70,7 @@ class ExerciseScaffold extends StatelessWidget {
     required this.tts,
     this.nextLabel = 'Дальше',
     this.imagePath,
+    this.emoji,
   });
 
   @override
@@ -86,6 +88,11 @@ class ExerciseScaffold extends StatelessWidget {
                     child: Image.asset(imagePath!,
                         height: 200,
                         errorBuilder: (_, __, ___) => const SizedBox.shrink()),
+                  ),
+                  const SizedBox(height: 16),
+                ] else if (emoji != null && emoji!.isNotEmpty) ...[
+                  Center(
+                    child: Text(emoji!, style: const TextStyle(fontSize: 110)),
                   ),
                   const SizedBox(height: 16),
                 ],
@@ -215,12 +222,14 @@ class _ChoiceExerciseState extends State<ChoiceExercise> {
   Widget build(BuildContext context) {
     final prompt = displayPrompt(widget.type, widget.item);
     final img = (widget.item['image'] ?? '').toString();
+    final emoji = (widget.item['emoji'] ?? '').toString();
     final options = _options;
     final canHint = !widget.errorless && _wrongLeft(options).length > 1;
     return ExerciseScaffold(
       prompt: prompt,
       tts: widget.tts,
       imagePath: img.isEmpty ? null : 'assets/content/img/$img',
+      emoji: emoji.isEmpty ? null : emoji,
       solved: _solved,
       hint: widget.errorless
           ? 'Это правильный ответ — нажмите его'
@@ -392,10 +401,12 @@ class _TypedExerciseState extends State<TypedExercise> {
   Widget build(BuildContext context) {
     final prompt = displayPrompt(widget.type, widget.item);
     final img = (widget.item['image'] ?? '').toString();
+    final emoji = (widget.item['emoji'] ?? '').toString();
     return ExerciseScaffold(
       prompt: prompt,
       tts: widget.tts,
       imagePath: img.isEmpty ? null : 'assets/content/img/$img',
+      emoji: emoji.isEmpty ? null : emoji,
       hint: _hint,
       solved: _solved,
       onNext: () => widget.onResult(_outcome()),
