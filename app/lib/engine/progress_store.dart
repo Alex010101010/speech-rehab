@@ -8,6 +8,7 @@ class Progress {
   int correct;
   int level; // производное «общее» (среднее по навыкам) — для экрана и наград
   Map<String, int> skillLevels; // уровень на каждый навык (тип задания)
+  bool pictureMode; // картиночный режим: словарные задания только узнаванием (L0)
   Set<String> achievements;
   Set<String> days; // строки "yyyy-mm-dd"
 
@@ -17,6 +18,7 @@ class Progress {
     this.correct = 0,
     this.level = 1,
     Map<String, int>? skillLevels,
+    this.pictureMode = false,
     Set<String>? achievements,
     Set<String>? days,
   })  : skillLevels = skillLevels ?? <String, int>{},
@@ -29,6 +31,7 @@ class Progress {
         'correct': correct,
         'level': level,
         'skillLevels': skillLevels,
+        'pictureMode': pictureMode,
         'achievements': achievements.toList(),
         'days': days.toList(),
       };
@@ -40,6 +43,7 @@ class Progress {
         level: (j['level'] ?? 1) as int,
         skillLevels: ((j['skillLevels'] ?? const {}) as Map)
             .map((k, v) => MapEntry(k.toString(), (v as num).toInt())),
+        pictureMode: (j['pictureMode'] ?? false) as bool,
         achievements: ((j['achievements'] ?? const []) as List)
             .map((e) => e.toString())
             .toSet(),

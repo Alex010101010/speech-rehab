@@ -363,6 +363,118 @@ class _ChoiceExerciseState extends State<ChoiceExercise> {
   }
 }
 
+// ---------- картинка → слово (этаж L0, узнавание) ----------
+
+/// До-вербальный пол лестницы: показываем картинку и просим выбрать слово.
+/// Узнавание (а не воспроизведение) — самая нижняя ступень для грубой формы.
+class PictureWordExercise extends StatefulWidget {
+  final Map<String, dynamic> item;
+  final TtsService tts;
+  final void Function(StepOutcome) onResult;
+  final bool errorless;
+  const PictureWordExercise(
+      {super.key,
+      required this.item,
+      required this.tts,
+      required this.onResult,
+      this.errorless = false});
+  @override
+  State<PictureWordExercise> createState() => _PictureWordExerciseState();
+}
+
+class _PictureWordExerciseState extends State<PictureWordExercise> {
+  String? _wrongPick;
+  bool _solved = false;
+  bool _revealed = false; // ответ показан по «Не знаю» — засчитываем как неверный
+
+  String get _answer => (widget.item['answer'] ?? '').toString();
+  bool _isCorrect(String o) => normalize(o) == normalize(_answer);
+
+  // правильный ответ в контенте стоит первым — перемешиваем один раз
+  late final List<String> _options =
+      ((widget.item['options'] as List?) ?? const [])
+          .map((e) => e.toString())
+          .toList()
+        ..shuffle();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.errorless) {
+      _solved = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (_answer.isNotEmpty) widget.tts.speak('Это $_answer');
+      });
+    }
+  }
+
+  StepOutcome _outcome() {
+    if (widget.errorless) {
+      return const StepOutcome(correct: true, unaided: false, gradeable: false);
+    }
+    return StepOutcome(
+      correct: !_revealed,
+      unaided: !_revealed && _wrongPick == null,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final img = (widget.item['image'] ?? '').toString();
+    final emoji = (widget.item['emoji'] ?? '').toString();
+    return ExerciseScaffold(
+      prompt: 'Как это называется?',
+      tts: widget.tts,
+      imagePath: img.isEmpty ? null : 'assets/content/img/$img',
+      emoji: img.isEmpty && emoji.isNotEmpty ? emoji : null,
+      solved: _solved,
+      hint: widget.errorless
+          ? 'Это правильный ответ — нажмите его'
+          : (_solved
+              ? (_revealed ? 'Правильный ответ показан' : 'Верно!')
+              : (_wrongPick != null ? 'Попробуйте ещё раз' : 'Выберите слово')),
+      onNext: () => widget.onResult(_outcome()),
+      child: Column(
+        children: [
+          for (final o in _options)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 14),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: (_solved || widget.errorless) && _isCorrect(o)
+                      ? Colors.green.shade100
+                      : (_wrongPick == o ? Colors.orange.shade100 : null),
+                ),
+                onPressed: _solved
+                    ? null
+                    : () {
+                        if (_isCorrect(o)) {
+                          setState(() => _solved = true);
+                          widget.tts.speak('Верно. $o');
+                        } else {
+                          setState(() => _wrongPick = o);
+                        }
+                      },
+                child: Text(o, textAlign: TextAlign.center),
+              ),
+            ),
+          if (!_solved && !widget.errorless)
+            OutlinedButton(
+              onPressed: () {
+                setState(() {
+                  _revealed = true;
+                  _solved = true;
+                });
+                if (_answer.isNotEmpty) widget.tts.speak('Это $_answer');
+              },
+              child: const Text('Не знаю'),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
 // ---------- ввод текста ----------
 
 class TypedExercise extends StatefulWidget {

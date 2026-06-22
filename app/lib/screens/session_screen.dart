@@ -32,6 +32,16 @@ class _SessionScreenState extends State<SessionScreen> {
   final Map<String, int> _down = {}; // серии ошибок по типу
   final Set<String> _errorlessTypes = {}; // типам: след. core-шаг безошибочно
 
+  // Навыки на слово/смысл, у которых есть до-вербальный пол L0 (картинка→слово).
+  static const _picturable = {
+    'name_by_description',
+    'fill_letter',
+    'generalization',
+    'synonyms_antonyms',
+  };
+  bool _isPicturable(String t) => _picturable.contains(t);
+  bool get _pictureMode => widget.store.progress.pictureMode;
+
   // уровень навыка с ленивым засевом из сохранёнки (или старого общего level)
   int _levelFor(String t) => _skill[t] ??=
       (widget.store.progress.skillLevels[t] ?? widget.store.progress.level);
@@ -59,7 +69,7 @@ class _SessionScreenState extends State<SessionScreen> {
   void initState() {
     super.initState();
     _builder = SessionBuilder(widget.repo);
-    _plan = _builder.buildPlan();
+    _plan = _builder.buildPlan(pictureMode: _pictureMode);
     if (_plan.isEmpty) {
       _done = true;
     } else {
@@ -74,13 +84,20 @@ class _SessionScreenState extends State<SessionScreen> {
     final lvl = slot.fixedEasy
         ? 1
         : (slot.role == 'core' ? _levelFor(slot.type) : _overallLevel);
-    final item = _builder.pickItem(slot.type, lvl, _usedItems);
+    // этаж L0: словарный core опускается до узнавания при провале L1 (lvl==0)
+    // или принудительно в картиночном режиме
+    final useL0 = slot.role == 'core' &&
+        _isPicturable(slot.type) &&
+        (_pictureMode || lvl == 0);
+    final type = useL0 ? 'picture_word' : slot.type;
+    final pickLevel = useL0 ? 0 : lvl;
+    final item = _builder.pickItem(type, pickLevel, _usedItems);
     if (item.isNotEmpty) _usedItems.add(item);
-    final m = renderModeFor(slot.type);
-    final canErrorless = m == RenderMode.choice || m == RenderMode.typed;
+    final m = renderModeFor(type);
+    final canErrorless = useL0 || m == RenderMode.choice || m == RenderMode.typed;
     _errorlessCurrent =
         slot.role == 'core' && canErrorless && _errorlessTypes.remove(slot.type);
-    _current = SessionStep(slot.type, _builder.titleFor(slot.type), item, slot.role);
+    _current = SessionStep(type, _builder.titleFor(type), item, slot.role);
   }
 
   /// Лестница на навык: вниз быстро (2 ошибки подряд), вверх осторожно
@@ -90,6 +107,7 @@ class _SessionScreenState extends State<SessionScreen> {
     if (!o.gradeable || slot.role != 'core') return;
     final t = slot.type;
     final cur = _levelFor(t);
+    final floor = _isPicturable(t) ? 0 : 1; // у словарных навыков пол — L0 (картинка)
     if (o.correct && o.unaided) {
       _up[t] = (_up[t] ?? 0) + 1;
       _down[t] = 0;
@@ -101,7 +119,7 @@ class _SessionScreenState extends State<SessionScreen> {
       _down[t] = (_down[t] ?? 0) + 1;
       _up[t] = 0;
       if (_down[t]! >= 2) {
-        if (cur > 1) {
+        if (cur > floor) {
           _skill[t] = cur - 1;
           _down[t] = 0;
         } else {
@@ -179,6 +197,14 @@ class _SessionScreenState extends State<SessionScreen> {
   Widget _render(SessionStep step) {
     final key = ValueKey('${_reviewing ? 'r$_ri' : 'p$_i'}');
     final errorless = !_reviewing && _errorlessCurrent;
+    if (step.type == 'picture_word') {
+      return PictureWordExercise(
+          key: key,
+          item: step.item,
+          tts: widget.tts,
+          onResult: _onOutcome,
+          errorless: errorless);
+    }
     if (step.type == 'find_error') {
       return FixErrorExercise(
           key: key, item: step.item, tts: widget.tts, onResult: _onOutcome);

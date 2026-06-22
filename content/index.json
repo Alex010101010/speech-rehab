@@ -1,7 +1,7 @@
 {
   "pack": "speech-rehab-content-v1",
   "status": "logoped-reviewed",
-  "total_items": 1347,
+  "total_items": 1410,
   "types": [
     {
       "type": "find_error",
@@ -273,6 +273,15 @@
         "2": 5,
         "3": 4
       }
+    },
+    {
+      "type": "picture_word",
+      "title": "Покажите, как это называется",
+      "section": "0. Узнавание",
+      "file": "json/22_picture_word.json",
+      "count": 63,
+      "draft": true,
+      "advanced": false
     }
   ]
 }

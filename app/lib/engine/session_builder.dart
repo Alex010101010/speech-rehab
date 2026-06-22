@@ -27,8 +27,26 @@ class SessionBuilder {
   final Random _r = Random();
   SessionBuilder(this.repo);
 
-  List<SessionSlot> buildPlan() {
+  /// [pictureMode] — картиночный режим: только узнавание (картинка→слово) +
+  /// слухоречевая память; чтение исключаем (текст тяжёл для грубой формы).
+  List<SessionSlot> buildPlan({bool pictureMode = false}) {
     final plan = <SessionSlot>[];
+    if (pictureMode) {
+      plan.add(SessionSlot('picture_word', 'warmup', fixedEasy: true));
+      final core = <String>[
+        'name_by_description',
+        'fill_letter',
+        'generalization',
+        'synonyms_antonyms',
+      ]..shuffle(_r);
+      for (final t in core) {
+        plan.add(SessionSlot(t, 'core')); // _resolve опустит их в L0
+      }
+      plan.add(SessionSlot('memory_rows', 'memory'));
+      plan.add(SessionSlot('picture_word', 'cooldown', fixedEasy: true));
+      return plan;
+    }
+
     plan.add(SessionSlot('complete_phrase_choice', 'warmup', fixedEasy: true));
 
     final coreTypes = <String>[

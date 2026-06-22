@@ -103,11 +103,54 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressed: () => _showProgress(context, p),
                       child: const Text('Успехи'),
                     ),
+                    const SizedBox(height: 16),
+                    TextButton.icon(
+                      onPressed: () => _showSettings(context),
+                      icon: const Icon(Icons.settings_outlined),
+                      label: const Text('Настройки',
+                          style: TextStyle(fontSize: 18)),
+                    ),
                   ],
                 ),
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  void _showSettings(BuildContext context) {
+    final p = widget.store.progress;
+    showDialog(
+      context: context,
+      builder: (_) => StatefulBuilder(
+        builder: (context, setLocal) => AlertDialog(
+          title: const Text('Настройки'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SwitchListTile(
+                title: const Text('Картиночный режим',
+                    style: TextStyle(fontSize: 20)),
+                subtitle: const Text(
+                    'Словарные задания — только узнаванием по картинке',
+                    style: TextStyle(fontSize: 15)),
+                value: p.pictureMode,
+                onChanged: (v) async {
+                  setLocal(() => p.pictureMode = v);
+                  await widget.store.save();
+                  if (mounted) setState(() {});
+                },
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Закрыть', style: TextStyle(fontSize: 20)),
+            ),
+          ],
         ),
       ),
     );
