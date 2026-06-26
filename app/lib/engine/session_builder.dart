@@ -59,6 +59,8 @@ class SessionBuilder {
         'synonyms_antonyms',
         'fill_letter',
         'complete_phrase_choice',
+        'yesno_picture', // да/нет слово↔картинка — узнавание
+        'syllables', // собрать слово из слогов касанием
       ]..shuffle(_r);
       for (final t in lightCore.take(3)) {
         plan.add(SessionSlot(t, 'core'));

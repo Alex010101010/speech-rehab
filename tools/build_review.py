@@ -120,6 +120,17 @@ function renderItem(it, type) {
   if (it.task) card.append(fld('Тип', it.task));
   if (Array.isArray(it.options)) card.append(fld('Варианты', it.options.join('   |   ')));
   if (it.answer) card.append(fld('Ответ', it.answer));
+  if (Array.isArray(it.syllables)) card.append(fld('Слоги', it.syllables.join(' · ')));
+  if (it.word) card.append(fld('Слово', it.word + (it.match === true ? '  →  Да (совпадает)' : it.match === false ? '  →  Нет (не совпадает)' : '')));
+  if (it.image) {
+    const wrap = el('div', 'fld');
+    const l = el('div', 'lbl'); l.textContent = 'Картинка';
+    const img = el('img'); img.src = '../content/img/' + it.image; img.alt = it.image;
+    img.style.maxHeight = '160px'; img.style.maxWidth = '100%'; img.style.borderRadius = '8px';
+    // если файла нет — показать имя текстом вместо битой картинки
+    img.onerror = () => { const v = el('div', 'val'); v.textContent = it.image + ' (нет файла)'; img.replaceWith(v); };
+    wrap.append(l, img); card.append(wrap);
+  }
   if (Array.isArray(it.accept) && it.accept.length) card.append(fld('Также принимается', it.accept.join(', ')));
   if (Array.isArray(it.display)) card.append(fld('Ряд', it.display.join('   ·   ')));
   else if (Array.isArray(it.row)) card.append(fld('Ряд', it.row.join('   ·   ')));

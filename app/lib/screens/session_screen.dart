@@ -99,7 +99,11 @@ class _SessionScreenState extends State<SessionScreen> {
     final item = _builder.pickItem(type, pickLevel, _usedItems);
     if (item.isNotEmpty) _usedItems.add(item);
     final m = renderModeFor(type);
-    final canErrorless = useL0 || m == RenderMode.choice || m == RenderMode.typed;
+    final canErrorless = useL0 ||
+        m == RenderMode.choice ||
+        m == RenderMode.typed ||
+        type == 'yesno_picture' ||
+        type == 'syllables';
     _errorlessCurrent =
         slot.role == 'core' && canErrorless && _errorlessTypes.remove(slot.type);
     _current = SessionStep(type, _builder.titleFor(type), item, slot.role);
@@ -237,6 +241,22 @@ class _SessionScreenState extends State<SessionScreen> {
     }
     if (step.type == 'stress') {
       return StressExercise(
+          key: key,
+          item: step.item,
+          tts: widget.tts,
+          onResult: _onOutcome,
+          errorless: errorless);
+    }
+    if (step.type == 'yesno_picture') {
+      return YesNoPictureExercise(
+          key: key,
+          item: step.item,
+          tts: widget.tts,
+          onResult: _onOutcome,
+          errorless: errorless);
+    }
+    if (step.type == 'syllables') {
+      return SyllablesExercise(
           key: key,
           item: step.item,
           tts: widget.tts,

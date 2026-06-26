@@ -1,0 +1,1017 @@
+{
+  "type": "yesno_picture",
+  "title": "Это правильное слово?",
+  "section": "0. Узнавание",
+  "draft": false,
+  "count": 126,
+  "items": [
+    {
+      "id": "yn_001",
+      "level": 0,
+      "image": "teterev.png",
+      "word": "тетерев",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_002",
+      "level": 0,
+      "image": "teterev.png",
+      "word": "собака",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_003",
+      "level": 0,
+      "image": "telefon.png",
+      "word": "телефон",
+      "match": true,
+      "emoji": "☎️"
+    },
+    {
+      "id": "yn_004",
+      "level": 0,
+      "image": "telefon.png",
+      "word": "ваза",
+      "match": false,
+      "emoji": "☎️"
+    },
+    {
+      "id": "yn_005",
+      "level": 0,
+      "image": "divan.png",
+      "word": "диван",
+      "match": true,
+      "emoji": "🛋️"
+    },
+    {
+      "id": "yn_006",
+      "level": 0,
+      "image": "divan.png",
+      "word": "книга",
+      "match": false,
+      "emoji": "🛋️"
+    },
+    {
+      "id": "yn_007",
+      "level": 0,
+      "image": "tarelka.png",
+      "word": "тарелка",
+      "match": true,
+      "emoji": "🍽️"
+    },
+    {
+      "id": "yn_008",
+      "level": 0,
+      "image": "tarelka.png",
+      "word": "печь",
+      "match": false,
+      "emoji": "🍽️"
+    },
+    {
+      "id": "yn_009",
+      "level": 0,
+      "image": "dengi.png",
+      "word": "деньги",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_010",
+      "level": 0,
+      "image": "dengi.png",
+      "word": "конфеты",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_011",
+      "level": 0,
+      "image": "dno.png",
+      "word": "дно",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_012",
+      "level": 0,
+      "image": "dno.png",
+      "word": "бочка",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_013",
+      "level": 0,
+      "image": "listya.png",
+      "word": "листья",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_014",
+      "level": 0,
+      "image": "listya.png",
+      "word": "чайник",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_015",
+      "level": 0,
+      "image": "bulka.png",
+      "word": "булка",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_016",
+      "level": 0,
+      "image": "bulka.png",
+      "word": "молот",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_017",
+      "level": 0,
+      "image": "palto.png",
+      "word": "пальто",
+      "match": true,
+      "emoji": "🧥"
+    },
+    {
+      "id": "yn_018",
+      "level": 0,
+      "image": "palto.png",
+      "word": "шуба",
+      "match": false,
+      "emoji": "🧥"
+    },
+    {
+      "id": "yn_019",
+      "level": 0,
+      "image": "polotentse.png",
+      "word": "полотенце",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_020",
+      "level": 0,
+      "image": "polotentse.png",
+      "word": "скатерть",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_021",
+      "level": 0,
+      "image": "pasport.png",
+      "word": "паспорт",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_022",
+      "level": 0,
+      "image": "pasport.png",
+      "word": "кастрюля",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_023",
+      "level": 0,
+      "image": "butylka.png",
+      "word": "бутылка",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_024",
+      "level": 0,
+      "image": "butylka.png",
+      "word": "шарф",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_025",
+      "level": 0,
+      "image": "pomidor.png",
+      "word": "помидор",
+      "match": true,
+      "emoji": "🍅"
+    },
+    {
+      "id": "yn_026",
+      "level": 0,
+      "image": "pomidor.png",
+      "word": "листья",
+      "match": false,
+      "emoji": "🍅"
+    },
+    {
+      "id": "yn_027",
+      "level": 0,
+      "image": "pauk.png",
+      "word": "паук",
+      "match": true,
+      "emoji": "🕷️"
+    },
+    {
+      "id": "yn_028",
+      "level": 0,
+      "image": "pauk.png",
+      "word": "воробей",
+      "match": false,
+      "emoji": "🕷️"
+    },
+    {
+      "id": "yn_029",
+      "level": 0,
+      "image": "bereg.png",
+      "word": "берег",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_030",
+      "level": 0,
+      "image": "bereg.png",
+      "word": "горы",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_031",
+      "level": 0,
+      "image": "ballon.png",
+      "word": "баллон",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_032",
+      "level": 0,
+      "image": "ballon.png",
+      "word": "ведро",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_033",
+      "level": 0,
+      "image": "perchatki.png",
+      "word": "перчатки",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_034",
+      "level": 0,
+      "image": "perchatki.png",
+      "word": "валенки",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_035",
+      "level": 0,
+      "image": "buterbrod.png",
+      "word": "бутерброд",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_036",
+      "level": 0,
+      "image": "buterbrod.png",
+      "word": "огурец",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_037",
+      "level": 0,
+      "image": "griby.png",
+      "word": "грибы",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_038",
+      "level": 0,
+      "image": "griby.png",
+      "word": "камень",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_039",
+      "level": 0,
+      "image": "goroh.png",
+      "word": "горох",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_040",
+      "level": 0,
+      "image": "goroh.png",
+      "word": "сметана",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_041",
+      "level": 0,
+      "image": "korova.png",
+      "word": "корова",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_042",
+      "level": 0,
+      "image": "korova.png",
+      "word": "сова",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_043",
+      "level": 0,
+      "image": "kartofel.png",
+      "word": "картофель",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_044",
+      "level": 0,
+      "image": "kartofel.png",
+      "word": "банан",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_045",
+      "level": 0,
+      "image": "kapusta.png",
+      "word": "капуста",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_046",
+      "level": 0,
+      "image": "kapusta.png",
+      "word": "лук",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_047",
+      "level": 0,
+      "image": "gazeta.png",
+      "word": "газета",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_048",
+      "level": 0,
+      "image": "gazeta.png",
+      "word": "стол",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_049",
+      "level": 0,
+      "image": "kastryulya.png",
+      "word": "кастрюля",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_050",
+      "level": 0,
+      "image": "kastryulya.png",
+      "word": "чайник",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_051",
+      "level": 0,
+      "image": "kurtka.png",
+      "word": "куртка",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_052",
+      "level": 0,
+      "image": "kurtka.png",
+      "word": "шляпа",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_053",
+      "level": 0,
+      "image": "kabel.png",
+      "word": "кабель",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_054",
+      "level": 0,
+      "image": "kabel.png",
+      "word": "змея",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_055",
+      "level": 0,
+      "image": "nebo.png",
+      "word": "небо",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_056",
+      "level": 0,
+      "image": "nebo.png",
+      "word": "озеро",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_057",
+      "level": 0,
+      "image": "luna.png",
+      "word": "луна",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_058",
+      "level": 0,
+      "image": "luna.png",
+      "word": "яблоко",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_059",
+      "level": 0,
+      "image": "nora.png",
+      "word": "нора",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_060",
+      "level": 0,
+      "image": "nora.png",
+      "word": "дом",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_061",
+      "level": 0,
+      "image": "lampa.png",
+      "word": "лампа",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_062",
+      "level": 0,
+      "image": "lampa.png",
+      "word": "булка",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_063",
+      "level": 0,
+      "image": "nozh.png",
+      "word": "нож",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_064",
+      "level": 0,
+      "image": "nozh.png",
+      "word": "вилка",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_065",
+      "level": 0,
+      "image": "lozhka.png",
+      "word": "ложка",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_066",
+      "level": 0,
+      "image": "lozhka.png",
+      "word": "нож",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_067",
+      "level": 0,
+      "image": "nitki.png",
+      "word": "нитки",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_068",
+      "level": 0,
+      "image": "nitki.png",
+      "word": "шланг",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_069",
+      "level": 0,
+      "image": "lesch.png",
+      "word": "лещ",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_070",
+      "level": 0,
+      "image": "lesch.png",
+      "word": "гусь",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_071",
+      "level": 0,
+      "image": "solntse.png",
+      "word": "солнце",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_072",
+      "level": 0,
+      "image": "solntse.png",
+      "word": "рыба",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_073",
+      "level": 0,
+      "image": "sup.png",
+      "word": "суп",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_074",
+      "level": 0,
+      "image": "sup.png",
+      "word": "вино",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_075",
+      "level": 0,
+      "image": "zerkalo.png",
+      "word": "зеркало",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_076",
+      "level": 0,
+      "image": "zerkalo.png",
+      "word": "расческа",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_077",
+      "level": 0,
+      "image": "sol.png",
+      "word": "соль",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_078",
+      "level": 0,
+      "image": "sol.png",
+      "word": "песок",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_079",
+      "level": 0,
+      "image": "zont.png",
+      "word": "зонт",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_080",
+      "level": 0,
+      "image": "zont.png",
+      "word": "очки",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_081",
+      "level": 0,
+      "image": "zayats.png",
+      "word": "заяц",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_082",
+      "level": 0,
+      "image": "zayats.png",
+      "word": "орел",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_083",
+      "level": 0,
+      "image": "rosa.png",
+      "word": "роса",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_084",
+      "level": 0,
+      "image": "rosa.png",
+      "word": "песок",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_085",
+      "level": 0,
+      "image": "ozero.png",
+      "word": "озеро",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_086",
+      "level": 0,
+      "image": "ozero.png",
+      "word": "пустыня",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_087",
+      "level": 0,
+      "image": "moroz.png",
+      "word": "мороз",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_088",
+      "level": 0,
+      "image": "moroz.png",
+      "word": "лето",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_089",
+      "level": 0,
+      "image": "glaz.png",
+      "word": "глаз",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_090",
+      "level": 0,
+      "image": "glaz.png",
+      "word": "нос",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_091",
+      "level": 0,
+      "image": "zhuk.png",
+      "word": "жук",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_092",
+      "level": 0,
+      "image": "zhuk.png",
+      "word": "медведь",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_093",
+      "level": 0,
+      "image": "shishka.png",
+      "word": "шишка",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_094",
+      "level": 0,
+      "image": "shishka.png",
+      "word": "капуста",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_095",
+      "level": 0,
+      "image": "zhelud.png",
+      "word": "жёлудь",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_096",
+      "level": 0,
+      "image": "zhelud.png",
+      "word": "бритва",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_097",
+      "level": 0,
+      "image": "shkaf.png",
+      "word": "шкаф",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_098",
+      "level": 0,
+      "image": "shkaf.png",
+      "word": "плита",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_099",
+      "level": 0,
+      "image": "nozhnitsy.png",
+      "word": "ножницы",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_100",
+      "level": 0,
+      "image": "nozhnitsy.png",
+      "word": "пила",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_101",
+      "level": 0,
+      "image": "shapka.png",
+      "word": "шапка",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_102",
+      "level": 0,
+      "image": "shapka.png",
+      "word": "носок",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_103",
+      "level": 0,
+      "image": "zhelezo.png",
+      "word": "железо",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_104",
+      "level": 0,
+      "image": "zhelezo.png",
+      "word": "дерево",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_105",
+      "level": 0,
+      "image": "sharf.png",
+      "word": "шарф",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_106",
+      "level": 0,
+      "image": "sharf.png",
+      "word": "галстук",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_107",
+      "level": 0,
+      "image": "chasy.png",
+      "word": "часы",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_108",
+      "level": 0,
+      "image": "chasy.png",
+      "word": "зеркало",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_109",
+      "level": 0,
+      "image": "chaynik.png",
+      "word": "чайник",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_110",
+      "level": 0,
+      "image": "chaynik.png",
+      "word": "тарелка",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_111",
+      "level": 0,
+      "image": "chemodan.png",
+      "word": "чемодан",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_112",
+      "level": 0,
+      "image": "chemodan.png",
+      "word": "карман",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_113",
+      "level": 0,
+      "image": "tsement.png",
+      "word": "цемент",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_114",
+      "level": 0,
+      "image": "tsement.png",
+      "word": "дрель",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_115",
+      "level": 0,
+      "image": "ruchka.png",
+      "word": "ручка",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_116",
+      "level": 0,
+      "image": "ruchka.png",
+      "word": "мел",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_117",
+      "level": 0,
+      "image": "ovtsa.png",
+      "word": "овца",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_118",
+      "level": 0,
+      "image": "ovtsa.png",
+      "word": "лиса",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_119",
+      "level": 0,
+      "image": "cherepaha.png",
+      "word": "черепаха",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_120",
+      "level": 0,
+      "image": "cherepaha.png",
+      "word": "газель",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_121",
+      "level": 0,
+      "image": "chayka.png",
+      "word": "чайка",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_122",
+      "level": 0,
+      "image": "chayka.png",
+      "word": "кошка",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_123",
+      "level": 0,
+      "image": "ogurets.png",
+      "word": "огурец",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_124",
+      "level": 0,
+      "image": "ogurets.png",
+      "word": "помидор",
+      "match": false,
+      "emoji": ""
+    },
+    {
+      "id": "yn_125",
+      "level": 0,
+      "image": "retsept.png",
+      "word": "рецепт",
+      "match": true,
+      "emoji": ""
+    },
+    {
+      "id": "yn_126",
+      "level": 0,
+      "image": "retsept.png",
+      "word": "книга",
+      "match": false,
+      "emoji": ""
+    }
+  ]
+}

@@ -357,6 +357,8 @@ class _HomeScreenState extends State<HomeScreen> {
       'clock': 'Время по часам',
       'stress': 'Ударение в слове',
       'picture_word': 'Узнавание по картинке',
+      'yesno_picture': 'Да/нет: слово и картинка',
+      'syllables': 'Слово из слогов',
     };
     return fallback[type] ?? type;
   }

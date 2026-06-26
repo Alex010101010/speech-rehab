@@ -10,7 +10,7 @@ const String kOtaBaseUrl =
 /// возможность, которую новый контент может потребовать (новое поле/тип задания).
 /// Если контент в манифесте объявляет min_app_version > kAppOtaVersion —
 /// приложение игнорирует обновление (старый APK не сломается о новый контент).
-const int kAppOtaVersion = 1;
+const int kAppOtaVersion = 2;
 
 /// Таймаут сетевых операций OTA. Офлайн/медленно — молча остаёмся на кеше/ассете.
 const Duration kOtaTimeout = Duration(seconds: 12);

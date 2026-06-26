@@ -562,6 +562,351 @@ class _PictureWordExerciseState extends State<PictureWordExercise> {
   }
 }
 
+// ---------- да/нет: слово ↔ картинка (этаж L0, узнавание) ----------
+
+/// Самая нижняя ступень узнавания: картинка + одно слово, ответ Да/Нет.
+/// Бинарный выбор легче, чем выбор из трёх (picture_word).
+class YesNoPictureExercise extends StatefulWidget {
+  final Map<String, dynamic> item;
+  final TtsService tts;
+  final void Function(StepOutcome) onResult;
+  final bool errorless;
+  const YesNoPictureExercise(
+      {super.key,
+      required this.item,
+      required this.tts,
+      required this.onResult,
+      this.errorless = false});
+  @override
+  State<YesNoPictureExercise> createState() => _YesNoPictureExerciseState();
+}
+
+class _YesNoPictureExerciseState extends State<YesNoPictureExercise> {
+  bool _solved = false;
+  bool _revealed = false; // ответ показан по «Не знаю» — засчитываем как неверный
+  bool _wrong = false; // была неверная попытка (для unaided)
+  bool? _picked; // выбранное «да/нет» (для подсветки кнопки)
+
+  bool get _match => widget.item['match'] == true;
+  String get _word => (widget.item['word'] ?? '').toString();
+
+  String get _truth => _match ? 'Да, это $_word' : 'Нет, это не $_word';
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.errorless) {
+      _solved = true;
+      _picked = _match;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (_word.isNotEmpty) widget.tts.speak(_truth);
+      });
+    }
+  }
+
+  void _answer(bool yes) {
+    if (_solved) return;
+    if (yes == _match) {
+      setState(() {
+        _solved = true;
+        _picked = yes;
+      });
+      widget.tts.speak(_truth);
+    } else {
+      setState(() {
+        _wrong = true;
+        _picked = yes;
+      });
+    }
+  }
+
+  StepOutcome _outcome() {
+    if (widget.errorless) {
+      return const StepOutcome(correct: true, unaided: false, gradeable: false);
+    }
+    return StepOutcome(correct: !_revealed, unaided: !_revealed && !_wrong);
+  }
+
+  Widget _button(String label, bool yes) {
+    final correctBtn = (_solved || widget.errorless) && yes == _match;
+    final wrongBtn = _picked == yes && yes != _match;
+    return Expanded(
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 22),
+          backgroundColor: correctBtn
+              ? Colors.green.shade100
+              : (wrongBtn ? Colors.orange.shade100 : null),
+        ),
+        onPressed: _solved ? null : () => _answer(yes),
+        child: Text(label, style: const TextStyle(fontSize: 30)),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final img = (widget.item['image'] ?? '').toString();
+    final emoji = (widget.item['emoji'] ?? '').toString();
+    return ExerciseScaffold(
+      prompt: 'Это $_word?',
+      tts: widget.tts,
+      imageName: img.isEmpty ? null : img,
+      emoji: emoji.isEmpty ? null : emoji,
+      solved: _solved,
+      hint: widget.errorless
+          ? 'Нажмите правильный ответ'
+          : (_solved
+              ? (_revealed ? 'Правильный ответ показан' : 'Верно!')
+              : (_wrong ? 'Попробуйте ещё раз' : 'Ответьте: да или нет')),
+      onNext: () => widget.onResult(_outcome()),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              _button('Да', true),
+              const SizedBox(width: 16),
+              _button('Нет', false),
+            ],
+          ),
+          const SizedBox(height: 14),
+          if (!_solved && !widget.errorless)
+            OutlinedButton(
+              onPressed: () {
+                setState(() {
+                  _revealed = true;
+                  _solved = true;
+                  _picked = _match;
+                });
+                if (_word.isNotEmpty) widget.tts.speak(_truth);
+              },
+              child: const Text('Не знаю'),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+// ---------- собрать слово из слогов (этаж L0) ----------
+
+/// Семья fill_letter, но проще: слово собирается из целых слогов касанием,
+/// без печати. Слоги ставятся по порядку — неверный слог просто не встаёт
+/// (как ударная гласная в StressExercise), провалить нельзя.
+class SyllablesExercise extends StatefulWidget {
+  final Map<String, dynamic> item;
+  final TtsService tts;
+  final void Function(StepOutcome) onResult;
+  final bool errorless;
+  const SyllablesExercise(
+      {super.key,
+      required this.item,
+      required this.tts,
+      required this.onResult,
+      this.errorless = false});
+  @override
+  State<SyllablesExercise> createState() => _SyllablesExerciseState();
+}
+
+class _SyllablesExerciseState extends State<SyllablesExercise> {
+  late final List<String> _syl = ((widget.item['syllables'] as List?) ?? const [])
+      .map((e) => e.toString())
+      .toList();
+  // перемешанный пул слогов с устойчивой идентичностью по индексу (слоги
+  // могут повторяться) — правильный порядок в контенте, поэтому перемешиваем
+  late final List<String> _pool = List<String>.of(_syl)..shuffle();
+  final List<int> _placed = []; // индексы из _pool в порядке постановки
+  int? _wrongPick; // индекс пула с неверной попыткой (подсветка)
+  int _wrongCount = 0;
+  bool _hintUsed = false;
+  bool _solved = false;
+  bool _revealed = false;
+
+  String get _answer => (widget.item['answer'] ?? '').toString();
+  String get _expected =>
+      _placed.length < _syl.length ? _syl[_placed.length] : '';
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.errorless) {
+      _fillCorrect();
+      _solved = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (_answer.isNotEmpty) widget.tts.speak('Это слово. $_answer');
+      });
+    }
+  }
+
+  // расставить все слоги в правильном порядке (для подсказки/«Не знаю»/errorless)
+  void _fillCorrect() {
+    _placed.clear();
+    for (final s in _syl) {
+      for (var i = 0; i < _pool.length; i++) {
+        if (_pool[i] == s && !_placed.contains(i)) {
+          _placed.add(i);
+          break;
+        }
+      }
+    }
+  }
+
+  void _tapPool(int i) {
+    if (_solved || _placed.contains(i)) return;
+    if (_pool[i] == _expected) {
+      setState(() {
+        _placed.add(i);
+        _wrongPick = null;
+        if (_placed.length == _syl.length) {
+          _solved = true;
+          widget.tts.speak(_answer);
+        }
+      });
+    } else {
+      setState(() {
+        _wrongPick = i;
+        _wrongCount++;
+      });
+    }
+  }
+
+  void _undo() {
+    if (_solved || _placed.isEmpty) return;
+    setState(() {
+      _placed.removeLast();
+      _wrongPick = null;
+    });
+  }
+
+  void _hint() {
+    if (_solved || _expected.isEmpty) return;
+    for (var i = 0; i < _pool.length; i++) {
+      if (_pool[i] == _expected && !_placed.contains(i)) {
+        setState(() {
+          _placed.add(i);
+          _hintUsed = true;
+          _wrongPick = null;
+          if (_placed.length == _syl.length) {
+            _solved = true;
+            widget.tts.speak(_answer);
+          }
+        });
+        return;
+      }
+    }
+  }
+
+  StepOutcome _outcome() {
+    if (widget.errorless) {
+      return const StepOutcome(correct: true, unaided: false, gradeable: false);
+    }
+    return StepOutcome(
+      correct: !_revealed,
+      unaided: !_revealed && _wrongCount == 0 && !_hintUsed,
+    );
+  }
+
+  Widget _syllableTile(String text,
+      {required bool placed, required bool wrong, VoidCallback? onTap}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        decoration: BoxDecoration(
+          color: wrong
+              ? Colors.orange.shade200
+              : (placed ? Colors.green.shade100 : Colors.blue.shade50),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.blue.shade200, width: 2),
+        ),
+        child: Text(text, style: const TextStyle(fontSize: 32)),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final emoji = (widget.item['emoji'] ?? '').toString();
+    final assembled = _placed.map((i) => _pool[i]).join();
+    return ExerciseScaffold(
+      prompt: 'Соберите слово из слогов',
+      tts: widget.tts,
+      emoji: emoji.isEmpty ? null : emoji,
+      solved: _solved,
+      hint: _solved
+          ? (_revealed ? 'Слово показано' : 'Верно!')
+          : (_wrongPick != null
+              ? 'Этот слог не подходит — попробуйте другой'
+              : 'Нажимайте слоги по порядку'),
+      onNext: () => widget.onResult(_outcome()),
+      child: Column(
+        children: [
+          // собранное слово (плашки уже поставленных слогов, можно снять)
+          Container(
+            constraints: const BoxConstraints(minHeight: 64),
+            alignment: Alignment.center,
+            child: assembled.isEmpty
+                ? Text('—',
+                    style: TextStyle(fontSize: 32, color: Colors.grey.shade400))
+                : Wrap(
+                    spacing: 6,
+                    children: [
+                      for (final i in _placed)
+                        _syllableTile(_pool[i],
+                            placed: true,
+                            wrong: false,
+                            onTap: _solved ? null : _undo),
+                    ],
+                  ),
+          ),
+          const SizedBox(height: 18),
+          // банк слогов (ещё не поставленные)
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (var i = 0; i < _pool.length; i++)
+                if (!_placed.contains(i))
+                  _syllableTile(_pool[i],
+                      placed: false,
+                      wrong: _wrongPick == i,
+                      onTap: () => _tapPool(i)),
+            ],
+          ),
+          const SizedBox(height: 18),
+          if (!_solved)
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: _hint,
+                    icon: const Icon(Icons.lightbulb_outline),
+                    label: const Text('Подсказка'),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      setState(() {
+                        _fillCorrect();
+                        _revealed = true;
+                        _solved = true;
+                      });
+                      if (_answer.isNotEmpty) widget.tts.speak(_answer);
+                    },
+                    child: const Text('Не знаю'),
+                  ),
+                ),
+              ],
+            ),
+        ],
+      ),
+    );
+  }
+}
+
 // ---------- ввод текста ----------
 
 class TypedExercise extends StatefulWidget {

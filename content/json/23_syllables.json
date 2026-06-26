@@ -1,0 +1,1028 @@
+{
+  "type": "syllables",
+  "title": "Соберите слово из слогов",
+  "section": "0. Узнавание",
+  "draft": false,
+  "count": 100,
+  "items": [
+    {
+      "id": "sy_001",
+      "level": 0,
+      "answer": "рыба",
+      "syllables": [
+        "ры",
+        "ба"
+      ],
+      "emoji": "🐟"
+    },
+    {
+      "id": "sy_002",
+      "level": 0,
+      "answer": "вода",
+      "syllables": [
+        "во",
+        "да"
+      ],
+      "emoji": "💧"
+    },
+    {
+      "id": "sy_003",
+      "level": 0,
+      "answer": "рыбак",
+      "syllables": [
+        "ры",
+        "бак"
+      ],
+      "emoji": "🎣"
+    },
+    {
+      "id": "sy_004",
+      "level": 0,
+      "answer": "леска",
+      "syllables": [
+        "лес",
+        "ка"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_005",
+      "level": 0,
+      "answer": "лодка",
+      "syllables": [
+        "лод",
+        "ка"
+      ],
+      "emoji": "🚣"
+    },
+    {
+      "id": "sy_006",
+      "level": 0,
+      "answer": "весло",
+      "syllables": [
+        "вес",
+        "ло"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_007",
+      "level": 1,
+      "answer": "удочка",
+      "syllables": [
+        "у",
+        "доч",
+        "ка"
+      ],
+      "emoji": "🎣"
+    },
+    {
+      "id": "sy_008",
+      "level": 1,
+      "answer": "поплавок",
+      "syllables": [
+        "по",
+        "пла",
+        "вок"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_009",
+      "level": 0,
+      "answer": "червяк",
+      "syllables": [
+        "чер",
+        "вяк"
+      ],
+      "emoji": "🪱"
+    },
+    {
+      "id": "sy_010",
+      "level": 0,
+      "answer": "труба",
+      "syllables": [
+        "тру",
+        "ба"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_011",
+      "level": 0,
+      "answer": "маска",
+      "syllables": [
+        "мас",
+        "ка"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_012",
+      "level": 0,
+      "answer": "искра",
+      "syllables": [
+        "ис",
+        "кра"
+      ],
+      "emoji": "✨"
+    },
+    {
+      "id": "sy_013",
+      "level": 0,
+      "answer": "завод",
+      "syllables": [
+        "за",
+        "вод"
+      ],
+      "emoji": "🏭"
+    },
+    {
+      "id": "sy_014",
+      "level": 0,
+      "answer": "гайка",
+      "syllables": [
+        "гай",
+        "ка"
+      ],
+      "emoji": "🔩"
+    },
+    {
+      "id": "sy_015",
+      "level": 0,
+      "answer": "сварка",
+      "syllables": [
+        "свар",
+        "ка"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_016",
+      "level": 0,
+      "answer": "металл",
+      "syllables": [
+        "ме",
+        "талл"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_017",
+      "level": 1,
+      "answer": "молоток",
+      "syllables": [
+        "мо",
+        "ло",
+        "ток"
+      ],
+      "emoji": "🔨"
+    },
+    {
+      "id": "sy_018",
+      "level": 1,
+      "answer": "электрод",
+      "syllables": [
+        "э",
+        "лек",
+        "трод"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_019",
+      "level": 0,
+      "answer": "окно",
+      "syllables": [
+        "ок",
+        "но"
+      ],
+      "emoji": "🪟"
+    },
+    {
+      "id": "sy_020",
+      "level": 0,
+      "answer": "чашка",
+      "syllables": [
+        "чаш",
+        "ка"
+      ],
+      "emoji": "☕"
+    },
+    {
+      "id": "sy_021",
+      "level": 0,
+      "answer": "ложка",
+      "syllables": [
+        "лож",
+        "ка"
+      ],
+      "emoji": "🥄"
+    },
+    {
+      "id": "sy_022",
+      "level": 0,
+      "answer": "диван",
+      "syllables": [
+        "ди",
+        "ван"
+      ],
+      "emoji": "🛋️"
+    },
+    {
+      "id": "sy_023",
+      "level": 0,
+      "answer": "лампа",
+      "syllables": [
+        "лам",
+        "па"
+      ],
+      "emoji": "💡"
+    },
+    {
+      "id": "sy_024",
+      "level": 0,
+      "answer": "часы",
+      "syllables": [
+        "ча",
+        "сы"
+      ],
+      "emoji": "⏰"
+    },
+    {
+      "id": "sy_025",
+      "level": 0,
+      "answer": "чайник",
+      "syllables": [
+        "чай",
+        "ник"
+      ],
+      "emoji": "🫖"
+    },
+    {
+      "id": "sy_026",
+      "level": 0,
+      "answer": "кресло",
+      "syllables": [
+        "крес",
+        "ло"
+      ],
+      "emoji": "🪑"
+    },
+    {
+      "id": "sy_027",
+      "level": 1,
+      "answer": "тарелка",
+      "syllables": [
+        "та",
+        "рел",
+        "ка"
+      ],
+      "emoji": "🍽️"
+    },
+    {
+      "id": "sy_028",
+      "level": 0,
+      "answer": "трава",
+      "syllables": [
+        "тра",
+        "ва"
+      ],
+      "emoji": "🌿"
+    },
+    {
+      "id": "sy_029",
+      "level": 0,
+      "answer": "река",
+      "syllables": [
+        "ре",
+        "ка"
+      ],
+      "emoji": "🏞️"
+    },
+    {
+      "id": "sy_030",
+      "level": 0,
+      "answer": "гора",
+      "syllables": [
+        "го",
+        "ра"
+      ],
+      "emoji": "⛰️"
+    },
+    {
+      "id": "sy_031",
+      "level": 0,
+      "answer": "поле",
+      "syllables": [
+        "по",
+        "ле"
+      ],
+      "emoji": "🌾"
+    },
+    {
+      "id": "sy_032",
+      "level": 0,
+      "answer": "ветер",
+      "syllables": [
+        "ве",
+        "тер"
+      ],
+      "emoji": "🌬️"
+    },
+    {
+      "id": "sy_033",
+      "level": 0,
+      "answer": "цветок",
+      "syllables": [
+        "цве",
+        "ток"
+      ],
+      "emoji": "🌸"
+    },
+    {
+      "id": "sy_034",
+      "level": 0,
+      "answer": "берег",
+      "syllables": [
+        "бе",
+        "рег"
+      ],
+      "emoji": "🏖️"
+    },
+    {
+      "id": "sy_035",
+      "level": 1,
+      "answer": "дерево",
+      "syllables": [
+        "де",
+        "ре",
+        "во"
+      ],
+      "emoji": "🌳"
+    },
+    {
+      "id": "sy_036",
+      "level": 1,
+      "answer": "облако",
+      "syllables": [
+        "об",
+        "ла",
+        "ко"
+      ],
+      "emoji": "☁️"
+    },
+    {
+      "id": "sy_037",
+      "level": 0,
+      "answer": "кошка",
+      "syllables": [
+        "кош",
+        "ка"
+      ],
+      "emoji": "🐱"
+    },
+    {
+      "id": "sy_038",
+      "level": 0,
+      "answer": "лошадь",
+      "syllables": [
+        "ло",
+        "шадь"
+      ],
+      "emoji": "🐴"
+    },
+    {
+      "id": "sy_039",
+      "level": 1,
+      "answer": "собака",
+      "syllables": [
+        "со",
+        "ба",
+        "ка"
+      ],
+      "emoji": "🐶"
+    },
+    {
+      "id": "sy_040",
+      "level": 1,
+      "answer": "корова",
+      "syllables": [
+        "ко",
+        "ро",
+        "ва"
+      ],
+      "emoji": "🐄"
+    },
+    {
+      "id": "sy_041",
+      "level": 1,
+      "answer": "молоко",
+      "syllables": [
+        "мо",
+        "ло",
+        "ко"
+      ],
+      "emoji": "🥛"
+    },
+    {
+      "id": "sy_042",
+      "level": 0,
+      "answer": "рука",
+      "syllables": [
+        "ру",
+        "ка"
+      ],
+      "emoji": "✋"
+    },
+    {
+      "id": "sy_043",
+      "level": 0,
+      "answer": "нога",
+      "syllables": [
+        "но",
+        "га"
+      ],
+      "emoji": "🦵"
+    },
+    {
+      "id": "sy_044",
+      "level": 0,
+      "answer": "лицо",
+      "syllables": [
+        "ли",
+        "цо"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_045",
+      "level": 0,
+      "answer": "зубы",
+      "syllables": [
+        "зу",
+        "бы"
+      ],
+      "emoji": "🦷"
+    },
+    {
+      "id": "sy_046",
+      "level": 0,
+      "answer": "губы",
+      "syllables": [
+        "гу",
+        "бы"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_047",
+      "level": 1,
+      "answer": "волосы",
+      "syllables": [
+        "во",
+        "ло",
+        "сы"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_048",
+      "level": 0,
+      "answer": "каша",
+      "syllables": [
+        "ка",
+        "ша"
+      ],
+      "emoji": "🥣"
+    },
+    {
+      "id": "sy_049",
+      "level": 0,
+      "answer": "мясо",
+      "syllables": [
+        "мя",
+        "со"
+      ],
+      "emoji": "🥩"
+    },
+    {
+      "id": "sy_050",
+      "level": 0,
+      "answer": "масло",
+      "syllables": [
+        "мас",
+        "ло"
+      ],
+      "emoji": "🧈"
+    },
+    {
+      "id": "sy_051",
+      "level": 0,
+      "answer": "сахар",
+      "syllables": [
+        "са",
+        "хар"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_052",
+      "level": 0,
+      "answer": "булка",
+      "syllables": [
+        "бул",
+        "ка"
+      ],
+      "emoji": "🍞"
+    },
+    {
+      "id": "sy_053",
+      "level": 0,
+      "answer": "пирог",
+      "syllables": [
+        "пи",
+        "рог"
+      ],
+      "emoji": "🥧"
+    },
+    {
+      "id": "sy_054",
+      "level": 0,
+      "answer": "яйцо",
+      "syllables": [
+        "яй",
+        "цо"
+      ],
+      "emoji": "🥚"
+    },
+    {
+      "id": "sy_055",
+      "level": 0,
+      "answer": "компот",
+      "syllables": [
+        "ком",
+        "пот"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_056",
+      "level": 0,
+      "answer": "полка",
+      "syllables": [
+        "пол",
+        "ка"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_057",
+      "level": 0,
+      "answer": "ведро",
+      "syllables": [
+        "вед",
+        "ро"
+      ],
+      "emoji": "🪣"
+    },
+    {
+      "id": "sy_058",
+      "level": 0,
+      "answer": "мыло",
+      "syllables": [
+        "мы",
+        "ло"
+      ],
+      "emoji": "🧼"
+    },
+    {
+      "id": "sy_059",
+      "level": 0,
+      "answer": "вилка",
+      "syllables": [
+        "вил",
+        "ка"
+      ],
+      "emoji": "🍴"
+    },
+    {
+      "id": "sy_060",
+      "level": 0,
+      "answer": "кружка",
+      "syllables": [
+        "круж",
+        "ка"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_061",
+      "level": 0,
+      "answer": "штора",
+      "syllables": [
+        "што",
+        "ра"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_062",
+      "level": 1,
+      "answer": "подушка",
+      "syllables": [
+        "по",
+        "душ",
+        "ка"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_063",
+      "level": 0,
+      "answer": "шапка",
+      "syllables": [
+        "шап",
+        "ка"
+      ],
+      "emoji": "🧢"
+    },
+    {
+      "id": "sy_064",
+      "level": 0,
+      "answer": "шуба",
+      "syllables": [
+        "шу",
+        "ба"
+      ],
+      "emoji": "🧥"
+    },
+    {
+      "id": "sy_065",
+      "level": 0,
+      "answer": "куртка",
+      "syllables": [
+        "курт",
+        "ка"
+      ],
+      "emoji": "🧥"
+    },
+    {
+      "id": "sy_066",
+      "level": 0,
+      "answer": "носки",
+      "syllables": [
+        "нос",
+        "ки"
+      ],
+      "emoji": "🧦"
+    },
+    {
+      "id": "sy_067",
+      "level": 0,
+      "answer": "туфли",
+      "syllables": [
+        "туф",
+        "ли"
+      ],
+      "emoji": "👞"
+    },
+    {
+      "id": "sy_068",
+      "level": 0,
+      "answer": "платок",
+      "syllables": [
+        "пла",
+        "ток"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_069",
+      "level": 1,
+      "answer": "сапоги",
+      "syllables": [
+        "са",
+        "по",
+        "ги"
+      ],
+      "emoji": "👢"
+    },
+    {
+      "id": "sy_070",
+      "level": 0,
+      "answer": "небо",
+      "syllables": [
+        "не",
+        "бо"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_071",
+      "level": 0,
+      "answer": "луна",
+      "syllables": [
+        "лу",
+        "на"
+      ],
+      "emoji": "🌙"
+    },
+    {
+      "id": "sy_072",
+      "level": 0,
+      "answer": "туча",
+      "syllables": [
+        "ту",
+        "ча"
+      ],
+      "emoji": "☁️"
+    },
+    {
+      "id": "sy_073",
+      "level": 0,
+      "answer": "грибы",
+      "syllables": [
+        "гри",
+        "бы"
+      ],
+      "emoji": "🍄"
+    },
+    {
+      "id": "sy_074",
+      "level": 0,
+      "answer": "сосна",
+      "syllables": [
+        "сос",
+        "на"
+      ],
+      "emoji": "🌲"
+    },
+    {
+      "id": "sy_075",
+      "level": 0,
+      "answer": "ёлка",
+      "syllables": [
+        "ёл",
+        "ка"
+      ],
+      "emoji": "🎄"
+    },
+    {
+      "id": "sy_076",
+      "level": 0,
+      "answer": "звезда",
+      "syllables": [
+        "звез",
+        "да"
+      ],
+      "emoji": "⭐"
+    },
+    {
+      "id": "sy_077",
+      "level": 1,
+      "answer": "ягода",
+      "syllables": [
+        "я",
+        "го",
+        "да"
+      ],
+      "emoji": "🫐"
+    },
+    {
+      "id": "sy_078",
+      "level": 1,
+      "answer": "берёза",
+      "syllables": [
+        "бе",
+        "рё",
+        "за"
+      ],
+      "emoji": "🌳"
+    },
+    {
+      "id": "sy_079",
+      "level": 0,
+      "answer": "коза",
+      "syllables": [
+        "ко",
+        "за"
+      ],
+      "emoji": "🐐"
+    },
+    {
+      "id": "sy_080",
+      "level": 0,
+      "answer": "баран",
+      "syllables": [
+        "ба",
+        "ран"
+      ],
+      "emoji": "🐏"
+    },
+    {
+      "id": "sy_081",
+      "level": 0,
+      "answer": "петух",
+      "syllables": [
+        "пе",
+        "тух"
+      ],
+      "emoji": "🐓"
+    },
+    {
+      "id": "sy_082",
+      "level": 0,
+      "answer": "утка",
+      "syllables": [
+        "ут",
+        "ка"
+      ],
+      "emoji": "🦆"
+    },
+    {
+      "id": "sy_083",
+      "level": 0,
+      "answer": "мышка",
+      "syllables": [
+        "мыш",
+        "ка"
+      ],
+      "emoji": "🐭"
+    },
+    {
+      "id": "sy_084",
+      "level": 0,
+      "answer": "заяц",
+      "syllables": [
+        "за",
+        "яц"
+      ],
+      "emoji": "🐰"
+    },
+    {
+      "id": "sy_085",
+      "level": 0,
+      "answer": "лиса",
+      "syllables": [
+        "ли",
+        "са"
+      ],
+      "emoji": "🦊"
+    },
+    {
+      "id": "sy_086",
+      "level": 0,
+      "answer": "белка",
+      "syllables": [
+        "бел",
+        "ка"
+      ],
+      "emoji": "🐿️"
+    },
+    {
+      "id": "sy_087",
+      "level": 0,
+      "answer": "птица",
+      "syllables": [
+        "пти",
+        "ца"
+      ],
+      "emoji": "🐦"
+    },
+    {
+      "id": "sy_088",
+      "level": 0,
+      "answer": "медведь",
+      "syllables": [
+        "мед",
+        "ведь"
+      ],
+      "emoji": "🐻"
+    },
+    {
+      "id": "sy_089",
+      "level": 1,
+      "answer": "курица",
+      "syllables": [
+        "ку",
+        "ри",
+        "ца"
+      ],
+      "emoji": "🐔"
+    },
+    {
+      "id": "sy_090",
+      "level": 0,
+      "answer": "поезд",
+      "syllables": [
+        "по",
+        "езд"
+      ],
+      "emoji": "🚆"
+    },
+    {
+      "id": "sy_091",
+      "level": 0,
+      "answer": "трактор",
+      "syllables": [
+        "трак",
+        "тор"
+      ],
+      "emoji": "🚜"
+    },
+    {
+      "id": "sy_092",
+      "level": 1,
+      "answer": "машина",
+      "syllables": [
+        "ма",
+        "ши",
+        "на"
+      ],
+      "emoji": "🚗"
+    },
+    {
+      "id": "sy_093",
+      "level": 1,
+      "answer": "автобус",
+      "syllables": [
+        "ав",
+        "то",
+        "бус"
+      ],
+      "emoji": "🚌"
+    },
+    {
+      "id": "sy_094",
+      "level": 1,
+      "answer": "самолёт",
+      "syllables": [
+        "са",
+        "мо",
+        "лёт"
+      ],
+      "emoji": "✈️"
+    },
+    {
+      "id": "sy_095",
+      "level": 0,
+      "answer": "окунь",
+      "syllables": [
+        "о",
+        "кунь"
+      ],
+      "emoji": "🐟"
+    },
+    {
+      "id": "sy_096",
+      "level": 0,
+      "answer": "щука",
+      "syllables": [
+        "щу",
+        "ка"
+      ],
+      "emoji": "🐟"
+    },
+    {
+      "id": "sy_097",
+      "level": 0,
+      "answer": "крючок",
+      "syllables": [
+        "крю",
+        "чок"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_098",
+      "level": 0,
+      "answer": "огонь",
+      "syllables": [
+        "о",
+        "гонь"
+      ],
+      "emoji": "🔥"
+    },
+    {
+      "id": "sy_099",
+      "level": 0,
+      "answer": "молот",
+      "syllables": [
+        "мо",
+        "лот"
+      ],
+      "emoji": ""
+    },
+    {
+      "id": "sy_100",
+      "level": 0,
+      "answer": "станок",
+      "syllables": [
+        "ста",
+        "нок"
+      ],
+      "emoji": ""
+    }
+  ]
+}
