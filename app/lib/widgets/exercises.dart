@@ -1803,3 +1803,99 @@ class _MatchPairsExerciseState extends State<MatchPairsExercise> {
     );
   }
 }
+
+// ---------- автоматизированные ряды (растормаживание непроизвольной речи) ----------
+
+class SeriesExercise extends StatefulWidget {
+  final Map<String, dynamic> item;
+  final TtsService tts;
+  final void Function(StepOutcome) onResult;
+  const SeriesExercise(
+      {super.key,
+      required this.item,
+      required this.tts,
+      required this.onResult});
+  @override
+  State<SeriesExercise> createState() => _SeriesExerciseState();
+}
+
+class _SeriesExerciseState extends State<SeriesExercise> {
+  late final List<String> _full = ((widget.item['items'] as List?) ?? const [])
+      .map((e) => e.toString())
+      .toList();
+  late final int _shown = () {
+    final s = (widget.item['start'] as num?)?.toInt() ?? 3;
+    return s.clamp(1, _full.isEmpty ? 1 : _full.length);
+  }();
+  bool _revealed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // озвучиваем начало ряда — задаём «разгон» автоматизированной речи
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final head = _full.take(_shown).join(', ');
+      if (head.isNotEmpty) widget.tts.speak('$head …');
+    });
+  }
+
+  void _reveal() {
+    setState(() => _revealed = true);
+    widget.tts.speak(_full.join(', '));
+  }
+
+  Widget _chip(String text, {required bool faded}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: faded ? Colors.grey.shade200 : Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.blue.shade200, width: 2),
+      ),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 26,
+              color: faded ? Colors.grey.shade500 : Colors.black87)),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final prompt = (widget.item['prompt'] ??
+            'Продолжите ряд вслух, потом нажмите «Показать ряд»')
+        .toString();
+    return ExerciseScaffold(
+      prompt: prompt,
+      tts: widget.tts,
+      solved: _revealed,
+      hint: _revealed
+          ? 'Молодец! Назвали ряд'
+          : 'Произнесите ряд вслух до конца, затем проверьте себя',
+      onNext: () => widget.onResult(
+          const StepOutcome(correct: true, unaided: false, gradeable: false)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (var i = 0; i < _full.length; i++)
+                if (i < _shown || _revealed)
+                  _chip(_full[i], faded: i >= _shown)
+                else if (i == _shown)
+                  _chip('…', faded: true),
+            ],
+          ),
+          const SizedBox(height: 18),
+          if (!_revealed)
+            ElevatedButton.icon(
+              onPressed: _reveal,
+              icon: const Icon(Icons.visibility),
+              label: const Text('Показать ряд'),
+            ),
+        ],
+      ),
+    );
+  }
+}

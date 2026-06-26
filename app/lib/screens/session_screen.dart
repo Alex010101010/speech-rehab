@@ -49,6 +49,7 @@ class _SessionScreenState extends State<SessionScreen> {
     'yesno_picture',
     'syllables',
     'match_pairs',
+    'auto_series',
   };
 
   // Лёгкий режим: на низком общем уровне сессия короче и без печати (только
@@ -289,6 +290,10 @@ class _SessionScreenState extends State<SessionScreen> {
           tts: widget.tts,
           onResult: _onOutcome,
           errorless: errorless);
+    }
+    if (step.type == 'auto_series') {
+      return SeriesExercise(
+          key: key, item: step.item, tts: widget.tts, onResult: _onOutcome);
     }
     switch (step.mode) {
       case RenderMode.choice:

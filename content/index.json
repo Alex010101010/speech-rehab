@@ -1,9 +1,9 @@
 {
   "pack": "speech-rehab-content-v1",
   "status": "logoped-reviewed",
-  "content_version": 4,
+  "content_version": 5,
   "min_app_version": 3,
-  "total_items": 2191,
+  "total_items": 2199,
   "types": [
     {
       "type": "find_error",
@@ -309,6 +309,15 @@
       "section": "0. Узнавание",
       "file": "json/25_match_pairs.json",
       "count": 36,
+      "levels": null,
+      "advanced": false
+    },
+    {
+      "type": "auto_series",
+      "title": "Продолжите ряд",
+      "section": "0. Узнавание",
+      "file": "json/26_auto_series.json",
+      "count": 8,
       "levels": null,
       "advanced": false
     }

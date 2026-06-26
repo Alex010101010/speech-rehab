@@ -62,6 +62,7 @@ class SessionBuilder {
         'yesno_picture', // да/нет слово↔картинка — узнавание
         'syllables', // собрать слово из слогов касанием
         'match_pairs', // соединить пары (слово↔действие/синонимы/буква) касанием
+        'auto_series', // продолжить привычный ряд вслух (растормаживание)
       ]..shuffle(_r);
       for (final t in lightCore.take(3)) {
         plan.add(SessionSlot(t, 'core'));
