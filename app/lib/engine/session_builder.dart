@@ -29,7 +29,9 @@ class SessionBuilder {
 
   /// [pictureMode] — картиночный режим: только узнавание (картинка→слово) +
   /// слухоречевая память; чтение исключаем (текст тяжёл для грубой формы).
-  List<SessionSlot> buildPlan({bool pictureMode = false}) {
+  /// [level] — общий уровень: при ≤1 собираем облегчённый трек (короче, без
+  /// печати и без чтения) — ответ на отзыв «сложновато».
+  List<SessionSlot> buildPlan({bool pictureMode = false, int level = 2}) {
     final plan = <SessionSlot>[];
     if (pictureMode) {
       plan.add(SessionSlot('picture_word', 'warmup', fixedEasy: true));
@@ -44,6 +46,25 @@ class SessionBuilder {
       }
       plan.add(SessionSlot('memory_rows', 'memory'));
       plan.add(SessionSlot('picture_word', 'cooldown', fixedEasy: true));
+      return plan;
+    }
+
+    // Лёгкий трек: 3 ядра только из «нажимаемых» типов (выбор + узнавание
+    // картинкой — словарные опустит в L0 сам _resolve), 1 память, без чтения.
+    if (level <= 1) {
+      plan.add(SessionSlot('complete_phrase_choice', 'warmup', fixedEasy: true));
+      final lightCore = <String>[
+        'name_by_description',
+        'generalization',
+        'synonyms_antonyms',
+        'fill_letter',
+        'complete_phrase_choice',
+      ]..shuffle(_r);
+      for (final t in lightCore.take(3)) {
+        plan.add(SessionSlot(t, 'core'));
+      }
+      plan.add(SessionSlot('memory_rows', 'memory'));
+      plan.add(SessionSlot('complete_phrase_choice', 'cooldown', fixedEasy: true));
       return plan;
     }
 

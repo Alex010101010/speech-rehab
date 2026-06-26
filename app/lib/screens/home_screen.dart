@@ -344,6 +344,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // "2026-06-24" → "24.06" для компактной динамики
+  String _shortDay(String iso) {
+    final parts = iso.split('-');
+    return parts.length == 3 ? '${parts[2]}.${parts[1]}' : iso;
+  }
+
   String _skillLabel(String type) {
     final t = widget.repo[type]?.title;
     if (t != null && t.isNotEmpty) return t;
@@ -378,6 +384,21 @@ class _HomeScreenState extends State<HomeScreen> {
         ..sort((a, c) => _skillLabel(a.key).compareTo(_skillLabel(c.key)));
       for (final e in entries) {
         b.writeln('• ${_skillLabel(e.key)}: ${e.value}');
+      }
+    }
+    if (p.history.isNotEmpty) {
+      b.writeln('');
+      b.writeln('Динамика последних занятий:');
+      final recent = p.history.length > 8
+          ? p.history.sublist(p.history.length - 8)
+          : p.history;
+      for (final s in recent) {
+        final ans = (s['answered'] ?? 0) as int;
+        final cor = (s['correct'] ?? 0) as int;
+        final lvl = (s['level'] ?? 0) as int;
+        final pct = ans > 0 ? (cor * 100 / ans).round() : 0;
+        b.writeln('• ${_shortDay(s['day']?.toString() ?? '')}: '
+            '$cor/$ans ($pct%), уровень $lvl');
       }
     }
     b.writeln('');

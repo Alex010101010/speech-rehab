@@ -439,8 +439,10 @@ class PictureWordExercise extends StatefulWidget {
 
 class _PictureWordExerciseState extends State<PictureWordExercise> {
   String? _wrongPick;
+  final Set<String> _faded = {}; // погашенные подсказкой неверные варианты
   bool _solved = false;
   bool _revealed = false; // ответ показан по «Не знаю» — засчитываем как неверный
+  bool _hintUsed = false;
 
   String get _answer => (widget.item['answer'] ?? '').toString();
   bool _isCorrect(String o) => normalize(o) == normalize(_answer);
@@ -451,6 +453,18 @@ class _PictureWordExerciseState extends State<PictureWordExercise> {
           .map((e) => e.toString())
           .toList()
         ..shuffle();
+
+  List<String> _wrongLeft() =>
+      _options.where((o) => !_isCorrect(o) && !_faded.contains(o)).toList();
+
+  void _hint() {
+    final left = _wrongLeft();
+    if (left.length <= 1) return; // оставляем хотя бы один неверный вариант
+    setState(() {
+      _faded.add(left.first);
+      _hintUsed = true;
+    });
+  }
 
   @override
   void initState() {
@@ -469,7 +483,7 @@ class _PictureWordExerciseState extends State<PictureWordExercise> {
     }
     return StepOutcome(
       correct: !_revealed,
-      unaided: !_revealed && _wrongPick == null,
+      unaided: !_revealed && _wrongPick == null && !_hintUsed,
     );
   }
 
@@ -477,6 +491,7 @@ class _PictureWordExerciseState extends State<PictureWordExercise> {
   Widget build(BuildContext context) {
     final img = (widget.item['image'] ?? '').toString();
     final emoji = (widget.item['emoji'] ?? '').toString();
+    final canHint = !widget.errorless && _wrongLeft().length > 1;
     return ExerciseScaffold(
       prompt: 'Как это называется?',
       tts: widget.tts,
@@ -501,7 +516,7 @@ class _PictureWordExerciseState extends State<PictureWordExercise> {
                       ? Colors.green.shade100
                       : (_wrongPick == o ? Colors.orange.shade100 : null),
                 ),
-                onPressed: _solved
+                onPressed: (_solved || _faded.contains(o))
                     ? null
                     : () {
                         if (_isCorrect(o)) {
@@ -515,15 +530,31 @@ class _PictureWordExerciseState extends State<PictureWordExercise> {
               ),
             ),
           if (!_solved && !widget.errorless)
-            OutlinedButton(
-              onPressed: () {
-                setState(() {
-                  _revealed = true;
-                  _solved = true;
-                });
-                if (_answer.isNotEmpty) widget.tts.speak('Это $_answer');
-              },
-              child: const Text('Не знаю'),
+            Row(
+              children: [
+                if (canHint) ...[
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: _hint,
+                      icon: const Icon(Icons.lightbulb_outline),
+                      label: const Text('Подсказка'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                ],
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      setState(() {
+                        _revealed = true;
+                        _solved = true;
+                      });
+                      if (_answer.isNotEmpty) widget.tts.speak('Это $_answer');
+                    },
+                    child: const Text('Не знаю'),
+                  ),
+                ),
+              ],
             ),
         ],
       ),

@@ -11,6 +11,8 @@ class Progress {
   bool pictureMode; // картиночный режим: словарные задания только узнаванием (L0)
   Set<String> achievements;
   Set<String> days; // строки "yyyy-mm-dd"
+  // снимки по сессиям для динамики в отчёте: {day, answered, correct, level}
+  List<Map<String, dynamic>> history;
 
   Progress({
     this.sessions = 0,
@@ -21,9 +23,11 @@ class Progress {
     this.pictureMode = false,
     Set<String>? achievements,
     Set<String>? days,
+    List<Map<String, dynamic>>? history,
   })  : skillLevels = skillLevels ?? <String, int>{},
         achievements = achievements ?? <String>{},
-        days = days ?? <String>{};
+        days = days ?? <String>{},
+        history = history ?? <Map<String, dynamic>>[];
 
   Map<String, dynamic> toJson() => {
         'sessions': sessions,
@@ -34,6 +38,7 @@ class Progress {
         'pictureMode': pictureMode,
         'achievements': achievements.toList(),
         'days': days.toList(),
+        'history': history,
       };
 
   factory Progress.fromJson(Map<String, dynamic> j) => Progress(
@@ -48,6 +53,9 @@ class Progress {
             .map((e) => e.toString())
             .toSet(),
         days: ((j['days'] ?? const []) as List).map((e) => e.toString()).toSet(),
+        history: ((j['history'] ?? const []) as List)
+            .map((e) => Map<String, dynamic>.from(e as Map))
+            .toList(),
       );
 }
 

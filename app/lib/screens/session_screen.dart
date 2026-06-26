@@ -42,6 +42,11 @@ class _SessionScreenState extends State<SessionScreen> {
   bool _isPicturable(String t) => _picturable.contains(t);
   bool get _pictureMode => widget.store.progress.pictureMode;
 
+  // Лёгкий режим: на низком общем уровне сессия короче и без печати (только
+  // касание/выбор). Авто — не требует действий настройщика; отключается сам,
+  // когда пациент дорастает до L2.
+  bool get _lightMode => !_pictureMode && _overallLevel <= 1;
+
   // уровень навыка с ленивым засевом из сохранёнки (или старого общего level)
   int _levelFor(String t) => _skill[t] ??=
       (widget.store.progress.skillLevels[t] ?? widget.store.progress.level);
@@ -69,7 +74,7 @@ class _SessionScreenState extends State<SessionScreen> {
   void initState() {
     super.initState();
     _builder = SessionBuilder(widget.repo);
-    _plan = _builder.buildPlan(pictureMode: _pictureMode);
+    _plan = _builder.buildPlan(pictureMode: _pictureMode, level: _overallLevel);
     if (_plan.isEmpty) {
       _done = true;
     } else {
@@ -84,11 +89,11 @@ class _SessionScreenState extends State<SessionScreen> {
     final lvl = slot.fixedEasy
         ? 1
         : (slot.role == 'core' ? _levelFor(slot.type) : _overallLevel);
-    // этаж L0: словарный core опускается до узнавания при провале L1 (lvl==0)
-    // или принудительно в картиночном режиме
+    // этаж L0: словарный core опускается до узнавания при провале L1 (lvl==0),
+    // принудительно в картиночном режиме, а также в лёгком режиме (без печати)
     final useL0 = slot.role == 'core' &&
         _isPicturable(slot.type) &&
-        (_pictureMode || lvl == 0);
+        (_pictureMode || lvl == 0 || _lightMode);
     final type = useL0 ? 'picture_word' : slot.type;
     final pickLevel = useL0 ? 0 : lvl;
     final item = _builder.pickItem(type, pickLevel, _usedItems);
@@ -177,11 +182,24 @@ class _SessionScreenState extends State<SessionScreen> {
     p.answered += answered;
     p.correct += _correct;
     final now = DateTime.now();
-    p.days.add(
-        '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}');
+    final dayStr =
+        '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+    p.days.add(dayStr);
     // Лестница: сохраняем уровни навыков; общий level — среднее (для экрана/наград).
     p.skillLevels = _mergedLevels;
     p.level = _overallLevel;
+    // снимок сессии для динамики в отчёте логопеду (храним последние 60)
+    if (answered > 0) {
+      p.history.add({
+        'day': dayStr,
+        'answered': answered,
+        'correct': _correct,
+        'level': _overallLevel,
+      });
+      if (p.history.length > 60) {
+        p.history.removeRange(0, p.history.length - 60);
+      }
+    }
     _newAch = updateAchievements(p);
     await widget.store.save();
   }
