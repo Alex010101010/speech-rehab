@@ -32,6 +32,18 @@ class _SessionScreenState extends State<SessionScreen> {
   final Map<String, int> _down = {}; // серии ошибок по типу
   final Set<String> _errorlessTypes = {}; // типам: след. core-шаг безошибочно
 
+  // «Мягкий выход» из лёгкого режима: копим безошибочные узнавания по навыку,
+  // на пороге — одна «проба» на реальном уровне; повышаем только если прошёл
+  // её сам. Переживают сессии (зеркало progress.readyStreak/probeFails).
+  late final Map<String, int> _ready =
+      Map<String, int>.from(widget.store.progress.readyStreak);
+  late final Map<String, int> _pfail =
+      Map<String, int>.from(widget.store.progress.probeFails);
+  static const _probeThreshold = 6; // узнаваний до пробы (≈ раз в несколько сессий)
+  static const _maxProbeFails = 2; // провалов подряд → мягкий откат (копим заново)
+  String? _probeSkill; // навык, поданный пробой на текущем шаге (иначе null)
+  bool _probedThisSession = false; // не больше одной пробы за сессию
+
   // Навыки на слово/смысл, у которых есть до-вербальный пол L0 (картинка→слово).
   static const _picturable = {
     'name_by_description',
@@ -104,10 +116,25 @@ class _SessionScreenState extends State<SessionScreen> {
     final lvl = slot.fixedEasy
         ? 1
         : (slot.role == 'core' ? _levelFor(slot.type) : _overallLevel);
+    // навык, который СЕЙЧАС подавался бы узнаванием (L0): провал L1 (lvl==0)
+    // или лёгкий режим. Картиночный режим — ручной, пробу там не даём.
+    final wouldUseL0 = slot.role == 'core' &&
+        _isPicturable(slot.type) &&
+        !_pictureMode &&
+        (lvl == 0 || _lightMode);
+    // «Мягкий выход»: если навык накопил готовность (readyStreak ≥ порог) —
+    // один раз за сессию подаём его на РЕАЛЬНОМ уровне (проба), а не узнаванием.
+    // Повышаем только если пройдена самостоятельно (иначе застрял бы на L0).
+    final pendingProbe = wouldUseL0 &&
+        !_probedThisSession &&
+        (_ready[slot.type] ?? 0) >= _probeThreshold;
+    _probeSkill = pendingProbe ? slot.type : null;
+    if (pendingProbe) _probedThisSession = true;
     // этаж L0: словарный core опускается до узнавания при провале L1 (lvl==0),
     // принудительно в картиночном режиме, а также в лёгком режиме (без печати)
     final useL0 = slot.role == 'core' &&
         _isPicturable(slot.type) &&
+        !pendingProbe &&
         (_pictureMode || lvl == 0 || _lightMode);
     _useL0Current = useL0;
     final type = useL0 ? 'picture_word' : slot.type;
@@ -125,6 +152,7 @@ class _SessionScreenState extends State<SessionScreen> {
         type == 'anagram';
     _errorlessCurrent =
         slot.role == 'core' && canErrorless && _errorlessTypes.remove(slot.type);
+    if (pendingProbe) _errorlessCurrent = false; // проба — настоящий тест, не авто-решение
     _current = SessionStep(type, _builder.titleFor(type), item, slot.role);
   }
 
@@ -146,6 +174,12 @@ class _SessionScreenState extends State<SessionScreen> {
     if (o.correct && o.unaided) {
       _up[t] = (_up[t] ?? 0) + 1;
       _down[t] = 0;
+      // безошибочное узнавание словарного навыка копит готовность к пробе
+      // (не повышает уровень напрямую — повышение только через пройденную пробу)
+      if (servedEasy && _isPicturable(t) && !_pictureMode) {
+        final r = _ready[t] ?? 0;
+        if (r < _probeThreshold) _ready[t] = r + 1;
+      }
       if (!_pictureMode && !servedEasy && _up[t]! >= 3 && cur < 3) {
         _skill[t] = cur + 1;
         _up[t] = 0;
@@ -161,6 +195,29 @@ class _SessionScreenState extends State<SessionScreen> {
           _errorlessTypes.add(t); // ниже некуда — поддержим безошибочным шагом
         }
       }
+    }
+  }
+
+  /// Исход «пробы» (навык подан на реальном уровне в лёгком режиме).
+  /// Прошёл сам → навык +1 (выход с пола). Провалил/пропустил → не готов:
+  /// проба остаётся висеть на следующую сессию; после _maxProbeFails подряд —
+  /// мягкий откат (копим готовность заново).
+  void _applyProbe(StepOutcome o) {
+    final t = _probeSkill!;
+    if (o.correct && o.unaided) {
+      final cur = _levelFor(t);
+      if (cur < 3) _skill[t] = cur + 1;
+      _ready[t] = 0;
+      _pfail[t] = 0;
+      _up[t] = 0;
+      _down[t] = 0;
+    } else {
+      _pfail[t] = (_pfail[t] ?? 0) + 1;
+      if (_pfail[t]! >= _maxProbeFails) {
+        _ready[t] = 0; // откат: навык отдыхает и снова копит готовность
+        _pfail[t] = 0;
+      }
+      // иначе readyStreak остаётся на пороге → проба повторится в след. сессии
     }
   }
 
@@ -181,7 +238,11 @@ class _SessionScreenState extends State<SessionScreen> {
     } else {
       _missed.add(_current);
     }
-    _applyStaircase(o);
+    if (_probeSkill != null) {
+      _applyProbe(o); // у пробы своя логика повышения (ловит и пропуск)
+    } else {
+      _applyStaircase(o);
+    }
     if (_i + 1 >= _plan.length) {
       if (_missed.isNotEmpty) {
         setState(() {
@@ -213,6 +274,8 @@ class _SessionScreenState extends State<SessionScreen> {
     p.days.add(dayStr);
     // Лестница: сохраняем уровни навыков; общий level — среднее (для экрана/наград).
     p.skillLevels = _mergedLevels;
+    p.readyStreak = _ready;
+    p.probeFails = _pfail;
     p.level = _overallLevel;
     // снимок сессии для динамики в отчёте логопеду (храним последние 60)
     if (answered > 0) {

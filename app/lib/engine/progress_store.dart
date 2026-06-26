@@ -9,6 +9,12 @@ class Progress {
   int level; // производное «общее» (среднее по навыкам) — для экрана и наград
   Map<String, int> skillLevels; // уровень на каждый навык (тип задания)
   bool pictureMode; // картиночный режим: словарные задания только узнаванием (L0)
+  // «мягкий выход» из лёгкого режима: по каждому навыку копим безошибочные
+  // узнавания (readyStreak); при достижении порога навык получает «пробу» на
+  // реальном уровне. probeFails — сколько проб подряд провалено/пропущено
+  // (для мягкого отката). Переживают сессии.
+  Map<String, int> readyStreak;
+  Map<String, int> probeFails;
   Set<String> achievements;
   Set<String> days; // строки "yyyy-mm-dd"
   // снимки по сессиям для динамики в отчёте: {day, answered, correct, level}
@@ -21,10 +27,14 @@ class Progress {
     this.level = 1,
     Map<String, int>? skillLevels,
     this.pictureMode = false,
+    Map<String, int>? readyStreak,
+    Map<String, int>? probeFails,
     Set<String>? achievements,
     Set<String>? days,
     List<Map<String, dynamic>>? history,
   })  : skillLevels = skillLevels ?? <String, int>{},
+        readyStreak = readyStreak ?? <String, int>{},
+        probeFails = probeFails ?? <String, int>{},
         achievements = achievements ?? <String>{},
         days = days ?? <String>{},
         history = history ?? <Map<String, dynamic>>[];
@@ -36,6 +46,8 @@ class Progress {
         'level': level,
         'skillLevels': skillLevels,
         'pictureMode': pictureMode,
+        'readyStreak': readyStreak,
+        'probeFails': probeFails,
         'achievements': achievements.toList(),
         'days': days.toList(),
         'history': history,
@@ -49,6 +61,10 @@ class Progress {
         skillLevels: ((j['skillLevels'] ?? const {}) as Map)
             .map((k, v) => MapEntry(k.toString(), (v as num).toInt())),
         pictureMode: (j['pictureMode'] ?? false) as bool,
+        readyStreak: ((j['readyStreak'] ?? const {}) as Map)
+            .map((k, v) => MapEntry(k.toString(), (v as num).toInt())),
+        probeFails: ((j['probeFails'] ?? const {}) as Map)
+            .map((k, v) => MapEntry(k.toString(), (v as num).toInt())),
         achievements: ((j['achievements'] ?? const []) as List)
             .map((e) => e.toString())
             .toSet(),
