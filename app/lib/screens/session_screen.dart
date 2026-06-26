@@ -48,6 +48,7 @@ class _SessionScreenState extends State<SessionScreen> {
     'picture_word',
     'yesno_picture',
     'syllables',
+    'match_pairs',
   };
 
   // Лёгкий режим: на низком общем уровне сессия короче и без печати (только
@@ -117,7 +118,8 @@ class _SessionScreenState extends State<SessionScreen> {
         m == RenderMode.choice ||
         m == RenderMode.typed ||
         type == 'yesno_picture' ||
-        type == 'syllables';
+        type == 'syllables' ||
+        type == 'match_pairs';
     _errorlessCurrent =
         slot.role == 'core' && canErrorless && _errorlessTypes.remove(slot.type);
     _current = SessionStep(type, _builder.titleFor(type), item, slot.role);
@@ -274,6 +276,14 @@ class _SessionScreenState extends State<SessionScreen> {
     }
     if (step.type == 'syllables') {
       return SyllablesExercise(
+          key: key,
+          item: step.item,
+          tts: widget.tts,
+          onResult: _onOutcome,
+          errorless: errorless);
+    }
+    if (step.type == 'match_pairs') {
+      return MatchPairsExercise(
           key: key,
           item: step.item,
           tts: widget.tts,

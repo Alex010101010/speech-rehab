@@ -359,6 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'picture_word': 'Узнавание по картинке',
       'yesno_picture': 'Да/нет: слово и картинка',
       'syllables': 'Слово из слогов',
+      'match_pairs': 'Соединить пары',
     };
     return fallback[type] ?? type;
   }

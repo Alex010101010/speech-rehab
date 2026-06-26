@@ -1619,3 +1619,187 @@ class _ReadingExerciseState extends State<ReadingExercise> {
     );
   }
 }
+
+// ---------- соединение пар (слово↔действие / синонимы / буква↔слово) ----------
+
+class MatchPairsExercise extends StatefulWidget {
+  final Map<String, dynamic> item;
+  final TtsService tts;
+  final void Function(StepOutcome) onResult;
+  final bool errorless;
+  const MatchPairsExercise(
+      {super.key,
+      required this.item,
+      required this.tts,
+      required this.onResult,
+      this.errorless = false});
+  @override
+  State<MatchPairsExercise> createState() => _MatchPairsExerciseState();
+}
+
+class _MatchPairsExerciseState extends State<MatchPairsExercise> {
+  // пары в порядке контента; left — якорь (слово/слово-с-пропуском), right — ответ
+  late final List<Map<String, String>> _pairs =
+      ((widget.item['pairs'] as List?) ?? const [])
+          .map((e) => {
+                'left': (e['left'] ?? '').toString(),
+                'right': (e['right'] ?? '').toString(),
+              })
+          .toList();
+  // правый столбец перемешан, идентичность по индексу (значения могут повторяться)
+  late final List<String> _rights =
+      _pairs.map((p) => p['right']!).toList()..shuffle();
+
+  int? _selLeft; // выбранная строка слева (ждёт пары справа)
+  final Map<int, int> _link = {}; // left-index -> right-index (зафиксировано)
+  int? _wrongRight; // правый индекс с неверной попыткой (подсветка)
+  int _wrongCount = 0;
+  bool get _solved => _link.length == _pairs.length;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.errorless) {
+      _solveAll();
+    }
+  }
+
+  // соединить все пары верно (errorless-пол) без подсчёта ошибок
+  void _solveAll() {
+    for (var li = 0; li < _pairs.length; li++) {
+      if (_link.containsKey(li)) continue;
+      final want = _pairs[li]['right'];
+      for (var ri = 0; ri < _rights.length; ri++) {
+        if (_rights[ri] == want && !_link.containsValue(ri)) {
+          _link[li] = ri;
+          break;
+        }
+      }
+    }
+  }
+
+  void _tapLeft(int li) {
+    if (_solved || _link.containsKey(li)) return;
+    setState(() {
+      _selLeft = li;
+      _wrongRight = null;
+    });
+    widget.tts.speak(_pairs[li]['left']!);
+  }
+
+  void _tapRight(int ri) {
+    if (_solved || _link.containsValue(ri)) return;
+    if (_selLeft == null) {
+      // подсказываем порядок действий: сначала слово слева
+      widget.tts.speak('Сначала выберите слово слева');
+      return;
+    }
+    final li = _selLeft!;
+    if (_pairs[li]['right'] == _rights[ri]) {
+      setState(() {
+        _link[li] = ri;
+        _selLeft = null;
+        _wrongRight = null;
+      });
+      widget.tts.speak('${_pairs[li]['left']} — ${_rights[ri]}');
+    } else {
+      setState(() {
+        _wrongRight = ri;
+        _wrongCount++;
+      });
+      widget.tts.speak(_rights[ri]);
+    }
+  }
+
+  StepOutcome _outcome() {
+    if (widget.errorless) {
+      return const StepOutcome(correct: true, unaided: false, gradeable: false);
+    }
+    // соединить можно только верно (неверное не фиксируется) → выполнено = верно;
+    // без ошибочных нажатий = самостоятельно
+    return StepOutcome(correct: true, unaided: _wrongCount == 0);
+  }
+
+  Widget _tile(String text,
+      {required Color color, required bool selected, VoidCallback? onTap}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+                color: selected ? Colors.blue.shade700 : Colors.blue.shade200,
+                width: selected ? 3 : 2),
+          ),
+          child: Text(text,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 26)),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final prompt =
+        (widget.item['prompt'] ?? 'Соедините пары').toString();
+    return ExerciseScaffold(
+      prompt: prompt,
+      tts: widget.tts,
+      solved: _solved,
+      hint: _solved
+          ? 'Готово!'
+          : (_selLeft == null
+              ? 'Нажмите слово слева, потом подходящее справа'
+              : (_wrongRight != null
+                  ? 'Не подходит — попробуйте другое'
+                  : 'Теперь выберите подходящее справа')),
+      onNext: () => widget.onResult(_outcome()),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                for (var li = 0; li < _pairs.length; li++)
+                  _tile(
+                    _pairs[li]['left']!,
+                    selected: _selLeft == li,
+                    color: _link.containsKey(li)
+                        ? Colors.green.shade100
+                        : (_selLeft == li
+                            ? Colors.blue.shade100
+                            : Colors.blue.shade50),
+                    onTap: () => _tapLeft(li),
+                  ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              children: [
+                for (var ri = 0; ri < _rights.length; ri++)
+                  _tile(
+                    _rights[ri],
+                    selected: false,
+                    color: _link.containsValue(ri)
+                        ? Colors.green.shade100
+                        : (_wrongRight == ri
+                            ? Colors.orange.shade200
+                            : Colors.blue.shade50),
+                    onTap: () => _tapRight(ri),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

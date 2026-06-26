@@ -1,9 +1,9 @@
 {
   "pack": "speech-rehab-content-v1",
   "status": "logoped-reviewed",
-  "content_version": 3,
-  "min_app_version": 2,
-  "total_items": 2155,
+  "content_version": 4,
+  "min_app_version": 3,
+  "total_items": 2191,
   "types": [
     {
       "type": "find_error",
@@ -301,6 +301,15 @@
       "file": "json/24_yesno_picture.json",
       "count": 472,
       "draft": false,
+      "advanced": false
+    },
+    {
+      "type": "match_pairs",
+      "title": "Соедините пары",
+      "section": "0. Узнавание",
+      "file": "json/25_match_pairs.json",
+      "count": 36,
+      "levels": null,
       "advanced": false
     }
   ]
