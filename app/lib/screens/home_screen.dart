@@ -361,6 +361,8 @@ class _HomeScreenState extends State<HomeScreen> {
       'syllables': 'Слово из слогов',
       'match_pairs': 'Соединить пары',
       'auto_series': 'Продолжить ряд',
+      'word_order': 'Собрать предложение',
+      'anagram': 'Слово из букв',
     };
     return fallback[type] ?? type;
   }

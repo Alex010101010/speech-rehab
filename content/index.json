@@ -1,9 +1,9 @@
 {
   "pack": "speech-rehab-content-v1",
   "status": "logoped-reviewed",
-  "content_version": 5,
+  "content_version": 6,
   "min_app_version": 3,
-  "total_items": 2199,
+  "total_items": 2249,
   "types": [
     {
       "type": "find_error",
@@ -318,6 +318,24 @@
       "section": "0. Узнавание",
       "file": "json/26_auto_series.json",
       "count": 8,
+      "levels": null,
+      "advanced": false
+    },
+    {
+      "type": "word_order",
+      "title": "Соберите предложение",
+      "section": "I. Понимание",
+      "file": "json/27_word_order.json",
+      "count": 20,
+      "levels": null,
+      "advanced": false
+    },
+    {
+      "type": "anagram",
+      "title": "Соберите слово из букв",
+      "section": "I. Понимание",
+      "file": "json/28_anagram.json",
+      "count": 30,
       "levels": null,
       "advanced": false
     }

@@ -1899,3 +1899,223 @@ class _SeriesExerciseState extends State<SeriesExercise> {
     );
   }
 }
+
+// ---------- сборка по порядку: предложение из слов / слово из букв ----------
+
+class OrderExercise extends StatefulWidget {
+  final Map<String, dynamic> item;
+  final TtsService tts;
+  final void Function(StepOutcome) onResult;
+  final bool errorless;
+
+  /// Разделитель при сборке: ' ' для слов (предложение), '' для букв (анаграмма).
+  final String sep;
+  const OrderExercise(
+      {super.key,
+      required this.item,
+      required this.tts,
+      required this.onResult,
+      this.sep = '',
+      this.errorless = false});
+  @override
+  State<OrderExercise> createState() => _OrderExerciseState();
+}
+
+class _OrderExerciseState extends State<OrderExercise> {
+  // токены в ПРАВИЛЬНОМ порядке из контента; перемешиваем в банк
+  late final List<String> _tokens =
+      ((widget.item['tokens'] as List?) ?? const [])
+          .map((e) => e.toString())
+          .toList();
+  late final List<String> _pool = List<String>.of(_tokens)..shuffle();
+  final List<int> _placed = []; // индексы из _pool в порядке постановки
+  int? _wrongPick;
+  int _wrongCount = 0;
+  bool _hintUsed = false;
+  bool _solved = false;
+  bool _revealed = false;
+
+  String get _answer =>
+      (widget.item['answer'] ?? _tokens.join(widget.sep)).toString();
+  String get _expected =>
+      _placed.length < _tokens.length ? _tokens[_placed.length] : '';
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.errorless) {
+      _fillCorrect();
+      _solved = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (_answer.isNotEmpty) widget.tts.speak(_answer);
+      });
+    }
+  }
+
+  void _fillCorrect() {
+    _placed.clear();
+    for (final tok in _tokens) {
+      for (var i = 0; i < _pool.length; i++) {
+        if (_pool[i] == tok && !_placed.contains(i)) {
+          _placed.add(i);
+          break;
+        }
+      }
+    }
+  }
+
+  void _tapPool(int i) {
+    if (_solved || _placed.contains(i)) return;
+    if (_pool[i] == _expected) {
+      setState(() {
+        _placed.add(i);
+        _wrongPick = null;
+        if (_placed.length == _tokens.length) {
+          _solved = true;
+          widget.tts.speak(_answer);
+        }
+      });
+    } else {
+      setState(() {
+        _wrongPick = i;
+        _wrongCount++;
+      });
+    }
+  }
+
+  void _undo() {
+    if (_solved || _placed.isEmpty) return;
+    setState(() {
+      _placed.removeLast();
+      _wrongPick = null;
+    });
+  }
+
+  void _hint() {
+    if (_solved || _expected.isEmpty) return;
+    for (var i = 0; i < _pool.length; i++) {
+      if (_pool[i] == _expected && !_placed.contains(i)) {
+        setState(() {
+          _placed.add(i);
+          _hintUsed = true;
+          _wrongPick = null;
+          if (_placed.length == _tokens.length) {
+            _solved = true;
+            widget.tts.speak(_answer);
+          }
+        });
+        return;
+      }
+    }
+  }
+
+  StepOutcome _outcome() {
+    if (widget.errorless) {
+      return const StepOutcome(correct: true, unaided: false, gradeable: false);
+    }
+    return StepOutcome(
+      correct: !_revealed,
+      unaided: !_revealed && _wrongCount == 0 && !_hintUsed,
+    );
+  }
+
+  Widget _tile(String text,
+      {required bool placed, required bool wrong, VoidCallback? onTap}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        decoration: BoxDecoration(
+          color: wrong
+              ? Colors.orange.shade200
+              : (placed ? Colors.green.shade100 : Colors.blue.shade50),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.blue.shade200, width: 2),
+        ),
+        child: Text(text, style: const TextStyle(fontSize: 28)),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final prompt = (widget.item['prompt'] ?? 'Соберите по порядку').toString();
+    return ExerciseScaffold(
+      prompt: prompt,
+      tts: widget.tts,
+      solved: _solved,
+      hint: _solved
+          ? (_revealed ? 'Показано' : 'Верно!')
+          : (_wrongPick != null
+              ? 'Этот элемент не подходит — попробуйте другой'
+              : 'Нажимайте по порядку'),
+      onNext: () => widget.onResult(_outcome()),
+      child: Column(
+        children: [
+          // собранное (поставленные токены, можно снять последний)
+          Container(
+            constraints: const BoxConstraints(minHeight: 64),
+            alignment: Alignment.center,
+            child: _placed.isEmpty
+                ? Text('—',
+                    style:
+                        TextStyle(fontSize: 28, color: Colors.grey.shade400))
+                : Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: [
+                      for (final i in _placed)
+                        _tile(_pool[i],
+                            placed: true,
+                            wrong: false,
+                            onTap: _solved ? null : _undo),
+                    ],
+                  ),
+          ),
+          const SizedBox(height: 18),
+          // банк токенов (ещё не поставленные)
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (var i = 0; i < _pool.length; i++)
+                if (!_placed.contains(i))
+                  _tile(_pool[i],
+                      placed: false,
+                      wrong: _wrongPick == i,
+                      onTap: () => _tapPool(i)),
+            ],
+          ),
+          const SizedBox(height: 18),
+          if (!_solved)
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: _hint,
+                    icon: const Icon(Icons.lightbulb_outline),
+                    label: const Text('Подсказка'),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      setState(() {
+                        _fillCorrect();
+                        _revealed = true;
+                        _solved = true;
+                      });
+                      if (_answer.isNotEmpty) widget.tts.speak(_answer);
+                    },
+                    child: const Text('Не знаю'),
+                  ),
+                ),
+              ],
+            ),
+        ],
+      ),
+    );
+  }
+}

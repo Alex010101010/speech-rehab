@@ -120,7 +120,9 @@ class _SessionScreenState extends State<SessionScreen> {
         m == RenderMode.typed ||
         type == 'yesno_picture' ||
         type == 'syllables' ||
-        type == 'match_pairs';
+        type == 'match_pairs' ||
+        type == 'word_order' ||
+        type == 'anagram';
     _errorlessCurrent =
         slot.role == 'core' && canErrorless && _errorlessTypes.remove(slot.type);
     _current = SessionStep(type, _builder.titleFor(type), item, slot.role);
@@ -294,6 +296,24 @@ class _SessionScreenState extends State<SessionScreen> {
     if (step.type == 'auto_series') {
       return SeriesExercise(
           key: key, item: step.item, tts: widget.tts, onResult: _onOutcome);
+    }
+    if (step.type == 'word_order') {
+      return OrderExercise(
+          key: key,
+          item: step.item,
+          tts: widget.tts,
+          onResult: _onOutcome,
+          sep: ' ',
+          errorless: errorless);
+    }
+    if (step.type == 'anagram') {
+      return OrderExercise(
+          key: key,
+          item: step.item,
+          tts: widget.tts,
+          onResult: _onOutcome,
+          sep: '',
+          errorless: errorless);
     }
     switch (step.mode) {
       case RenderMode.choice:

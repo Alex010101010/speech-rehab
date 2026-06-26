@@ -86,6 +86,8 @@ class SessionBuilder {
       'find_error',
       'clock',
       'stress',
+      'word_order', // собрать предложение из слов (синтаксис, L2-L3)
+      'anagram', // собрать слово из букв (L2-L3)
     ]..shuffle(_r);
     for (final t in coreTypes.take(5)) {
       plan.add(SessionSlot(t, 'core'));
