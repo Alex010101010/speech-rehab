@@ -42,6 +42,14 @@ class _SessionScreenState extends State<SessionScreen> {
   bool _isPicturable(String t) => _picturable.contains(t);
   bool get _pictureMode => widget.store.progress.pictureMode;
 
+  // Floor-типы узнавания: их успех НЕ поднимает рабочий уровень и не входит в
+  // средний — иначе лёгкие задания быстро выводят пациента из лёгкого трека.
+  static const _recognitionFloor = {
+    'picture_word',
+    'yesno_picture',
+    'syllables',
+  };
+
   // Лёгкий режим: на низком общем уровне сессия короче и без печати (только
   // касание/выбор). Авто — не требует действий настройщика; отключается сам,
   // когда пациент дорастает до L2.
@@ -54,9 +62,13 @@ class _SessionScreenState extends State<SessionScreen> {
   Map<String, int> get _mergedLevels =>
       Map<String, int>.from(widget.store.progress.skillLevels)..addAll(_skill);
 
-  // «общий» уровень (среднее по навыкам) — для памяти/чтения и экрана
+  // «общий» уровень (среднее по навыкам) — для памяти/чтения и экрана.
+  // Floor-типы узнавания исключены: успех в узнавании не должен поднимать уровень.
   int get _overallLevel {
-    final v = _mergedLevels.values;
+    final v = _mergedLevels.entries
+        .where((e) => !_recognitionFloor.contains(e.key))
+        .map((e) => e.value)
+        .toList();
     if (v.isEmpty) return widget.store.progress.level;
     return (v.reduce((a, b) => a + b) / v.length).round().clamp(1, 3);
   }
@@ -68,6 +80,7 @@ class _SessionScreenState extends State<SessionScreen> {
   bool _done = false;
   late SessionStep _current; // текущий шаг первого прохода
   bool _errorlessCurrent = false;
+  bool _useL0Current = false; // текущий шаг отдан как L0-узнавание (не повышаем уровень)
   List<String> _newAch = const [];
 
   @override
@@ -94,6 +107,7 @@ class _SessionScreenState extends State<SessionScreen> {
     final useL0 = slot.role == 'core' &&
         _isPicturable(slot.type) &&
         (_pictureMode || lvl == 0 || _lightMode);
+    _useL0Current = useL0;
     final type = useL0 ? 'picture_word' : slot.type;
     final pickLevel = useL0 ? 0 : lvl;
     final item = _builder.pickItem(type, pickLevel, _usedItems);
@@ -121,10 +135,13 @@ class _SessionScreenState extends State<SessionScreen> {
     // не двигаем уровни навыков (иначе при выключении режима они уедут в
     // текстовый трек завышенными по результатам узнавания), но errorless-
     // поддержку на повторных ошибках оставляем
+    // успех на узнавании (L0-понижение или floor-тип) не повышает уровень —
+    // иначе лёгкие задания быстро выводят из лёгкого трека
+    final servedEasy = _useL0Current || _recognitionFloor.contains(t);
     if (o.correct && o.unaided) {
       _up[t] = (_up[t] ?? 0) + 1;
       _down[t] = 0;
-      if (!_pictureMode && _up[t]! >= 3 && cur < 3) {
+      if (!_pictureMode && !servedEasy && _up[t]! >= 3 && cur < 3) {
         _skill[t] = cur + 1;
         _up[t] = 0;
       }
