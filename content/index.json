@@ -1,9 +1,9 @@
 {
   "pack": "speech-rehab-content-v1",
   "status": "logoped-reviewed",
-  "content_version": 2,
+  "content_version": 3,
   "min_app_version": 2,
-  "total_items": 1636,
+  "total_items": 2155,
   "types": [
     {
       "type": "find_error",
@@ -281,7 +281,7 @@
       "title": "Покажите, как это называется",
       "section": "0. Узнавание",
       "file": "json/22_picture_word.json",
-      "count": 63,
+      "count": 236,
       "draft": false,
       "advanced": false
     },
@@ -299,7 +299,7 @@
       "title": "Это правильное слово?",
       "section": "0. Узнавание",
       "file": "json/24_yesno_picture.json",
-      "count": 126,
+      "count": 472,
       "draft": false,
       "advanced": false
     }

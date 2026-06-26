@@ -138,9 +138,18 @@ def main():
     manifest = {w: m for w, m in manifest.items()
                 if os.path.exists(os.path.join(OUT, m["slug"] + ".png"))}
 
+    # слова, чьи картинки логопед отклонил на ревью — не качаем повторно
+    rejected = set()
+    dpath = os.path.join(ROOT, "content", "picture-pool-decisions.json")
+    if os.path.exists(dpath):
+        d = json.load(open(dpath, encoding="utf-8"))
+        rejected = {w for w, v in d.items() if v.get("approved") is False}
+
     miss = []
     for word in words:
         slug = slugify(word)
+        if word in rejected:
+            continue  # отклонено логопедом на ревью картинок
         if word in manifest:
             continue  # уже есть картинка
         try:

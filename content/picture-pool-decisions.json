@@ -1,0 +1,611 @@
+{
+  "аист": {
+    "approved": true
+  },
+  "апельсин": {
+    "approved": true
+  },
+  "арбуз": {
+    "approved": true
+  },
+  "автобус": {
+    "approved": true
+  },
+  "банан": {
+    "approved": true
+  },
+  "барабан": {
+    "approved": true
+  },
+  "белка": {
+    "approved": true
+  },
+  "берёза": {
+    "approved": false
+  },
+  "блюдце": {
+    "approved": true
+  },
+  "бокал": {
+    "approved": true
+  },
+  "чашка": {
+    "approved": true
+  },
+  "чай": {
+    "approved": true
+  },
+  "червяк": {
+    "approved": true
+  },
+  "дерево": {
+    "approved": true
+  },
+  "дорога": {
+    "approved": true
+  },
+  "дождь": {
+    "approved": true
+  },
+  "дом": {
+    "approved": true
+  },
+  "деталь": {
+    "approved": false
+  },
+  "дрель": {
+    "approved": true
+  },
+  "дуб": {
+    "approved": false
+  },
+  "дверь": {
+    "approved": true
+  },
+  "ёж": {
+    "approved": true
+  },
+  "флаг": {
+    "approved": true
+  },
+  "фонарик": {
+    "approved": true
+  },
+  "футболка": {
+    "approved": true
+  },
+  "гаечный ключ": {
+    "approved": true
+  },
+  "галстук": {
+    "approved": true
+  },
+  "гитара": {
+    "approved": true
+  },
+  "голова": {
+    "approved": false
+  },
+  "голубь": {
+    "approved": true
+  },
+  "гора": {
+    "approved": true
+  },
+  "грабли": {
+    "approved": true
+  },
+  "гриб": {
+    "approved": true
+  },
+  "груша": {
+    "approved": true
+  },
+  "хлеб": {
+    "approved": true
+  },
+  "гусь": {
+    "approved": true
+  },
+  "грузовик": {
+    "approved": true
+  },
+  "холодильник": {
+    "approved": true
+  },
+  "искра": {
+    "approved": false
+  },
+  "камень": {
+    "approved": true
+  },
+  "камыш": {
+    "approved": false
+  },
+  "карандаш": {
+    "approved": true
+  },
+  "картина": {
+    "approved": true
+  },
+  "картошка": {
+    "approved": true
+  },
+  "катушка": {
+    "approved": true
+  },
+  "кисть": {
+    "approved": true
+  },
+  "клён": {
+    "approved": false
+  },
+  "клубника": {
+    "approved": true
+  },
+  "ключ": {
+    "approved": true
+  },
+  "книга": {
+    "approved": true
+  },
+  "кофе": {
+    "approved": true
+  },
+  "колбаса": {
+    "comment": "сосиски"
+  },
+  "колено": {
+    "approved": true
+  },
+  "комод": {
+    "approved": true
+  },
+  "конфета": {
+    "approved": true
+  },
+  "корабль": {
+    "approved": true
+  },
+  "коряга": {
+    "comment": "блокнот"
+  },
+  "кошелёк": {
+    "approved": true
+  },
+  "кошка": {
+    "approved": true
+  },
+  "костёр": {
+    "approved": true
+  },
+  "ковёр": {
+    "approved": true
+  },
+  "коза": {
+    "approved": true
+  },
+  "кресло": {
+    "approved": true
+  },
+  "кролик": {
+    "approved": true
+  },
+  "кровать": {
+    "approved": true
+  },
+  "кружка": {
+    "approved": false
+  },
+  "курица": {
+    "approved": true
+  },
+  "лампочка": {
+    "approved": true
+  },
+  "лебедь": {
+    "approved": true
+  },
+  "лес": {
+    "approved": true
+  },
+  "лестница": {
+    "approved": true
+  },
+  "лимон": {
+    "approved": true
+  },
+  "лиса": {
+    "approved": true
+  },
+  "лист": {
+    "approved": true
+  },
+  "листва": {
+    "approved": false
+  },
+  "лук": {
+    "approved": true
+  },
+  "лошадь": {
+    "approved": true
+  },
+  "лягушка": {
+    "approved": true
+  },
+  "машина": {
+    "approved": true
+  },
+  "масло": {
+    "approved": true
+  },
+  "мёд": {
+    "approved": true
+  },
+  "медведь": {
+    "approved": true
+  },
+  "металл": {
+    "approved": false
+  },
+  "миска": {
+    "approved": true
+  },
+  "молоко": {
+    "approved": true
+  },
+  "молоток": {
+    "approved": true
+  },
+  "монета": {
+    "approved": true
+  },
+  "море": {
+    "approved": true
+  },
+  "морковь": {
+    "approved": true
+  },
+  "мост": {
+    "approved": true
+  },
+  "мотоцикл": {
+    "approved": true
+  },
+  "мяч": {
+    "approved": true
+  },
+  "мясо": {
+    "approved": true
+  },
+  "мыло": {
+    "approved": true
+  },
+  "мышь": {
+    "approved": false
+  },
+  "нога": {
+    "approved": true
+  },
+  "нос": {
+    "approved": true
+  },
+  "носки": {
+    "approved": true
+  },
+  "облако": {
+    "approved": true
+  },
+  "одеяло": {
+    "approved": true
+  },
+  "окно": {
+    "approved": true
+  },
+  "олень": {
+    "approved": true
+  },
+  "орёл": {
+    "approved": true
+  },
+  "отвёртка": {
+    "approved": true
+  },
+  "палец": {
+    "approved": true
+  },
+  "печенье": {
+    "approved": true
+  },
+  "песок": {
+    "approved": true
+  },
+  "петух": {
+    "approved": true
+  },
+  "пила": {
+    "approved": true
+  },
+  "платье": {
+    "approved": false
+  },
+  "осень": {
+    "approved": false
+  },
+  "плечо": {
+    "approved": true
+  },
+  "плита": {
+    "approved": true
+  },
+  "плоскогубцы": {
+    "approved": true
+  },
+  "почта": {
+    "comment": "письмо"
+  },
+  "поднос": {
+    "approved": true
+  },
+  "подушка": {
+    "approved": true
+  },
+  "поезд": {
+    "approved": true
+  },
+  "поле": {
+    "approved": true
+  },
+  "половник": {
+    "approved": true
+  },
+  "поплавок": {
+    "approved": false
+  },
+  "радуга": {
+    "approved": true
+  },
+  "расчёска": {
+    "approved": true
+  },
+  "река": {
+    "approved": true
+  },
+  "ремень": {
+    "approved": true
+  },
+  "рис": {
+    "approved": true
+  },
+  "рот": {
+    "approved": true
+  },
+  "рубашка": {
+    "approved": true
+  },
+  "рука": {
+    "approved": true
+  },
+  "рыба": {
+    "approved": true
+  },
+  "рыбалка": {
+    "approved": true
+  },
+  "сахар": {
+    "approved": true
+  },
+  "самолёт": {
+    "approved": true
+  },
+  "сапоги": {
+    "approved": true
+  },
+  "щука": {
+    "approved": false
+  },
+  "сеть": {
+    "approved": false
+  },
+  "шуруп": {
+    "approved": true
+  },
+  "швабра": {
+    "approved": true
+  },
+  "сковорода": {
+    "approved": true
+  },
+  "сметана": {
+    "approved": false
+  },
+  "снег": {
+    "approved": false
+  },
+  "собака": {
+    "approved": true
+  },
+  "сосиска": {
+    "approved": true
+  },
+  "сосна": {
+    "comment": "дерево"
+  },
+  "сова": {
+    "approved": true
+  },
+  "спина": {
+    "approved": false
+  },
+  "стакан": {
+    "approved": false
+  },
+  "стол": {
+    "approved": true
+  },
+  "стул": {
+    "approved": true
+  },
+  "сумка": {
+    "approved": true
+  },
+  "свеча": {
+    "approved": true
+  },
+  "свинья": {
+    "approved": true
+  },
+  "свитер": {
+    "approved": true
+  },
+  "сыр": {
+    "approved": true
+  },
+  "табурет": {
+    "approved": true
+  },
+  "телевизор": {
+    "approved": true
+  },
+  "тёрка": {
+    "approved": true
+  },
+  "тетрадь": {
+    "approved": true
+  },
+  "топор": {
+    "approved": true
+  },
+  "торт": {
+    "approved": true
+  },
+  "трактор": {
+    "approved": true
+  },
+  "трамвай": {
+    "approved": true
+  },
+  "трава": {
+    "approved": true
+  },
+  "труба": {
+    "comment": "трубка"
+  },
+  "цветок": {
+    "approved": true
+  },
+  "туфли": {
+    "approved": true
+  },
+  "удочка": {
+    "approved": true
+  },
+  "ухо": {
+    "approved": true
+  },
+  "улица": {
+    "approved": true
+  },
+  "утка": {
+    "approved": true
+  },
+  "варежки": {
+    "approved": true
+  },
+  "ведро": {
+    "approved": true
+  },
+  "велосипед": {
+    "approved": true
+  },
+  "веник": {
+    "approved": true
+  },
+  "вертолёт": {
+    "approved": true
+  },
+  "весло": {
+    "approved": true
+  },
+  "вилка": {
+    "approved": true
+  },
+  "виноград": {
+    "approved": true
+  },
+  "волк": {
+    "approved": true
+  },
+  "волосы": {
+    "approved": true
+  },
+  "воробей": {
+    "approved": true
+  },
+  "яблоко": {
+    "approved": true
+  },
+  "яйцо": {
+    "approved": false
+  },
+  "язык": {
+    "approved": true
+  },
+  "юбка": {
+    "approved": true
+  },
+  "забор": {
+    "approved": true
+  },
+  "замок": {
+    "approved": true
+  },
+  "живот": {
+    "approved": true
+  },
+  "змея": {
+    "approved": true
+  },
+  "зуб": {
+    "approved": true
+  },
+  "зубная щётка": {
+    "approved": true
+  },
+  "звери": {
+    "approved": false
+  },
+  "звезда": {
+    "approved": true
+  },
+  "штаны": {
+    "approved": true
+  },
+  "фен": {
+    "approved": true
+  },
+  "серп": {
+    "approved": true
+  },
+  "крючок": {
+    "approved": true
+  },
+  "рыбак": {
+    "approved": true
+  },
+  "совок": {
+    "approved": true
+  },
+  "гайка": {
+    "approved": true
+  },
+  "метр": {
+    "approved": true
+  },
+  "паяльник": {
+    "approved": true
+  },
+  "микроволновка": {
+    "approved": true
+  }
+}

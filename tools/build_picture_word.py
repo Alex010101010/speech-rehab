@@ -27,6 +27,10 @@ FILL_LETTER = os.path.join(ROOT, "content", "json", "17_fill_letter.json")
 # Решения ревью дистракторов логопедом: id -> {approved, comment}.
 # comment = два слова-замены дистрактора (через «/» или пробел); approved:false — убрать.
 DECISIONS = os.path.join(ROOT, "content", "picture-word-decisions.json")
+# Ревью картинок расширенного пула логопедом: слово -> {approved, comment}.
+# Слово берём в задания, только если оно НЕ отклонено (одобрено / переименовано
+# по комментарию / вообще не попало в ревью = старая валидация).
+POOL_DECISIONS = os.path.join(ROOT, "content", "picture-pool-decisions.json")
 IMG_DIR = os.path.join(ROOT, "content", "img")
 POOL = os.path.join(ROOT, "content", "picture_pool.json")
 OUT_SRC = os.path.join(ROOT, "content", "json", "22_picture_word.json")
@@ -53,12 +57,19 @@ def collect_pairs():
             seen.add(word)
             pairs.append((word, img, emoji))
     # расширенный пул простых предметов: берём слово только если картинка уже
-    # скачана (fetch_arasaac.py), иначе пропускаем до загрузки
-    skipped = 0
+    # скачана (fetch_arasaac.py) И не отклонена логопедом (picture-pool-decisions)
+    pooldec = {}
+    if os.path.exists(POOL_DECISIONS):
+        pooldec = json.load(open(POOL_DECISIONS, encoding="utf-8"))
+    skipped = rejected = 0
     if os.path.exists(POOL):
         for e in json.load(open(POOL, encoding="utf-8")).get("words", []):
             word = (e.get("ru") or "").strip()
             if not word or word in seen:
+                continue
+            dec = pooldec.get(word)
+            if dec is not None and dec.get("approved") is not True:
+                rejected += 1  # отклонено на ревью картинок
                 continue
             img = slugify(word) + ".png"
             if not os.path.exists(os.path.join(IMG_DIR, img)):
@@ -68,6 +79,8 @@ def collect_pairs():
             pairs.append((word, img, e.get("emoji", "")))
     if skipped:
         print(f"  пул: пропущено {skipped} слов без скачанной картинки")
+    if rejected:
+        print(f"  пул: отклонено логопедом {rejected} слов")
     return pairs
 
 
@@ -130,11 +143,20 @@ def main():
             "emoji": emoji,
         })
 
-    # черновик, пока есть задания без решения логопеда (одобрение или замена)
-    def decided(pid):
-        d = decisions.get(pid, {})
-        return d.get("approved") is True or bool((d.get("comment") or "").strip())
-    is_draft = any(not decided(it["id"]) for it in items)
+    # черновик, пока есть задания без решения логопеда. Задание «решено», если:
+    #  — отсмотрены дистракторы (picture-word-decisions: одобрено/замена), ИЛИ
+    #  — одобрена картинка слова на ревью пула (picture-pool-decisions) — тогда
+    #    доверяем авто-дистракторам (без совпадения первой буквы и рифмы).
+    pooldec = {}
+    if os.path.exists(POOL_DECISIONS):
+        pooldec = json.load(open(POOL_DECISIONS, encoding="utf-8"))
+
+    def decided(it):
+        d = decisions.get(it["id"], {})
+        if d.get("approved") is True or bool((d.get("comment") or "").strip()):
+            return True
+        return pooldec.get(it["answer"], {}).get("approved") is True
+    is_draft = any(not decided(it) for it in items)
 
     doc = {
         "type": "picture_word",
