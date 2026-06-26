@@ -14,3 +14,11 @@ const int kAppOtaVersion = 3;
 
 /// Таймаут сетевых операций OTA. Офлайн/медленно — молча остаёмся на кеше/ассете.
 const Duration kOtaTimeout = Duration(seconds: 12);
+
+/// Tier B (самообновление APK). Манифест самого свежего релиза — стабильный
+/// адрес GitHub: всегда отдаёт ассет из последнего релиза, без токенов.
+const String kAppManifestUrl =
+    'https://github.com/Alex010101010/speech-rehab/releases/latest/download/app_manifest.json';
+
+/// Таймаут скачивания самого APK — файл крупный, нужен запас сверх kOtaTimeout.
+const Duration kApkDownloadTimeout = Duration(minutes: 5);

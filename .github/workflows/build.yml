@@ -13,7 +13,7 @@ on:
         default: true
 
 permissions:
-  contents: read
+  contents: write   # write — чтобы apk-джоба публиковала GitHub Release (Tier B)
   pages: write
   id-token: write
 
@@ -92,13 +92,36 @@ jobs:
       - name: Generate android platform
         run: flutter create --platforms=android --org dev.rech --project-name rech .
 
-      # INTERNET нужен для OTA; в release-манифесте flutter его по умолчанию нет.
-      - name: Add INTERNET permission
+      # Release-подпись: декодируем keystore из секрета, пишем key.properties,
+      # патчер впрыскивает signingConfig в сгенерённый build.gradle. Без этого
+      # flutter подписал бы release debug-ключом (эфемерным) → обновление APK
+      # «поверх» на устройстве было бы невозможно (несовпадение подписи).
+      - name: Configure release signing
+        env:
+          KS_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KS_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_PASS: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+          {
+            printf 'storePassword=%s\n' "$KS_PASS"
+            printf 'keyPassword=%s\n' "$KEY_PASS"
+            printf 'keyAlias=%s\n' "$KEY_ALIAS"
+            printf 'storeFile=%s\n' "$RUNNER_TEMP/release.jks"
+          } > android/key.properties
+          python3 ../tools/inject_android_signing.py android
+
+      # INTERNET — для OTA/самообновления; REQUEST_INSTALL_PACKAGES — чтобы открыть
+      # установщик скачанного APK (Tier B). В release-манифесте flutter их нет.
+      - name: Add Android permissions
         run: |
           M=android/app/src/main/AndroidManifest.xml
           grep -q 'android.permission.INTERNET' "$M" || \
             sed -i 's#\(<manifest[^>]*>\)#\1\n    <uses-permission android:name="android.permission.INTERNET"/>#' "$M"
-          head -4 "$M"
+          grep -q 'REQUEST_INSTALL_PACKAGES' "$M" || \
+            sed -i 's#\(<manifest[^>]*>\)#\1\n    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>#' "$M"
+          head -6 "$M"
 
       - run: flutter pub get
 
@@ -110,3 +133,22 @@ jobs:
         with:
           name: rech-apk
           path: app/build/app/outputs/flutter-apk/app-release.apk
+
+      # Tier B: публикуем подписанный APK в GitHub Release + манифест самообновления.
+      # Приложение тянет манифест с releases/latest/download/app_manifest.json.
+      - name: Publish release (Tier B)
+        working-directory: ${{ github.workspace }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          APK=app/build/app/outputs/flutter-apk/app-release.apk
+          BUILD=$(grep '^version:' app/pubspec.yaml | sed 's/.*+//' | tr -d ' ')
+          VERSION=$(grep '^version:' app/pubspec.yaml | sed 's/version:[[:space:]]*//; s/+.*//' | tr -d ' ')
+          TAG="build-$BUILD"
+          URL="https://github.com/${{ github.repository }}/releases/download/$TAG/app-release.apk"
+          python3 tools/build_app_manifest.py "$APK" "$BUILD" "$VERSION" "$URL" app_manifest.json
+          # Пересоздаём релиз с тем же тегом начисто (на случай повторной сборки того же build).
+          gh release delete "$TAG" --yes --cleanup-tag 2>/dev/null || true
+          gh release create "$TAG" "$APK" app_manifest.json \
+            --title "speech-rehab $VERSION (build $BUILD)" \
+            --notes "Автосборка. Самообновление APK через Tier B (releases/latest)."

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../data/app_updater.dart';
 import '../data/content_overlay.dart';
 import '../data/content_repository.dart';
 import '../engine/progress_store.dart';
@@ -24,6 +25,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _ruVoiceOk = true; // пока не проверили — не пугаем подсказкой
+  final AppUpdater _updater = createAppUpdater();
 
   @override
   void initState() {
@@ -159,6 +161,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   _checkUpdates();
                 },
               ),
+              ListTile(
+                leading: const Icon(Icons.system_update),
+                title: const Text('Обновить приложение',
+                    style: TextStyle(fontSize: 20)),
+                subtitle: const Text('Скачать новую версию программы',
+                    style: TextStyle(fontSize: 15)),
+                onTap: () {
+                  Navigator.pop(context);
+                  _checkAppUpdate();
+                },
+              ),
               const Divider(),
               ListTile(
                 leading: const Icon(Icons.description_outlined),
@@ -222,6 +235,73 @@ class _HomeScreenState extends State<HomeScreen> {
     if (!mounted) return;
     messenger.hideCurrentSnackBar();
     messenger.showSnackBar(SnackBar(content: Text(msg)));
+  }
+
+  Future<void> _checkAppUpdate() async {
+    final messenger = ScaffoldMessenger.of(context);
+    messenger.showSnackBar(
+        const SnackBar(content: Text('Проверяю версию приложения…')));
+    final info = await _updater.check();
+    if (!mounted) return;
+    messenger.hideCurrentSnackBar();
+    switch (info.status) {
+      case AppUpdateStatus.available:
+        _confirmAppInstall(info);
+      case AppUpdateStatus.upToDate:
+        messenger.showSnackBar(const SnackBar(
+            content: Text('У вас установлена последняя версия приложения.')));
+      case AppUpdateStatus.offline:
+        messenger.showSnackBar(const SnackBar(
+            content: Text('Нет связи с сервером. Попробуйте позже.')));
+      case AppUpdateStatus.skipped:
+        messenger.showSnackBar(const SnackBar(
+            content: Text('Самообновление недоступно на этом устройстве.')));
+      case AppUpdateStatus.error:
+        messenger.showSnackBar(const SnackBar(
+            content: Text('Не удалось проверить версию. Попробуйте позже.')));
+    }
+  }
+
+  void _confirmAppInstall(AppUpdateInfo info) {
+    final ver = info.version != null ? ' ${info.version}' : '';
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Доступно обновление'),
+        content: Text(
+          'Новая версия программы$ver готова к установке. Скачать и установить? '
+          'После загрузки система попросит подтвердить установку.',
+          style: const TextStyle(fontSize: 17),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Позже', style: TextStyle(fontSize: 18)),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.pop(context);
+              await _runAppInstall();
+            },
+            child: const Text('Обновить', style: TextStyle(fontSize: 18)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _runAppInstall() async {
+    final messenger = ScaffoldMessenger.of(context);
+    messenger.showSnackBar(const SnackBar(
+        content: Text('Скачиваю обновление… не закрывайте приложение'),
+        duration: Duration(minutes: 5)));
+    final err = await _updater.install();
+    if (!mounted) return;
+    messenger.hideCurrentSnackBar();
+    messenger.showSnackBar(SnackBar(
+        content: Text(err == null
+            ? 'Открываю установщик. Нажмите «Установить».'
+            : 'Не удалось обновить: $err')));
   }
 
   void _showExport() {

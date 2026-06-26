@@ -14,6 +14,8 @@ dependencies:
   http: ^1.2.0           # OTA: загрузка манифеста и контента
   path_provider: ^2.1.0  # OTA: каталог кеша на устройстве
   crypto: ^3.0.3         # OTA: проверка целостности (sha256)
+  package_info_plus: ^8.0.0  # Tier B: свой build-номер для сравнения с манифестом
+  open_filex: ^4.5.0         # Tier B: открыть системный установщик скачанного APK
 
 dev_dependencies:
   flutter_test:
