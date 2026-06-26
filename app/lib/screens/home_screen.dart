@@ -161,6 +161,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const Divider(),
               ListTile(
+                leading: const Icon(Icons.description_outlined),
+                title: const Text('Отчёт для логопеда',
+                    style: TextStyle(fontSize: 20)),
+                subtitle: const Text('Срез прогресса текстом — отправить',
+                    style: TextStyle(fontSize: 15)),
+                onTap: () {
+                  Navigator.pop(context);
+                  _showReport(p);
+                },
+              ),
+              ListTile(
                 leading: const Icon(Icons.save_alt),
                 title: const Text('Сохранить копию прогресса',
                     style: TextStyle(fontSize: 20)),
@@ -327,6 +338,98 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             },
             child: const Text('Восстановить', style: TextStyle(fontSize: 18)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _skillLabel(String type) {
+    final t = widget.repo[type]?.title;
+    if (t != null && t.isNotEmpty) return t;
+    const fallback = {
+      'clock': 'Время по часам',
+      'stress': 'Ударение в слове',
+      'picture_word': 'Узнавание по картинке',
+    };
+    return fallback[type] ?? type;
+  }
+
+  /// Человекочитаемый отчёт для логопеда — срез прогресса на сейчас.
+  String _buildReport(Progress p) {
+    final acc = p.answered > 0 ? (p.correct * 100 / p.answered).round() : 0;
+    final now = DateTime.now();
+    final date = '${now.day.toString().padLeft(2, '0')}.'
+        '${now.month.toString().padLeft(2, '0')}.${now.year}';
+    final b = StringBuffer();
+    b.writeln('Отчёт по занятиям речью');
+    b.writeln('Дата: $date');
+    b.writeln('');
+    b.writeln('Занятий проведено: ${p.sessions}');
+    b.writeln('Дней с занятиями: ${p.days.length}');
+    b.writeln(
+        'Ответов: ${p.answered}, из них верно: ${p.correct} (точность $acc%)');
+    b.writeln('Режим: ${p.pictureMode ? 'картиночный' : 'обычный'}');
+    b.writeln('Общий уровень: ${p.level} (из 3)');
+    if (p.skillLevels.isNotEmpty) {
+      b.writeln('');
+      b.writeln('Уровень по навыкам (0–3):');
+      final entries = p.skillLevels.entries.toList()
+        ..sort((a, c) => _skillLabel(a.key).compareTo(_skillLabel(c.key)));
+      for (final e in entries) {
+        b.writeln('• ${_skillLabel(e.key)}: ${e.value}');
+      }
+    }
+    b.writeln('');
+    b.writeln('Награды: ${p.achievements.isEmpty ? 'пока нет' : p.achievements.map(achievementTitle).join(', ')}');
+    return b.toString();
+  }
+
+  void _showReport(Progress p) {
+    final report = _buildReport(p);
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Отчёт для логопеда'),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Нажмите «Скопировать» и отправьте этот отчёт логопеду '
+                '(почта, мессенджер).',
+                style: TextStyle(fontSize: 17),
+              ),
+              const SizedBox(height: 12),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: SelectableText(report,
+                    style: const TextStyle(fontSize: 15)),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Закрыть', style: TextStyle(fontSize: 18)),
+          ),
+          ElevatedButton.icon(
+            onPressed: () async {
+              await Clipboard.setData(ClipboardData(text: report));
+              if (!mounted) return;
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Отчёт скопирован')));
+            },
+            icon: const Icon(Icons.copy),
+            label: const Text('Скопировать', style: TextStyle(fontSize: 18)),
           ),
         ],
       ),
