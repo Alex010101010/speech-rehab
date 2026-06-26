@@ -1,7 +1,7 @@
 name: rech
 description: "Тренажёр восстановления речи после инсульта (черновик MVP)."
 publish_to: 'none'
-version: 0.1.0+1
+version: 0.1.1+2
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -11,6 +11,9 @@ dependencies:
     sdk: flutter
   flutter_tts: ^4.0.0
   shared_preferences: ^2.2.0
+  http: ^1.2.0           # OTA: загрузка манифеста и контента
+  path_provider: ^2.1.0  # OTA: каталог кеша на устройстве
+  crypto: ^3.0.3         # OTA: проверка целостности (sha256)
 
 dev_dependencies:
   flutter_test:

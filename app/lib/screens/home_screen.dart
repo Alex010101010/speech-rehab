@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../data/content_overlay.dart';
 import '../data/content_repository.dart';
 import '../engine/progress_store.dart';
 import '../engine/tts_service.dart';
@@ -9,11 +10,13 @@ class HomeScreen extends StatefulWidget {
   final ContentRepository repo;
   final ProgressStore store;
   final TtsService tts;
+  final ContentOverlay overlay;
   const HomeScreen(
       {super.key,
       required this.repo,
       required this.store,
-      required this.tts});
+      required this.tts,
+      required this.overlay});
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -143,6 +146,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (mounted) setState(() {});
                 },
               ),
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.system_update_alt),
+                title: const Text('Проверить обновления',
+                    style: TextStyle(fontSize: 20)),
+                subtitle: const Text('Загрузить свежие задания',
+                    style: TextStyle(fontSize: 15)),
+                onTap: () {
+                  Navigator.pop(context);
+                  _checkUpdates();
+                },
+              ),
             ],
           ),
           actions: [
@@ -154,6 +169,24 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _checkUpdates() async {
+    final messenger = ScaffoldMessenger.of(context);
+    messenger.showSnackBar(
+        const SnackBar(content: Text('Проверяю обновления…')));
+    final r = await widget.overlay.checkForUpdate();
+    final msg = switch (r.status) {
+      OtaStatus.updated =>
+        'Обновление загружено. Изменения появятся после перезапуска.',
+      OtaStatus.upToDate => 'У вас уже последняя версия заданий.',
+      OtaStatus.offline => 'Нет связи с сервером. Попробуйте позже.',
+      OtaStatus.skipped => 'Обновление сейчас недоступно.',
+      OtaStatus.error => 'Не удалось обновить. Попробуйте позже.',
+    };
+    if (!mounted) return;
+    messenger.hideCurrentSnackBar();
+    messenger.showSnackBar(SnackBar(content: Text(msg)));
   }
 
   void _showProgress(BuildContext context, Progress p) {

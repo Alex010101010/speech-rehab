@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../engine/tts_service.dart';
 import '../models/exercise.dart';
+import 'ota_image.dart';
 
 // ---------- проверка ответа ----------
 
@@ -173,7 +174,7 @@ class ExerciseScaffold extends StatelessWidget {
   final VoidCallback onNext;
   final TtsService tts;
   final String nextLabel;
-  final String? imagePath; // картинка-подсказка (если есть)
+  final String? imageName; // имя файла картинки-подсказки (если есть)
   final String? emoji; // значок-подсказка (если нет картинки)
   const ExerciseScaffold({
     super.key,
@@ -184,7 +185,7 @@ class ExerciseScaffold extends StatelessWidget {
     required this.onNext,
     required this.tts,
     this.nextLabel = 'Дальше',
-    this.imagePath,
+    this.imageName,
     this.emoji,
   });
 
@@ -198,16 +199,11 @@ class ExerciseScaffold extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                if (imagePath != null) ...[
+                if (imageName != null) ...[
                   Center(
-                    child: Image.asset(imagePath!,
-                        height: 200,
-                        // картинка не загрузилась — показываем emoji как запасную опору
-                        errorBuilder: (_, __, ___) =>
-                            (emoji != null && emoji!.isNotEmpty)
-                                ? Text(emoji!,
-                                    style: const TextStyle(fontSize: 110))
-                                : const SizedBox.shrink()),
+                    // OTA-кеш → вшитый ассет → emoji (запасная опора)
+                    child: OtaImage(
+                        fileName: imageName!, emoji: emoji, height: 200),
                   ),
                   const SizedBox(height: 16),
                 ] else if (emoji != null && emoji!.isNotEmpty) ...[
@@ -362,7 +358,7 @@ class _ChoiceExerciseState extends State<ChoiceExercise> {
     return ExerciseScaffold(
       prompt: prompt,
       tts: widget.tts,
-      imagePath: img.isEmpty ? null : 'assets/content/img/$img',
+      imageName: img.isEmpty ? null : img,
       emoji: emoji.isEmpty ? null : emoji,
       solved: _solved,
       hint: widget.errorless
@@ -484,7 +480,7 @@ class _PictureWordExerciseState extends State<PictureWordExercise> {
     return ExerciseScaffold(
       prompt: 'Как это называется?',
       tts: widget.tts,
-      imagePath: img.isEmpty ? null : 'assets/content/img/$img',
+      imageName: img.isEmpty ? null : img,
       // emoji передаём всегда: при картинке — как фолбэк, без картинки — основной cue
       emoji: emoji.isEmpty ? null : emoji,
       solved: _solved,
@@ -686,7 +682,7 @@ class _TypedExerciseState extends State<TypedExercise> {
     return ExerciseScaffold(
       prompt: prompt,
       tts: widget.tts,
-      imagePath: (_cueShown && img.isNotEmpty) ? 'assets/content/img/$img' : null,
+      imageName: (_cueShown && img.isNotEmpty) ? img : null,
       emoji: (_cueShown && emoji.isNotEmpty) ? emoji : null,
       hint: _hint,
       solved: _solved,

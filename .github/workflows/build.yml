@@ -27,6 +27,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Вшитый снимок контента — производная от content/ (в git не хранится).
+      - name: Build content snapshot
+        working-directory: ${{ github.workspace }}
+        run: python3 tools/build_assets.py
+
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
@@ -39,6 +44,16 @@ jobs:
 
       - name: Build Web
         run: flutter build web --release --base-href /speech-rehab/
+
+      # OTA-канал: тот же контент + manifest.json кладём под /ota на Pages,
+      # чтобы приложение могло тянуть свежие задания без переустановки.
+      - name: Assemble OTA payload
+        working-directory: ${{ github.workspace }}
+        run: |
+          mkdir -p app/build/web/ota
+          cp -r app/assets/content/. app/build/web/ota/
+          rm -rf app/build/web/ota/img/MANIFEST.json app/build/web/ota/img/ATTRIBUTION.md app/build/web/ota/img/README.md
+          python3 tools/build_manifest.py app/build/web/ota
 
       - name: Upload Web artifact
         uses: actions/upload-pages-artifact@v3
@@ -66,12 +81,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Build content snapshot
+        working-directory: ${{ github.workspace }}
+        run: python3 tools/build_assets.py
+
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
 
       - name: Generate android platform
         run: flutter create --platforms=android --org dev.rech --project-name rech .
+
+      # INTERNET нужен для OTA; в release-манифесте flutter его по умолчанию нет.
+      - name: Add INTERNET permission
+        run: |
+          M=android/app/src/main/AndroidManifest.xml
+          grep -q 'android.permission.INTERNET' "$M" || \
+            sed -i 's#\(<manifest[^>]*>\)#\1\n    <uses-permission android:name="android.permission.INTERNET"/>#' "$M"
+          head -4 "$M"
 
       - run: flutter pub get
 

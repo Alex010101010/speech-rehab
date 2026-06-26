@@ -21,7 +21,7 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
 PW = os.path.join(ROOT, "content", "json", "22_picture_word.json")
-IMGDIR = os.path.join(ROOT, "app", "assets", "content", "img")
+IMGDIR = os.path.join(ROOT, "content", "img")
 OUT = os.path.join(HERE, "picture_word_review.html")
 
 

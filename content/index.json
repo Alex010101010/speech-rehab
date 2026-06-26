@@ -1,6 +1,8 @@
 {
   "pack": "speech-rehab-content-v1",
   "status": "logoped-reviewed",
+  "content_version": 1,
+  "min_app_version": 1,
   "total_items": 1410,
   "types": [
     {

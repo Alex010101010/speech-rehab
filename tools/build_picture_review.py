@@ -19,7 +19,7 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
 FILL = os.path.join(ROOT, "content", "json", "17_fill_letter.json")
-IMGDIR = os.path.join(ROOT, "app", "assets", "content", "img")
+IMGDIR = os.path.join(ROOT, "content", "img")
 OUT = os.path.join(HERE, "picture_review.html")
 
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Скачивает пиктограммы ARASAAC (CC BY-NC-SA) для слов-ответов из
-17_fill_letter.json в app/assets/content/img/<slug>.png.
+17_fill_letter.json в content/img/<slug>.png.
 
 База ARASAAC по сути англоязычная: русское покрытие неполное. Поэтому
 ищем по АНГЛИЙСКОМУ переводу (endpoint /en/) из словаря WORDS_EN —
@@ -22,7 +22,7 @@ TIMEOUT = 40
 RETRIES = 3
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
-OUT = os.path.join(ROOT, "app", "assets", "content", "img")
+OUT = os.path.join(ROOT, "content", "img")
 FILL = os.path.join(ROOT, "content", "json", "17_fill_letter.json")
 
 # русское слово -> английский запрос для поиска в ARASAAC (точный смысл)

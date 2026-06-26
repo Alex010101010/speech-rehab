@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'app_theme.dart';
+import 'data/content_overlay.dart';
 import 'data/content_repository.dart';
 import 'engine/progress_store.dart';
 import 'engine/tts_service.dart';
@@ -17,14 +20,20 @@ class RechApp extends StatefulWidget {
 }
 
 class _RechAppState extends State<RechApp> {
-  final ContentRepository repo = ContentRepository();
+  final ContentOverlay overlay = createContentOverlay();
+  late final ContentRepository repo = ContentRepository(overlay: overlay);
   final ProgressStore store = ProgressStore();
   final TtsService tts = TtsService();
   late final Future<void> _init = _load();
 
   Future<void> _load() async {
+    await overlay.init();
+    contentOverlay = overlay; // для виджетов картинок (OtaImage)
     await repo.load();
     await store.load();
+    // Фоновая проверка обновления контента: не блокирует вход в сессию,
+    // применённое обновление вступит в силу со следующего запуска.
+    unawaited(overlay.checkForUpdate());
   }
 
   @override
@@ -52,7 +61,8 @@ class _RechAppState extends State<RechApp> {
               ),
             );
           }
-          return HomeScreen(repo: repo, store: store, tts: tts);
+          return HomeScreen(
+              repo: repo, store: store, tts: tts, overlay: overlay);
         },
       ),
     );

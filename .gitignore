@@ -15,6 +15,10 @@ app/macos/
 app/windows/
 app/.metadata
 
+# Вшитый снимок контента — производная от content/, генерится tools/build_assets.py
+# (в CI перед flutter build). В git хранится только источник content/.
+app/assets/content/
+
 # Скачанные сборки (APK из CI-артефактов)
 dist/
 
