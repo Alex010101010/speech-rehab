@@ -53,6 +53,8 @@ class Progress {
 
 class ProgressStore {
   static const _key = 'progress_v1';
+  static const _backupMagic = 'speech-rehab';
+  static const _backupVersion = 1;
   Progress progress = Progress();
 
   Future<void> load() async {
@@ -70,5 +72,38 @@ class ProgressStore {
   Future<void> save() async {
     final sp = await SharedPreferences.getInstance();
     await sp.setString(_key, jsonEncode(progress.toJson()));
+  }
+
+  /// «Код восстановления» — компактный JSON-конверт с прогрессом.
+  /// Вставляется в письмо/заметку как офлайн-копия.
+  String exportCode() => jsonEncode({
+        'app': _backupMagic,
+        'backup_version': _backupVersion,
+        'progress': progress.toJson(),
+      });
+
+  /// Восстанавливает прогресс из кода. Полностью заменяет текущий и сохраняет.
+  /// Возвращает false, если код пустой/не распознан (тогда прогресс не тронут).
+  Future<bool> importCode(String raw) async {
+    final t = raw.trim();
+    if (t.isEmpty) return false;
+    Map<String, dynamic> j;
+    try {
+      j = jsonDecode(t) as Map<String, dynamic>;
+    } catch (_) {
+      return false;
+    }
+    if (j['app'] != _backupMagic) return false;
+    final pj = j['progress'];
+    if (pj is! Map) return false;
+    final Progress restored;
+    try {
+      restored = Progress.fromJson(Map<String, dynamic>.from(pj));
+    } catch (_) {
+      return false;
+    }
+    progress = restored;
+    await save();
+    return true;
   }
 }

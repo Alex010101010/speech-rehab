@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../data/content_overlay.dart';
 import '../data/content_repository.dart';
 import '../engine/progress_store.dart';
@@ -158,6 +159,29 @@ class _HomeScreenState extends State<HomeScreen> {
                   _checkUpdates();
                 },
               ),
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.save_alt),
+                title: const Text('Сохранить копию прогресса',
+                    style: TextStyle(fontSize: 20)),
+                subtitle: const Text('Код для переноса на другое устройство',
+                    style: TextStyle(fontSize: 15)),
+                onTap: () {
+                  Navigator.pop(context);
+                  _showExport();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.restore),
+                title: const Text('Восстановить из копии',
+                    style: TextStyle(fontSize: 20)),
+                subtitle: const Text('Вставить ранее сохранённый код',
+                    style: TextStyle(fontSize: 15)),
+                onTap: () {
+                  Navigator.pop(context);
+                  _showImport();
+                },
+              ),
             ],
           ),
           actions: [
@@ -187,6 +211,126 @@ class _HomeScreenState extends State<HomeScreen> {
     if (!mounted) return;
     messenger.hideCurrentSnackBar();
     messenger.showSnackBar(SnackBar(content: Text(msg)));
+  }
+
+  void _showExport() {
+    final code = widget.store.exportCode();
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Копия прогресса'),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Нажмите «Скопировать» и вставьте этот код в письмо себе '
+                'или в заметку. По нему можно восстановить прогресс на '
+                'другом устройстве.',
+                style: TextStyle(fontSize: 17),
+              ),
+              const SizedBox(height: 12),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: SelectableText(code,
+                    style: const TextStyle(fontSize: 13)),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Закрыть', style: TextStyle(fontSize: 18)),
+          ),
+          ElevatedButton.icon(
+            onPressed: () async {
+              await Clipboard.setData(ClipboardData(text: code));
+              if (!mounted) return;
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Код скопирован')));
+            },
+            icon: const Icon(Icons.copy),
+            label: const Text('Скопировать', style: TextStyle(fontSize: 18)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showImport() {
+    final controller = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Восстановить прогресс'),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Вставьте код копии. Текущий прогресс на этом устройстве '
+                'будет заменён.',
+                style: TextStyle(fontSize: 17),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: controller,
+                maxLines: 5,
+                style: const TextStyle(fontSize: 14),
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Вставьте код сюда',
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextButton.icon(
+                onPressed: () async {
+                  final d = await Clipboard.getData(Clipboard.kTextPlain);
+                  final t = d?.text;
+                  if (t != null) controller.text = t;
+                },
+                icon: const Icon(Icons.paste),
+                label: const Text('Вставить из буфера',
+                    style: TextStyle(fontSize: 16)),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Отмена', style: TextStyle(fontSize: 18)),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final ok = await widget.store.importCode(controller.text);
+              if (!mounted) return;
+              Navigator.pop(context);
+              final messenger = ScaffoldMessenger.of(context);
+              if (ok) {
+                setState(() {});
+                messenger.showSnackBar(const SnackBar(
+                    content: Text('Прогресс восстановлен')));
+              } else {
+                messenger.showSnackBar(const SnackBar(
+                    content: Text('Код не распознан. Проверьте, что '
+                        'скопировали его целиком.')));
+              }
+            },
+            child: const Text('Восстановить', style: TextStyle(fontSize: 18)),
+          ),
+        ],
+      ),
+    );
   }
 
   void _showProgress(BuildContext context, Progress p) {
