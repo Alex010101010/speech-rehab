@@ -18,12 +18,15 @@ import time
 import urllib.parse
 import urllib.request
 
+from translit import slugify
+
 TIMEOUT = 40
 RETRIES = 3
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
 OUT = os.path.join(ROOT, "content", "img")
 FILL = os.path.join(ROOT, "content", "json", "17_fill_letter.json")
+POOL = os.path.join(ROOT, "content", "picture_pool.json")
 
 # русское слово -> английский запрос для поиска в ARASAAC (точный смысл)
 WORDS_EN = {
@@ -58,19 +61,6 @@ WORDS_EN = {
     # без точного перевода/омонимичны — пробуем по-русски (часто без картинки):
     # заготовка, ёрш, железо
 }
-
-_TR = {
-    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e',
-    'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
-    'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
-    'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch',
-    'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya', ' ': '_',
-}
-
-
-def slugify(word):
-    return ''.join(_TR.get(ch, '') for ch in word.lower()).strip('_')
-
 
 def _open(url, retries=RETRIES):
     last = None
@@ -120,7 +110,22 @@ def main():
         ans = (it.get("answer") or "").strip()
         if ans and ans not in words:
             words.append(ans)
-    print(f"слов-ответов: {len(words)}\n")
+    fill_n = len(words)
+
+    # расширенный пул простых предметов (content/picture_pool.json): добавляем
+    # слова и их англ-переводы в общий словарь поиска
+    pool_n = 0
+    if os.path.exists(POOL):
+        for e in json.load(open(POOL, encoding="utf-8")).get("words", []):
+            ru = (e.get("ru") or "").strip()
+            if not ru:
+                continue
+            if e.get("en"):
+                WORDS_EN[ru] = e["en"]
+            if ru not in words:
+                words.append(ru)
+                pool_n += 1
+    print(f"слов: {len(words)} (fill_letter {fill_n} + пул {pool_n})\n")
 
     # идемпотентность: подхватываем прошлый манифест, пропускаем уже скачанное
     mpath = os.path.join(OUT, "MANIFEST.json")

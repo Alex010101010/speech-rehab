@@ -20,12 +20,15 @@ import json
 import os
 import re
 
+from translit import slugify
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILL_LETTER = os.path.join(ROOT, "content", "json", "17_fill_letter.json")
 # Решения ревью дистракторов логопедом: id -> {approved, comment}.
 # comment = два слова-замены дистрактора (через «/» или пробел); approved:false — убрать.
 DECISIONS = os.path.join(ROOT, "content", "picture-word-decisions.json")
 IMG_DIR = os.path.join(ROOT, "content", "img")
+POOL = os.path.join(ROOT, "content", "picture_pool.json")
 OUT_SRC = os.path.join(ROOT, "content", "json", "22_picture_word.json")
 
 # Ручные добавления сверх пар из fill_letter: (image_file, word, emoji).
@@ -49,6 +52,22 @@ def collect_pairs():
         if word not in seen:
             seen.add(word)
             pairs.append((word, img, emoji))
+    # расширенный пул простых предметов: берём слово только если картинка уже
+    # скачана (fetch_arasaac.py), иначе пропускаем до загрузки
+    skipped = 0
+    if os.path.exists(POOL):
+        for e in json.load(open(POOL, encoding="utf-8")).get("words", []):
+            word = (e.get("ru") or "").strip()
+            if not word or word in seen:
+                continue
+            img = slugify(word) + ".png"
+            if not os.path.exists(os.path.join(IMG_DIR, img)):
+                skipped += 1
+                continue
+            seen.add(word)
+            pairs.append((word, img, e.get("emoji", "")))
+    if skipped:
+        print(f"  пул: пропущено {skipped} слов без скачанной картинки")
     return pairs
 
 
