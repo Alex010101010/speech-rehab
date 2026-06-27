@@ -984,7 +984,10 @@ class _TypedExerciseState extends State<TypedExercise> {
         _solved = true;
         _hint = 'Верно!';
       });
-      widget.tts.speak('Верно');
+      // дочитываем слово целиком — пациент слышит правильный образец, а не
+      // только «верно» (для fill_letter это и есть собранное слово)
+      final ans = (widget.item['answer'] ?? '').toString().trim();
+      widget.tts.speak(ans.isEmpty ? 'Верно' : 'Верно. $ans');
     } else {
       _tries++;
       if (_tries >= 2) {

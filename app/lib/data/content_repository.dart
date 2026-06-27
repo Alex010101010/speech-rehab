@@ -35,6 +35,20 @@ class ContentRepository {
     }
   }
 
+  /// Словарь ударений (content/stress.json): {"words": {слово: ударная форма}}.
+  /// Источник тот же, что у заданий: OTA-кеш → вшитый ассет. Пусто, если файла
+  /// нет (старый OTA-кеш без него) — тогда озвучка работает как раньше.
+  Future<Map<String, String>> loadStress() async {
+    try {
+      final s = await _loadString('stress.json');
+      final words = (jsonDecode(s) as Map<String, dynamic>)['words'];
+      if (words is! Map) return const {};
+      return words.map((k, v) => MapEntry(k.toString(), v.toString()));
+    } catch (_) {
+      return const {};
+    }
+  }
+
   ExerciseSet? operator [](String type) => _sets[type];
   bool has(String type) => _sets.containsKey(type);
   Iterable<String> get types => _sets.keys;

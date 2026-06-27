@@ -30,6 +30,7 @@ class _RechAppState extends State<RechApp> {
     await overlay.init();
     contentOverlay = overlay; // для виджетов картинок (OtaImage)
     await repo.load();
+    tts.setStress(await repo.loadStress());
     await store.load();
     // Фоновая проверка обновления контента: не блокирует вход в сессию,
     // применённое обновление вступит в силу со следующего запуска.

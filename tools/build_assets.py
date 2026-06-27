@@ -44,6 +44,12 @@ def main():
         shutil.copy2(src_file, os.path.join(DEST, base))
         copied += 1
 
+    # Доп. контент вне index.json (словарь ударений для TTS и т.п.): плоско в корень.
+    for extra in ("stress.json",):
+        src_extra = os.path.join(SRC, extra)
+        if os.path.exists(src_extra):
+            shutil.copy2(src_extra, os.path.join(DEST, extra))
+
     # Картинки: content/img -> app/assets/content/img (целиком).
     src_img = os.path.join(SRC, "img")
     imgs = 0

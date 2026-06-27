@@ -9,6 +9,27 @@ class TtsService {
   /// не работает, поэтому главный экран показывает подсказку об установке.
   bool ruAvailable = true;
 
+  /// Словарь ударений: чистое слово (нижний регистр) -> форма со знаком U+0301
+  /// после ударной гласной. Движок Android-TTS обычно слушается этого знака и
+  /// ставит ударение принудительно. Источник — content/stress.json (едет по OTA).
+  Map<String, String> _stress = const {};
+
+  void setStress(Map<String, String> map) {
+    _stress = {for (final e in map.entries) e.key.toLowerCase(): e.value};
+  }
+
+  /// Готовит текст к озвучке: убирает плейсхолдеры пропуска '_' (иначе движок
+  /// читает «нижнее подчёркивание») и проставляет ударение по словарю.
+  String _prepare(String text) {
+    var t = text.replaceAll(RegExp(r'_+'), ' ');
+    if (_stress.isNotEmpty) {
+      t = t.replaceAllMapped(RegExp(r'[А-Яа-яЁё]+'), (m) {
+        return _stress[m[0]!.toLowerCase()] ?? m[0]!;
+      });
+    }
+    return t.replaceAll(RegExp(r'[ \t]+'), ' ').trim();
+  }
+
   Future<void> _init() async {
     if (_ready) return;
     try {
@@ -40,7 +61,7 @@ class TtsService {
     await _init();
     try {
       await _tts.stop();
-      await _tts.speak(t);
+      await _tts.speak(_prepare(t));
     } catch (_) {}
   }
 

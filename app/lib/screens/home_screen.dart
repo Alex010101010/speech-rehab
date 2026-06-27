@@ -227,6 +227,29 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// Крупный заметный диалог для итогов проверки обновлений — SnackBar внизу
+  /// мелкий и короткий, пожилой пользователь его не замечает.
+  Future<void> _showInfoDialog(String title, String message) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(title,
+            style:
+                const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        content: Text(message, style: const TextStyle(fontSize: 20)),
+        actions: [
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              child: Text('Понятно', style: TextStyle(fontSize: 20)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> _checkUpdates() async {
     final messenger = ScaffoldMessenger.of(context);
     messenger.showSnackBar(
@@ -242,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
     };
     if (!mounted) return;
     messenger.hideCurrentSnackBar();
-    messenger.showSnackBar(SnackBar(content: Text(msg)));
+    _showInfoDialog('Обновление заданий', msg);
   }
 
   Future<void> _checkAppUpdate() async {
@@ -256,17 +279,17 @@ class _HomeScreenState extends State<HomeScreen> {
       case AppUpdateStatus.available:
         _confirmAppInstall(info);
       case AppUpdateStatus.upToDate:
-        messenger.showSnackBar(const SnackBar(
-            content: Text('У вас установлена последняя версия приложения.')));
+        _showInfoDialog('Обновлений нет',
+            'У вас установлена последняя версия приложения.');
       case AppUpdateStatus.offline:
-        messenger.showSnackBar(const SnackBar(
-            content: Text('Нет связи с сервером. Попробуйте позже.')));
+        _showInfoDialog(
+            'Нет связи', 'Нет связи с сервером. Попробуйте позже.');
       case AppUpdateStatus.skipped:
-        messenger.showSnackBar(const SnackBar(
-            content: Text('Самообновление недоступно на этом устройстве.')));
+        _showInfoDialog('Обновление недоступно',
+            'Самообновление недоступно на этом устройстве.');
       case AppUpdateStatus.error:
-        messenger.showSnackBar(const SnackBar(
-            content: Text('Не удалось проверить версию. Попробуйте позже.')));
+        _showInfoDialog('Ошибка проверки',
+            'Не удалось проверить версию. Попробуйте позже.');
     }
   }
 
