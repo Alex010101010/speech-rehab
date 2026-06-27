@@ -474,6 +474,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'auto_series': 'Продолжить ряд',
       'word_order': 'Собрать предложение',
       'anagram': 'Слово из букв',
+      'endings_choice': 'Выбрать форму слова',
     };
     return fallback[type] ?? type;
   }

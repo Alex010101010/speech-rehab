@@ -41,6 +41,7 @@ RenderMode renderModeFor(String type) {
   switch (type) {
     case 'complete_phrase_choice':
     case 'paronyms':
+    case 'endings_choice':
       return RenderMode.choice;
     case 'memory_rows':
       return RenderMode.memory;

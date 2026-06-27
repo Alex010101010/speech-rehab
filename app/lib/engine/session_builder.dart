@@ -63,6 +63,7 @@ class SessionBuilder {
         'syllables', // собрать слово из слогов касанием
         'match_pairs', // соединить пары (слово↔действие/синонимы/буква) касанием
         'auto_series', // продолжить привычный ряд вслух (растормаживание)
+        'endings_choice', // выбрать верную форму слова касанием (узнавание)
       ]..shuffle(_r);
       for (final t in lightCore.take(3)) {
         plan.add(SessionSlot(t, 'core'));
@@ -83,6 +84,7 @@ class SessionBuilder {
       'synonyms_antonyms',
       'logic_questions',
       'endings_cases',
+      'endings_choice', // выбрать верную форму слова касанием (узнавание)
       'find_error',
       'clock',
       'stress',

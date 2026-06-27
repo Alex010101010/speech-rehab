@@ -102,6 +102,9 @@ String displayPrompt(String type, Map<String, dynamic> item) {
     case 'endings_cases':
       return 'Поставьте слово в скобках в правильную форму.\n'
           'Например: «много (дом…)» → «домов».\n\n$p';
+    case 'endings_choice':
+      return 'Выберите правильную форму слова.\n'
+          'Например: «Кот сидит на …» → «диване».\n\n$p';
     case 'generalization':
       return 'Назовите одним общим словом.\n'
           'Например: «стол, стул, шкаф» → «мебель».\n\n$p';

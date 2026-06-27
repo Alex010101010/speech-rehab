@@ -3,9 +3,10 @@
 
 Страница tools/draft_review.html выгружает один draft-decisions.json (id -> {approved,
 comment}) по трём draft-наборам. Этот скрипт разносит ключи по префиксу id:
-  sy_ → content/syllables-decisions.json
-  mp_ → content/match_pairs-decisions.json
-  wo_ → content/word_order-decisions.json
+  sy_  → content/syllables-decisions.json
+  mp_  → content/match_pairs-decisions.json
+  wo_  → content/word_order-decisions.json
+  ech_ → content/endings_choice-decisions.json
 (merge, не перезапись), затем перегенерит наборы и пересобирает ассеты. draft
 снимется автоматически, когда все задания набора получат решение.
 
@@ -23,9 +24,10 @@ PREFIX_FILE = {
     "sy": "syllables-decisions.json",
     "mp": "match_pairs-decisions.json",
     "wo": "word_order-decisions.json",
+    "ech": "endings_choice-decisions.json",
 }
 REGEN = ["build_syllables.py", "build_match_pairs.py", "build_word_order.py",
-         "build_assets.py"]
+         "build_endings_choice.py", "build_assets.py"]
 
 
 def main():

@@ -1,9 +1,9 @@
 {
   "pack": "speech-rehab-content-v1",
   "status": "logoped-reviewed",
-  "content_version": 8,
-  "min_app_version": 3,
-  "total_items": 2281,
+  "content_version": 9,
+  "min_app_version": 4,
+  "total_items": 2313,
   "types": [
     {
       "type": "find_error",
@@ -337,6 +337,20 @@
       "file": "json/28_anagram.json",
       "count": 30,
       "levels": null,
+      "advanced": false
+    },
+    {
+      "type": "endings_choice",
+      "title": "Выберите правильную форму слова",
+      "section": "V. Грамматика",
+      "file": "json/29_endings_choice.json",
+      "count": 32,
+      "draft": false,
+      "levels": {
+        "1": 14,
+        "2": 12,
+        "3": 6
+      },
       "advanced": false
     }
   ]

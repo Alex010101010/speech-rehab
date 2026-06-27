@@ -28,6 +28,8 @@ GROUPS = [
      "match_pairs-decisions.json", ("action", "synonym")),
     ("Соберите предложение", "27_word_order.json",
      "word_order-decisions.json", None),
+    ("Выберите правильную форму слова", "29_endings_choice.json",
+     "endings_choice-decisions.json", None),
 ]
 
 
@@ -135,6 +137,10 @@ function renderItem(it) {
   card.append(hd);
   if (it.prompt) card.append(fld('Задание', it.prompt));
   if (it.answer) card.append(fld('Ответ', it.answer));
+  if (Array.isArray(it.options)) {
+    const distr = it.options.filter(o => o !== it.answer);
+    if (distr.length) card.append(fld('Дистракторы', distr.join('   ·   ')));
+  }
   if (Array.isArray(it.syllables)) card.append(fld('Слоги', it.syllables.join(' · ')));
   if (Array.isArray(it.tokens)) card.append(fld('Слова по порядку', it.tokens.join('  ·  ')));
   if (Array.isArray(it.pairs)) {
