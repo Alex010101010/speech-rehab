@@ -17,11 +17,15 @@ import base64
 import json
 import os
 import subprocess
+import sys
+
+from translit import slugify
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
 IMGDIR = os.path.join(ROOT, "content", "img")
 POOL = os.path.join(ROOT, "content", "picture_pool.json")
+DECISIONS = os.path.join(ROOT, "content", "picture-pool-decisions.json")
 OUT = os.path.join(HERE, "picture_pool_review.html")
 
 
@@ -37,7 +41,27 @@ def new_images():
     return names
 
 
-def load_data():
+def pending_images(pool):
+    """Закоммиченные картинки пула без решения в decisions — остаток ревью.
+    На странице сначала «📂 Загрузить» текущий picture-pool-decisions.json,
+    тогда «💾 Сохранить» выгрузит полный мёрж (старые решения + эти)."""
+    decided = set()
+    if os.path.exists(DECISIONS):
+        try:
+            decided = set(json.load(open(DECISIONS, encoding="utf-8")).keys())
+        except Exception:
+            decided = set()
+    names = set()
+    for word in pool:
+        if word in decided:
+            continue
+        fn = slugify(word) + ".png"
+        if os.path.exists(os.path.join(IMGDIR, fn)):
+            names.add(fn)
+    return names
+
+
+def load_data(mode="new"):
     manifest = {}
     mpath = os.path.join(IMGDIR, "MANIFEST.json")
     if os.path.exists(mpath):
@@ -46,7 +70,12 @@ def load_data():
     pool = {e["ru"]: e for e in
             json.load(open(POOL, encoding="utf-8")).get("words", [])}
 
-    fresh = new_images()
+    if mode == "pending":
+        slug2word = {slugify(w): w for w in pool}
+        fresh = pending_images(pool.keys())
+    else:
+        slug2word = {}
+        fresh = new_images()
     cards = []
     for fname in sorted(fresh):
         fpath = os.path.join(IMGDIR, fname)
@@ -54,7 +83,7 @@ def load_data():
             continue
         slug = fname[:-4]
         meta = slug2meta.get(slug, {})
-        word = meta.get("word", slug)
+        word = slug2word.get(slug) or meta.get("word", slug)
         b64 = base64.b64encode(open(fpath, "rb").read()).decode("ascii")
         cards.append({
             "id": word,
@@ -202,12 +231,17 @@ stats();
 
 
 def main():
-    cards = load_data()
+    mode = "pending" if "--pending" in sys.argv else "new"
+    cards = load_data(mode)
     html = TEMPLATE.replace("__DATA__", json.dumps(cards, ensure_ascii=False))
     with open(OUT, "w", encoding="utf-8") as f:
         f.write(html)
     size_mb = os.path.getsize(OUT) / 1e6
-    print(f"Готово: {OUT}  ({size_mb:.1f} МБ, {len(cards)} новых картинок)")
+    label = "ждут ревью (без решения)" if mode == "pending" else "новых картинок"
+    print(f"Готово: {OUT}  ({size_mb:.1f} МБ, {len(cards)} {label})")
+    if mode == "pending":
+        print("Сначала на странице «📂 Загрузить» текущий "
+              "content/picture-pool-decisions.json, потом размечай и «💾 Сохранить».")
     print("Открой tools/picture_pool_review.html двойным кликом в браузере.")
 
 

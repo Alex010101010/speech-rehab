@@ -238,6 +238,11 @@
 
     {"ru": "плоскогубцы", "en": "pliers", "emoji": "", "theme": "инструменты"},
     {"ru": "шуруп", "en": "screw", "emoji": "🔩", "theme": "инструменты"},
-    {"ru": "метр", "en": "tape measure", "emoji": "📏", "theme": "инструменты"}
+    {"ru": "метр", "en": "tape measure", "emoji": "📏", "theme": "инструменты"},
+
+    {"ru": "сосиски", "en": "sausages", "emoji": "🌭", "theme": "еда"},
+    {"ru": "блокнот", "en": "notebook", "emoji": "📓", "theme": "быт"},
+    {"ru": "письмо", "en": "envelope", "emoji": "✉️", "theme": "быт"},
+    {"ru": "трубка", "en": "smoking pipe", "emoji": "", "theme": "прочее"}
   ]
 }

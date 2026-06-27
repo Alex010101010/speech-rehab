@@ -3,7 +3,7 @@
   "title": "Покажите, как это называется",
   "section": "0. Узнавание",
   "draft": false,
-  "count": 236,
+  "count": 240,
   "items": [
     {
       "id": "pw_001",
@@ -2836,6 +2836,54 @@
         "язык"
       ],
       "emoji": "📏"
+    },
+    {
+      "id": "pw_237",
+      "level": 0,
+      "answer": "сосиски",
+      "image": "sosiski.png",
+      "options": [
+        "сосиски",
+        "заяц",
+        "роса"
+      ],
+      "emoji": "🌭"
+    },
+    {
+      "id": "pw_238",
+      "level": 0,
+      "answer": "блокнот",
+      "image": "bloknot.png",
+      "options": [
+        "блокнот",
+        "ремень",
+        "галстук"
+      ],
+      "emoji": "📓"
+    },
+    {
+      "id": "pw_239",
+      "level": 0,
+      "answer": "письмо",
+      "image": "pismo.png",
+      "options": [
+        "письмо",
+        "зуб",
+        "мост"
+      ],
+      "emoji": "✉️"
+    },
+    {
+      "id": "pw_240",
+      "level": 0,
+      "answer": "трубка",
+      "image": "trubka.png",
+      "options": [
+        "трубка",
+        "серп",
+        "рыбак"
+      ],
+      "emoji": ""
     }
   ]
 }

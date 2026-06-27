@@ -152,9 +152,6 @@
   "кофе": {
     "approved": true
   },
-  "колбаса": {
-    "comment": "сосиски"
-  },
   "колено": {
     "approved": true
   },
@@ -166,9 +163,6 @@
   },
   "корабль": {
     "approved": true
-  },
-  "коряга": {
-    "comment": "блокнот"
   },
   "кошелёк": {
     "approved": true
@@ -341,9 +335,6 @@
   "плоскогубцы": {
     "approved": true
   },
-  "почта": {
-    "comment": "письмо"
-  },
   "поднос": {
     "approved": true
   },
@@ -428,9 +419,6 @@
   "сосиска": {
     "approved": true
   },
-  "сосна": {
-    "comment": "дерево"
-  },
   "сова": {
     "approved": true
   },
@@ -487,9 +475,6 @@
   },
   "трава": {
     "approved": true
-  },
-  "труба": {
-    "comment": "трубка"
   },
   "цветок": {
     "approved": true
@@ -606,6 +591,18 @@
     "approved": true
   },
   "микроволновка": {
+    "approved": true
+  },
+  "сосиски": {
+    "approved": true
+  },
+  "блокнот": {
+    "approved": true
+  },
+  "письмо": {
+    "approved": true
+  },
+  "трубка": {
     "approved": true
   }
 }
