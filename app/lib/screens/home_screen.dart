@@ -173,6 +173,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
               const Divider(),
+              // Временно скрыто из интерфейса (тест OTA-апдейта). Код отчёта
+              // (_buildReport/_showReport) сохранён — вернуть tile, чтобы показать.
+              /*
               ListTile(
                 leading: const Icon(Icons.description_outlined),
                 title: const Text('Отчёт для логопеда',
@@ -184,6 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   _showReport(p);
                 },
               ),
+              */
               ListTile(
                 leading: const Icon(Icons.save_alt),
                 title: const Text('Сохранить копию прогресса',
