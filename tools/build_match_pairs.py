@@ -20,6 +20,10 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILL = os.path.join(ROOT, "content", "json", "17_fill_letter.json")
 OUT = os.path.join(ROOT, "content", "json", "25_match_pairs.json")
+# Решения логопеда по заданиям action/synonym: id -> {approved, comment}.
+# approved:false — убрать задание; comment = заметка (правку пар вносим в
+# списки ACTION/SYNONYM вручную). letter наследует валидацию fill_letter.
+DECISIONS = os.path.join(ROOT, "content", "match_pairs-decisions.json")
 
 PAIRS_PER = 4
 
@@ -99,25 +103,51 @@ def build_kind(kind, pairs, start):
     return items, start
 
 
+def load_decisions():
+    if not os.path.exists(DECISIONS):
+        return {}
+    return json.load(open(DECISIONS, encoding="utf-8"))
+
+
 def main():
-    items, n = [], 0
+    decisions = load_decisions()
+    # 1. нумеруем ВСЕ задания (id стабильны при отклонении отдельных)
+    built, n = [], 0
     for kind, src in (("action", ACTION), ("synonym", SYNONYM),
                       ("letter", letter_pairs())):
         part, n = build_kind(kind, src, n)
-        items += part
+        built += part
         print(f"  {kind}: {len(part)} заданий")
+
+    # 2. применяем решения логопеда (только action/synonym; letter — авто)
+    items, dropped = [], []
+    for it in built:
+        dec = decisions.get(it["id"], {})
+        if it["kind"] != "letter" and dec.get("approved") is False:
+            dropped.append(it["id"])
+            continue
+        items.append(it)
+
+    # черновик, пока есть action/synonym без явного одобрения логопеда
+    def decided(it):
+        if it["kind"] == "letter":
+            return True
+        d = decisions.get(it["id"], {})
+        return d.get("approved") is True or bool((d.get("comment") or "").strip())
+    is_draft = any(not decided(it) for it in items)
 
     doc = {
         "type": "match_pairs",
         "title": "Соедините пары",
         "section": "0. Узнавание",
-        "draft": True,  # action/synonym нужна валидация логопедом
+        "draft": is_draft,
         "count": len(items),
         "items": items,
     }
     open(OUT, "w", encoding="utf-8").write(
         json.dumps(doc, ensure_ascii=False, indent=2) + "\n")
-    print(f"match_pairs: {len(items)} заданий → {OUT}")
+    print(f"match_pairs: {len(items)} заданий "
+          f"(draft={is_draft}, убрано {len(dropped)})")
 
 
 if __name__ == "__main__":

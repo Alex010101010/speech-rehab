@@ -13,6 +13,9 @@ import os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "content", "json", "27_word_order.json")
+# Решения логопеда: id -> {approved, comment}. approved:false — убрать;
+# comment = исправленное предложение (целиком, через пробел).
+DECISIONS = os.path.join(ROOT, "content", "word_order-decisions.json")
 
 PROMPT = "Соберите предложение: нажимайте слова по порядку"
 
@@ -44,28 +47,53 @@ SENTENCES = [
 ]
 
 
+def load_decisions():
+    if not os.path.exists(DECISIONS):
+        return {}
+    return json.load(open(DECISIONS, encoding="utf-8"))
+
+
 def main():
-    items = []
+    decisions = load_decisions()
+    items, dropped, overridden = [], [], 0
+    # нумеруем по исходному списку (id стабильны при отклонении отдельных)
     for i, s in enumerate(SENTENCES, 1):
+        pid = f"wo_{i:03d}"
+        dec = decisions.get(pid, {})
+        if dec.get("approved") is False:  # отклонено логопедом
+            dropped.append(pid)
+            continue
+        comment = (dec.get("comment") or "").strip()
+        if comment:  # логопед прислал исправленное предложение
+            s = comment
+            overridden += 1
         words = s.split()
         items.append({
-            "id": f"wo_{i:03d}",
+            "id": pid,
             "level": 2 if len(words) <= 3 else 3,
             "prompt": PROMPT,
             "tokens": words,
             "answer": s,
         })
+
+    # черновик, пока есть предложение без явного одобрения логопеда
+    def decided(pid):
+        d = decisions.get(pid, {})
+        return d.get("approved") is True or bool((d.get("comment") or "").strip())
+    is_draft = any(not decided(it["id"]) for it in items)
+
     doc = {
         "type": "word_order",
         "title": "Соберите предложение",
         "section": "I. Понимание",
-        "draft": True,  # предложения от бота — нужна валидация логопедом
+        "draft": is_draft,
         "count": len(items),
         "items": items,
     }
     open(OUT, "w", encoding="utf-8").write(
         json.dumps(doc, ensure_ascii=False, indent=2) + "\n")
-    print(f"word_order: {len(items)} заданий → {OUT}")
+    print(f"word_order: {len(items)} заданий "
+          f"(draft={is_draft}, убрано {len(dropped)}, правок {overridden})")
 
 
 if __name__ == "__main__":

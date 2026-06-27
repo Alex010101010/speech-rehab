@@ -1,9 +1,9 @@
 {
   "pack": "speech-rehab-content-v1",
   "status": "logoped-reviewed",
-  "content_version": 7,
+  "content_version": 8,
   "min_app_version": 3,
-  "total_items": 2253,
+  "total_items": 2281,
   "types": [
     {
       "type": "find_error",
@@ -290,7 +290,7 @@
       "title": "Соберите слово из слогов",
       "section": "0. Узнавание",
       "file": "json/23_syllables.json",
-      "count": 100,
+      "count": 128,
       "draft": false,
       "advanced": false
     },
