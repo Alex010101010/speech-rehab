@@ -225,6 +225,7 @@ class _SessionScreenState extends State<SessionScreen> {
   int get _reviewCount => _missed.length > 3 ? 3 : _missed.length;
 
   void _onOutcome(StepOutcome o) {
+    widget.tts.stop(); // глушим незавершённую озвучку (длинный ряд) при уходе с задания
     if (_reviewing) {
       if (_ri + 1 >= _reviewCount) {
         _finish();
@@ -301,6 +302,7 @@ class _SessionScreenState extends State<SessionScreen> {
 
   /// «Отдохнуть»: сохранить сделанное и выйти на главный (без экрана «Молодец»).
   Future<void> _rest() async {
+    widget.tts.stop(); // глушим незавершённую озвучку при выходе из сессии
     if (_i > 0 || _reviewing) await _persist(early: true);
     if (mounted) Navigator.pop(context);
   }
