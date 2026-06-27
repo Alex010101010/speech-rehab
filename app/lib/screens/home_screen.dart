@@ -188,6 +188,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
               */
+              // Временно скрыто из интерфейса (тест OTA-апдейта). Код
+              // _showExport/_showImport сохранён — вернуть tile, чтобы показать.
+              /*
               ListTile(
                 leading: const Icon(Icons.save_alt),
                 title: const Text('Сохранить копию прогресса',
@@ -210,6 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   _showImport();
                 },
               ),
+              */
             ],
           ),
           actions: [
