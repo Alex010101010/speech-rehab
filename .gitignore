@@ -22,6 +22,13 @@ app/assets/content/
 # Скачанные сборки (APK из CI-артефактов)
 dist/
 
+# HTML-ревью упражнений — производные tools/build_*_review.py (читают content/).
+# В git хранятся только скрипты и *-decisions.json, сами страницы перегенерируются.
+tools/*.html
+
+# Python
+__pycache__/
+
 # IDE / OS
 *.iml
 .idea/
