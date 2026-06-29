@@ -6,9 +6,12 @@ import '../data/content_repository.dart';
 /// по ходу под текущий рабочий уровень (адаптивная лестница).
 class SessionSlot {
   final String type;
-  final String role; // warmup | core | memory | reading | cooldown
+  final String role; // warmup | core | memory | reading | cooldown | review
   final bool fixedEasy; // разминка/завершение — всегда уровень 1 (успех)
-  SessionSlot(this.type, this.role, {this.fixedEasy = false});
+  // конкретное задание (для блока «Вспомним» — интервальное повторение по id);
+  // если задано, _resolve берёт его напрямую, не подбирая по типу/уровню
+  final Map<String, dynamic>? fixedItem;
+  SessionSlot(this.type, this.role, {this.fixedEasy = false, this.fixedItem});
 }
 
 class SessionStep {
@@ -115,6 +118,17 @@ class SessionBuilder {
       if (!used.contains(it)) return it;
     }
     return pool.isEmpty ? const {} : pool.first;
+  }
+
+  /// Находит конкретное задание типа [type] по [id] (для интервального
+  /// повторения). Пусто, если набор/задание исчезли после обновления контента.
+  Map<String, dynamic> itemById(String type, String id) {
+    final set = repo[type];
+    if (set == null) return const {};
+    for (final it in set.items) {
+      if (it['id']?.toString() == id) return it;
+    }
+    return const {};
   }
 
   String titleFor(String type) => repo[type]?.title ?? type;

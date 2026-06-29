@@ -22,9 +22,18 @@ class SessionScreen extends StatefulWidget {
 
 class _SessionScreenState extends State<SessionScreen> {
   late final SessionBuilder _builder;
-  late List<SessionSlot> _plan; // первый проход (слоты, задания подбираются по ходу)
-  final List<SessionStep> _missed = []; // пропущенное/неверное — в блок «Повторим»
+  late List<SessionSlot> _plan; // план сессии (слоты, задания подбираются по ходу)
   final Set<Object> _usedItems = {}; // чтобы задания не повторялись в сессии
+
+  // Интервальное повторение (spaced retrieval). Рабочая копия расписания
+  // (id задания -> карточка); пишется в прогресс при сохранении. Повторяем
+  // только то, что вспомнили САМИ — не неуспешное (без негативной концовки).
+  final DateTime _today = DateTime.now();
+  late final Map<String, ReviewCard> _review = {
+    for (final e in widget.store.progress.review.entries)
+      e.key: ReviewCard(type: e.value.type, box: e.value.box, due: e.value.due),
+  };
+  static const _reviewCap = 3; // не больше N повторов за сессию (не утомлять)
 
   // Адаптивная лестница НА КАЖДЫЙ НАВЫК (тип задания).
   final Map<String, int> _skill = {}; // тип -> рабочий уровень
@@ -87,10 +96,8 @@ class _SessionScreenState extends State<SessionScreen> {
     return (v.reduce((a, b) => a + b) / v.length).round().clamp(1, 3);
   }
 
-  int _i = 0; // индекс в плане (первый проход)
-  int _ri = 0; // индекс в повторе
+  int _i = 0; // индекс в плане
   int _correct = 0;
-  bool _reviewing = false;
   bool _done = false;
   late SessionStep _current; // текущий шаг первого прохода
   bool _errorlessCurrent = false;
@@ -102,6 +109,16 @@ class _SessionScreenState extends State<SessionScreen> {
     super.initState();
     _builder = SessionBuilder(widget.repo);
     _plan = _builder.buildPlan(pictureMode: _pictureMode, level: _overallLevel);
+    // блок «Вспомним» (созревшие повторы) — сразу после разминки: тёплый вход
+    // на успехе, а не наказание в конце. Сами задания резервируем, чтобы они
+    // не выпали повторно как обычные.
+    final reviews = _dueReviewSlots();
+    if (_plan.isNotEmpty && reviews.isNotEmpty) {
+      _plan.insertAll(1, reviews);
+      for (final s in reviews) {
+        if (s.fixedItem != null) _usedItems.add(s.fixedItem!);
+      }
+    }
     if (_plan.isEmpty) {
       _done = true;
     } else {
@@ -109,9 +126,37 @@ class _SessionScreenState extends State<SessionScreen> {
     }
   }
 
+  /// Созревшие карточки повторения (due ≤ сегодня), самые «просроченные» вперёд,
+  /// не больше [_reviewCap]. Карточки на исчезнувший контент пропускаем.
+  List<SessionSlot> _dueReviewSlots() {
+    final todayStr = ReviewScheduler.dayStr(_today);
+    final due = _review.entries
+        .where((e) => e.value.due.compareTo(todayStr) <= 0)
+        .toList()
+      ..sort((a, b) => a.value.due.compareTo(b.value.due));
+    final slots = <SessionSlot>[];
+    for (final e in due) {
+      if (slots.length >= _reviewCap) break;
+      final item = _builder.itemById(e.value.type, e.key);
+      if (item.isEmpty) continue;
+      slots.add(SessionSlot(e.value.type, 'review', fixedItem: item));
+    }
+    return slots;
+  }
+
   /// Подобрать конкретное задание для текущего слота под уровень навыка.
   void _resolve() {
     final slot = _plan[_i];
+    // повтор (интервальное повторение): конкретное задание по id, на своём
+    // уровне — это настоящая проверка припоминания, без errorless и без пробы
+    if (slot.fixedItem != null) {
+      _probeSkill = null;
+      _useL0Current = false;
+      _errorlessCurrent = false;
+      _current = SessionStep(
+          slot.type, _builder.titleFor(slot.type), slot.fixedItem!, slot.role);
+      return;
+    }
     // core — по уровню своего навыка; память/чтение — по общему; разминка/финал — 1
     final lvl = slot.fixedEasy
         ? 1
@@ -221,38 +266,47 @@ class _SessionScreenState extends State<SessionScreen> {
     }
   }
 
-  // длина блока «Повторим» ограничена — чтобы не утомлять длинным хвостом
-  int get _reviewCount => _missed.length > 3 ? 3 : _missed.length;
+  /// Засев в расписание повторения: задание, отвечённое САМОСТОЯТЕЛЬНО и верно,
+  /// вернётся через растущие интервалы. Только core-шаги с объективной оценкой;
+  /// уже стоящие на расписании не трогаем (ими управляет их карточка).
+  void _maybeSeedReview(StepOutcome o, SessionSlot slot) {
+    if (slot.role != 'core' || !o.gradeable || !o.correct || !o.unaided) return;
+    final id = _current.item['id']?.toString();
+    if (id == null || id.isEmpty || _review.containsKey(id)) return;
+    _review[id] = ReviewCard(
+      type: _current.type, // фактический тип (может быть picture_word при L0)
+      box: 0,
+      due: ReviewScheduler.dueAfter(_today, 0),
+    );
+  }
+
+  /// Исход повтора: вспомнил сам → дальше по интервалам (реже); не вспомнил →
+  /// на коробку вниз (вернётся раньше, но НЕ в этой сессии — без «долбёжа»).
+  void _applyReview(StepOutcome o) {
+    final id = _current.item['id']?.toString();
+    final card = id == null ? null : _review[id];
+    if (card == null) return;
+    final recalled = o.correct && o.unaided;
+    card.box = ReviewScheduler.nextBox(card.box, recalled: recalled);
+    card.due = ReviewScheduler.dueAfter(_today, card.box);
+  }
 
   void _onOutcome(StepOutcome o) {
     widget.tts.stop(); // глушим незавершённую озвучку (длинный ряд) при уходе с задания
-    if (_reviewing) {
-      if (_ri + 1 >= _reviewCount) {
-        _finish();
+    if (o.correct) _correct++;
+    final slot = _plan[_i];
+    if (slot.role == 'review') {
+      _applyReview(o);
+    } else {
+      if (_probeSkill != null) {
+        _applyProbe(o); // у пробы своя логика повышения (ловит и пропуск)
       } else {
-        setState(() => _ri++);
+        _applyStaircase(o);
       }
-      return;
-    }
-    if (o.correct) {
-      _correct++;
-    } else {
-      _missed.add(_current);
-    }
-    if (_probeSkill != null) {
-      _applyProbe(o); // у пробы своя логика повышения (ловит и пропуск)
-    } else {
-      _applyStaircase(o);
+      _maybeSeedReview(o, slot);
     }
     if (_i + 1 >= _plan.length) {
-      if (_missed.isNotEmpty) {
-        setState(() {
-          _reviewing = true;
-          _ri = 0;
-        });
-      } else {
-        _finish();
-      }
+      _finish();
     } else {
       setState(() {
         _i++;
@@ -265,7 +319,7 @@ class _SessionScreenState extends State<SessionScreen> {
   /// заданиям первого прохода, а не по всему плану.
   Future<void> _persist({required bool early}) async {
     final p = widget.store.progress;
-    final answered = (early && !_reviewing) ? _i : _plan.length;
+    final answered = early ? _i : _plan.length;
     p.sessions += 1;
     p.answered += answered;
     p.correct += _correct;
@@ -277,6 +331,7 @@ class _SessionScreenState extends State<SessionScreen> {
     p.skillLevels = _mergedLevels;
     p.readyStreak = _ready;
     p.probeFails = _pfail;
+    p.review = _review;
     p.level = _overallLevel;
     // снимок сессии для динамики в отчёте логопеду (храним последние 60)
     if (answered > 0) {
@@ -303,13 +358,13 @@ class _SessionScreenState extends State<SessionScreen> {
   /// «Отдохнуть»: сохранить сделанное и выйти на главный (без экрана «Молодец»).
   Future<void> _rest() async {
     widget.tts.stop(); // глушим незавершённую озвучку при выходе из сессии
-    if (_i > 0 || _reviewing) await _persist(early: true);
+    if (_i > 0) await _persist(early: true);
     if (mounted) Navigator.pop(context);
   }
 
   Widget _render(SessionStep step) {
-    final key = ValueKey('${_reviewing ? 'r$_ri' : 'p$_i'}');
-    final errorless = !_reviewing && _errorlessCurrent;
+    final key = ValueKey('p$_i');
+    final errorless = _errorlessCurrent;
     if (step.type == 'picture_word') {
       return PictureWordExercise(
           key: key,
@@ -409,9 +464,10 @@ class _SessionScreenState extends State<SessionScreen> {
   @override
   Widget build(BuildContext context) {
     if (_done) return _DoneView(newAch: _newAch);
-    final step = _reviewing ? _missed[_ri] : _current;
-    final total = _reviewing ? _reviewCount : _plan.length;
-    final idx = _reviewing ? _ri : _i;
+    final step = _current;
+    final total = _plan.length;
+    final idx = _i;
+    final isReview = _plan[_i].role == 'review';
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, // убираем ← (путал с «к прошлому заданию»)
@@ -423,9 +479,7 @@ class _SessionScreenState extends State<SessionScreen> {
         ),
         centerTitle: true,
         title: Text(
-            _reviewing
-                ? 'Повторим • ${idx + 1} из $total'
-                : '${idx + 1} из $total',
+            isReview ? 'Вспомним' : '${idx + 1} из $total',
             style: const TextStyle(fontSize: 20)),
         actions: [
           TextButton(

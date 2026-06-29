@@ -1,6 +1,48 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Карточка интервального повторения для одного задания (по его id).
+/// [box] — стадия расширяющегося интервала (Leitner); [due] — день следующего
+/// показа ("yyyy-mm-dd"). Заводится только на задания, которые вспомнили САМИ.
+class ReviewCard {
+  String type; // фактический тип, которым задание было показано (важно для L0)
+  int box;
+  String due;
+  ReviewCard({required this.type, required this.box, required this.due});
+
+  Map<String, dynamic> toJson() => {'type': type, 'box': box, 'due': due};
+
+  factory ReviewCard.fromJson(Map j) => ReviewCard(
+        type: (j['type'] ?? '').toString(),
+        box: (j['box'] as num?)?.toInt() ?? 0,
+        due: (j['due'] ?? '').toString(),
+      );
+}
+
+/// Интервальное повторение (spaced retrieval): расширяющиеся интервалы.
+/// Повторяем только то, что пациент вспомнил САМ (retrieval practice), а не
+/// неуспешное — errorless-повтор проигрывает на отложенных замерах и бьёт по
+/// мотивации (см. ревью афазия-приложений 28.06, PMC10023178).
+class ReviewScheduler {
+  // дни до следующего показа по стадии («коробке»)
+  static const intervals = <int>[1, 2, 5, 14, 30];
+
+  /// Вспомнил сам → следующая коробка (реже); не вспомнил → на одну вниз
+  /// (вернётся раньше, но НЕ в этой же сессии — без «долбёжа»).
+  static int nextBox(int box, {required bool recalled}) {
+    final b = recalled ? box + 1 : box - 1;
+    return b.clamp(0, intervals.length - 1);
+  }
+
+  static String dueAfter(DateTime today, int box) {
+    final i = box.clamp(0, intervals.length - 1);
+    return dayStr(today.add(Duration(days: intervals[i])));
+  }
+
+  static String dayStr(DateTime d) =>
+      '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
+}
+
 /// Прогресс пациента. Накопительный — значения только растут.
 class Progress {
   int sessions;
@@ -15,6 +57,8 @@ class Progress {
   // (для мягкого отката). Переживают сессии.
   Map<String, int> readyStreak;
   Map<String, int> probeFails;
+  // расписание интервального повторения: id задания -> карточка
+  Map<String, ReviewCard> review;
   Set<String> achievements;
   Set<String> days; // строки "yyyy-mm-dd"
   // снимки по сессиям для динамики в отчёте: {day, answered, correct, level}
@@ -29,12 +73,14 @@ class Progress {
     this.pictureMode = false,
     Map<String, int>? readyStreak,
     Map<String, int>? probeFails,
+    Map<String, ReviewCard>? review,
     Set<String>? achievements,
     Set<String>? days,
     List<Map<String, dynamic>>? history,
   })  : skillLevels = skillLevels ?? <String, int>{},
         readyStreak = readyStreak ?? <String, int>{},
         probeFails = probeFails ?? <String, int>{},
+        review = review ?? <String, ReviewCard>{},
         achievements = achievements ?? <String>{},
         days = days ?? <String>{},
         history = history ?? <Map<String, dynamic>>[];
@@ -48,6 +94,7 @@ class Progress {
         'pictureMode': pictureMode,
         'readyStreak': readyStreak,
         'probeFails': probeFails,
+        'review': review.map((k, v) => MapEntry(k, v.toJson())),
         'achievements': achievements.toList(),
         'days': days.toList(),
         'history': history,
@@ -65,6 +112,8 @@ class Progress {
             .map((k, v) => MapEntry(k.toString(), (v as num).toInt())),
         probeFails: ((j['probeFails'] ?? const {}) as Map)
             .map((k, v) => MapEntry(k.toString(), (v as num).toInt())),
+        review: ((j['review'] ?? const {}) as Map).map((k, v) =>
+            MapEntry(k.toString(), ReviewCard.fromJson(Map.from(v as Map)))),
         achievements: ((j['achievements'] ?? const []) as List)
             .map((e) => e.toString())
             .toSet(),
