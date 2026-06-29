@@ -33,7 +33,14 @@ class _SessionScreenState extends State<SessionScreen> {
     for (final e in widget.store.progress.review.entries)
       e.key: ReviewCard(type: e.value.type, box: e.value.box, due: e.value.due),
   };
-  static const _reviewCap = 3; // не больше N повторов за сессию (не утомлять)
+  static const _reviewCap = 3; // межсессионных повторов («Вспомним») за сессию
+
+  // Повтор «сегодня» (первый шаг лесенки, внутри этой же сессии): свежевыученные
+  // самостоятельно задания переигрываются мини-блоком «Закрепим» перед финалом.
+  // Отдельный лимит — НЕ из пула «Вспомним», чтобы не утомлять (лёгкий: 6+2+3).
+  final List<SessionStep> _todayQueue = [];
+  bool _sameDayInserted = false;
+  static const _sameDayCap = 2;
 
   // Адаптивная лестница НА КАЖДЫЙ НАВЫК (тип задания).
   final Map<String, int> _skill = {}; // тип -> рабочий уровень
@@ -72,6 +79,11 @@ class _SessionScreenState extends State<SessionScreen> {
     'match_pairs',
     'auto_series',
   };
+
+  // Фонологические типы (звуко-буквенная форма, не смысл). В повторении показываем
+  // их errorless: усиленное доставание звуковой формы рискует закрепить ошибку —
+  // на фонологическом уровне errorless не уступает retrieval practice (ревью 28.06).
+  static const _phonological = {'fill_letter', 'syllables', 'stress', 'anagram'};
 
   // Лёгкий режим: на низком общем уровне сессия короче и без печати (только
   // касание/выбор). Авто — не требует действий настройщика; отключается сам,
@@ -144,6 +156,13 @@ class _SessionScreenState extends State<SessionScreen> {
     return slots;
   }
 
+  /// Блок «Закрепим» — повтор «сегодня»: до [_sameDayCap] заданий, выученных
+  /// самостоятельно в этой же сессии. Бонусный шаг (не из пула «Вспомним»).
+  List<SessionSlot> _sameDaySlots() => _todayQueue
+      .take(_sameDayCap)
+      .map((s) => SessionSlot(s.type, 'sameday', fixedItem: s.item))
+      .toList();
+
   /// Подобрать конкретное задание для текущего слота под уровень навыка.
   void _resolve() {
     final slot = _plan[_i];
@@ -152,7 +171,9 @@ class _SessionScreenState extends State<SessionScreen> {
     if (slot.fixedItem != null) {
       _probeSkill = null;
       _useL0Current = false;
-      _errorlessCurrent = false;
+      // фонологические повторяем errorless (без риска закрепить ошибку),
+      // остальные — настоящим тестом на припоминание
+      _errorlessCurrent = _phonological.contains(slot.type);
       _current = SessionStep(
           slot.type, _builder.titleFor(slot.type), slot.fixedItem!, slot.role);
       return;
@@ -276,8 +297,11 @@ class _SessionScreenState extends State<SessionScreen> {
     _review[id] = ReviewCard(
       type: _current.type, // фактический тип (может быть picture_word при L0)
       box: 0,
-      due: ReviewScheduler.dueAfter(_today, 0),
+      due: ReviewScheduler.dueAfter(_today, 0), // межсессионно — завтра (1д)
     );
+    // и кандидат на повтор «сегодня» (бонусный внутрисессионный шаг лесенки)
+    _todayQueue
+        .add(SessionStep(_current.type, _current.title, _current.item, 'sameday'));
   }
 
   /// Исход повтора: вспомнил сам → дальше по интервалам (реже); не вспомнил →
@@ -286,7 +310,9 @@ class _SessionScreenState extends State<SessionScreen> {
     final id = _current.item['id']?.toString();
     final card = id == null ? null : _review[id];
     if (card == null) return;
-    final recalled = o.correct && o.unaided;
+    // errorless-повтор (фонологический) — не тест, а выполненный разнесённый шаг:
+    // двигаем дальше. Обычный повтор — дальше только если вспомнил сам.
+    final recalled = o.correct && (o.unaided || !o.gradeable);
     card.box = ReviewScheduler.nextBox(card.box, recalled: recalled);
     card.due = ReviewScheduler.dueAfter(_today, card.box);
   }
@@ -297,6 +323,8 @@ class _SessionScreenState extends State<SessionScreen> {
     final slot = _plan[_i];
     if (slot.role == 'review') {
       _applyReview(o);
+    } else if (slot.role == 'sameday') {
+      // повтор «сегодня» — бонусная внутрисессионная проверка, расписание не трогаем
     } else {
       if (_probeSkill != null) {
         _applyProbe(o); // у пробы своя логика повышения (ловит и пропуск)
@@ -304,6 +332,14 @@ class _SessionScreenState extends State<SessionScreen> {
         _applyStaircase(o);
       }
       _maybeSeedReview(o, slot);
+    }
+    // перед финалом (cooldown) один раз вставляем «Закрепим» — повтор сегодня
+    if (!_sameDayInserted &&
+        _i + 1 < _plan.length &&
+        _plan[_i + 1].role == 'cooldown') {
+      _sameDayInserted = true;
+      final block = _sameDaySlots();
+      if (block.isNotEmpty) _plan.insertAll(_i + 1, block);
     }
     if (_i + 1 >= _plan.length) {
       _finish();
@@ -467,7 +503,7 @@ class _SessionScreenState extends State<SessionScreen> {
     final step = _current;
     final total = _plan.length;
     final idx = _i;
-    final isReview = _plan[_i].role == 'review';
+    final role = _plan[_i].role;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, // убираем ← (путал с «к прошлому заданию»)
@@ -479,7 +515,11 @@ class _SessionScreenState extends State<SessionScreen> {
         ),
         centerTitle: true,
         title: Text(
-            isReview ? 'Вспомним' : '${idx + 1} из $total',
+            role == 'review'
+                ? 'Вспомним'
+                : role == 'sameday'
+                    ? 'Закрепим'
+                    : '${idx + 1} из $total',
             style: const TextStyle(fontSize: 20)),
         actions: [
           TextButton(
