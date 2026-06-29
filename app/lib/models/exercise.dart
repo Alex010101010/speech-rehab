@@ -27,10 +27,14 @@ class StepOutcome {
   final bool correct; // верно (не показано принудительно)
   final bool unaided; // верно с первой попытки, без подсказок
   final bool gradeable; // объективно оцениваемое (выбор/ввод), не самооценка
+  // глубина подсказки (иерархия cueing): 0 — справился сам, 1 — первый звук,
+  // 2 — больше букв, 3 — показан ответ. Метрика восстановления для отчёта.
+  final int cueLevel;
   const StepOutcome({
     required this.correct,
     required this.unaided,
     this.gradeable = true,
+    this.cueLevel = 0,
   });
 }
 

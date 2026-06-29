@@ -110,6 +110,10 @@ class _SessionScreenState extends State<SessionScreen> {
 
   int _i = 0; // индекс в плане
   int _correct = 0;
+  // глубина подсказки по называнию (name_by_description) за сессию — метрика
+  // восстановления для отчёта логопеду (средняя ступень должна падать со временем)
+  int _nameCueSum = 0;
+  int _nameCueN = 0;
   bool _done = false;
   late SessionStep _current; // текущий шаг первого прохода
   bool _errorlessCurrent = false;
@@ -333,6 +337,13 @@ class _SessionScreenState extends State<SessionScreen> {
       }
       _maybeSeedReview(o, slot);
     }
+    // лог глубины подсказки по называнию (печатный ввод; L0-узнавание исключаем)
+    if (slot.role == 'core' &&
+        _current.type == 'name_by_description' &&
+        o.gradeable) {
+      _nameCueSum += o.cueLevel;
+      _nameCueN++;
+    }
     // перед финалом (cooldown) один раз вставляем «Закрепим» — повтор сегодня
     if (!_sameDayInserted &&
         _i + 1 < _plan.length &&
@@ -376,6 +387,9 @@ class _SessionScreenState extends State<SessionScreen> {
         'answered': answered,
         'correct': _correct,
         'level': _overallLevel,
+        // глубина подсказки по называнию (для будущего отчёта); только если были
+        if (_nameCueN > 0) 'nameCueSum': _nameCueSum,
+        if (_nameCueN > 0) 'nameCueN': _nameCueN,
       });
       if (p.history.length > 60) {
         p.history.removeRange(0, p.history.length - 60);

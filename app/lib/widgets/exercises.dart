@@ -1050,6 +1050,8 @@ class _TypedExerciseState extends State<TypedExercise> {
     return StepOutcome(
       correct: !_revealed,
       unaided: !_revealed && _tries == 0 && !_hintUsed,
+      // ступень подсказки: 0/1/2 показанных букв или 3 — показан ответ целиком
+      cueLevel: _revealed ? 3 : _letterHints,
     );
   }
 
