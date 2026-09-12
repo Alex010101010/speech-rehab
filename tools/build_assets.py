@@ -32,6 +32,9 @@ def main():
     shutil.copy2(index_path, os.path.join(DEST, "index.json"))
 
     # Наборы заданий: json/NN_*.json -> плоско NN_*.json (загрузчик берёт basename).
+    # Гейт: id заданий глобально уникальны по ВСЕМ наборам — расписание
+    # интервального повторения в приложении ключуется по id (progress_store).
+    seen_ids = {}
     copied = 0
     for t in index["types"]:
         rel = t.get("file", "")
@@ -41,6 +44,12 @@ def main():
         src_file = os.path.join(SRC, rel)
         if not os.path.exists(src_file):
             raise FileNotFoundError(f"в index.json есть {rel}, но файла нет: {src_file}")
+        for it in json.load(open(src_file, encoding="utf-8")).get("items", []):
+            iid = str(it.get("id") or "")
+            if iid and iid in seen_ids:
+                raise ValueError(f"дубль id задания «{iid}»: {seen_ids[iid]} и {rel}")
+            if iid:
+                seen_ids[iid] = rel
         shutil.copy2(src_file, os.path.join(DEST, base))
         copied += 1
 
