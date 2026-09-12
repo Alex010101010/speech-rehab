@@ -487,6 +487,9 @@ class _PictureWordExerciseState extends State<PictureWordExercise> {
     return StepOutcome(
       correct: !_revealed,
       unaided: !_revealed && _wrongPick == null && !_hintUsed,
+      // лесенка УЗНАВАНИЯ (свой бакет, не смешивать с называнием): 0 — выбрал
+      // сам, 1 — погасили дистрактор или была неверная попытка, 3 — показан ответ
+      cueLevel: _revealed ? 3 : ((_hintUsed || _wrongPick != null) ? 1 : 0),
     );
   }
 
@@ -935,6 +938,7 @@ class _TypedExerciseState extends State<TypedExercise> {
   bool _revealed = false;
   bool _hintUsed = false;
   bool _cueShown = false; // картинка/эмодзи-подсказка раскрыта по кнопке
+  bool _semShown = false; // смысловая подсказка (semHint) показана по кнопке
   int _tries = 0;
   int _letterHints = 0; // сколько раз показывали буквенную подсказку (макс. 2)
   String _hint = 'Напишите ответ';
@@ -1008,7 +1012,20 @@ class _TypedExerciseState extends State<TypedExercise> {
   }
 
   void _giveHint() {
-    // первый шаг подсказки — раскрыть визуальный cue (картинку/эмодзи), если есть
+    // ступени идут от слабой к сильной: смысл (категория/функция/рифма) →
+    // картинка → буквы. Смысловая ступень появляется, только если в контенте
+    // заполнено поле semHint.
+    final sem = (widget.item['semHint'] ?? '').toString();
+    if (sem.isNotEmpty && !_semShown) {
+      setState(() {
+        _semShown = true;
+        _hintUsed = true;
+        _hint = 'Подсказка: $sem';
+      });
+      widget.tts.speak(sem);
+      return;
+    }
+    // следующий шаг — раскрыть визуальный cue (картинку/эмодзи), если есть
     final hasCue = (widget.item['image'] ?? '').toString().isNotEmpty ||
         (widget.item['emoji'] ?? '').toString().isNotEmpty;
     if (hasCue && !_cueShown) {
@@ -1052,6 +1069,9 @@ class _TypedExerciseState extends State<TypedExercise> {
       unaided: !_revealed && _tries == 0 && !_hintUsed,
       // ступень подсказки: 0/1/2 показанных букв или 3 — показан ответ целиком
       cueLevel: _revealed ? 3 : _letterHints,
+      // картинка и semHint — смысловая ось: раньше успех с раскрытой картинкой
+      // логировался как «справился сам»
+      semanticCue: (_cueShown || _semShown) ? 1 : 0,
     );
   }
 
