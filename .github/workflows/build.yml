@@ -36,6 +36,13 @@ jobs:
         with:
           channel: stable
 
+      # Юнит-тесты движка (планировщик повторений и т.п.) — до генерации
+      # платформ: им нужны только pubspec + lib/ + test/, а flutter create
+      # мог бы подложить шаблонный widget_test.dart и сломать прогон.
+      - run: flutter pub get
+      - name: Run tests
+        run: flutter test
+
       # Платформенные папки генерируем здесь (в репо только lib/ + assets + pubspec).
       - name: Generate web platform
         run: flutter create --platforms=web --org dev.rech --project-name rech .

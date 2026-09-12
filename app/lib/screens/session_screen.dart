@@ -142,8 +142,16 @@ class _SessionScreenState extends State<SessionScreen> {
     }
   }
 
+  /// Тип рисуется печатным вводом (TypedExercise в _render): typed-режим без
+  /// собственного касательного виджета (stress — тап по слогу, find_error — устно).
+  static bool _needsTyping(String type) =>
+      !const {'find_error', 'stress'}.contains(type) &&
+      renderModeFor(type) == RenderMode.typed;
+
   /// Созревшие карточки повторения (due ≤ сегодня), самые «просроченные» вперёд,
   /// не больше [_reviewCap]. Карточки на исчезнувший контент пропускаем.
+  /// Ограничения режима: в картиночном — только узнавание, в лёгком — без
+  /// печати (карточка не сгорает — подождёт возвращения режима).
   List<SessionSlot> _dueReviewSlots() {
     final todayStr = ReviewScheduler.dayStr(_today);
     final due = _review.entries
@@ -153,6 +161,8 @@ class _SessionScreenState extends State<SessionScreen> {
     final slots = <SessionSlot>[];
     for (final e in due) {
       if (slots.length >= _reviewCap) break;
+      if (_pictureMode && e.value.type != 'picture_word') continue;
+      if (_lightMode && _needsTyping(e.value.type)) continue;
       final item = _builder.itemById(e.value.type, e.key);
       if (item.isEmpty) continue;
       slots.add(SessionSlot(e.value.type, 'review', fixedItem: item));
@@ -310,6 +320,8 @@ class _SessionScreenState extends State<SessionScreen> {
 
   /// Исход повтора: вспомнил сам → дальше по интервалам (реже); не вспомнил →
   /// на коробку вниз (вернётся раньше, но НЕ в этой сессии — без «долбёжа»).
+  /// Вспомнил на последней ступени (после 30-дневного интервала) — освоено,
+  /// карточка выбывает: пул не растёт бесконечно, место — новому материалу.
   void _applyReview(StepOutcome o) {
     final id = _current.item['id']?.toString();
     final card = id == null ? null : _review[id];
@@ -317,6 +329,10 @@ class _SessionScreenState extends State<SessionScreen> {
     // errorless-повтор (фонологический) — не тест, а выполненный разнесённый шаг:
     // двигаем дальше. Обычный повтор — дальше только если вспомнил сам.
     final recalled = o.correct && (o.unaided || !o.gradeable);
+    if (recalled && card.box >= ReviewScheduler.intervals.length - 1) {
+      _review.remove(id);
+      return;
+    }
     card.box = ReviewScheduler.nextBox(card.box, recalled: recalled);
     card.due = ReviewScheduler.dueAfter(_today, card.box);
   }
@@ -363,7 +379,8 @@ class _SessionScreenState extends State<SessionScreen> {
   }
 
   /// Сохранить прогресс. При досрочном выходе считаем по реально сделанным
-  /// заданиям первого прохода, а не по всему плану.
+  /// заданиям, а не по всему плану; повторы («Вспомним»/«Закрепим») входят
+  /// в answered/correct наравне с основными шагами.
   Future<void> _persist({required bool early}) async {
     final p = widget.store.progress;
     final answered = early ? _i : _plan.length;
