@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 /// Озвучка (русский), медленно и чётко — для пожилого пользователя.
@@ -20,8 +21,15 @@ class TtsService {
 
   /// Готовит текст к озвучке: убирает плейсхолдеры пропуска '_' (иначе движок
   /// читает «нижнее подчёркивание») и проставляет ударение по словарю.
-  String _prepare(String text) {
-    var t = text.replaceAll(RegExp(r'_+'), ' ');
+  ///
+  /// Слово с пропуском ВНУТРИ («ов_а») выбрасываем целиком, а не заменяем
+  /// пропуск паузой: иначе движок прочитает куски («ов а»), и пациент
+  /// закрепит неверный звуковой рисунок слова. Такое слово читают глазами,
+  /// вслух оно звучит уже собранным (после ответа). Пропуск на месте целого
+  /// слова («Кот сидит ___ окне») — отдельный токен, от него остаётся пауза.
+  @visibleForTesting
+  String prepareForSpeech(String text) {
+    var t = text.replaceAll(RegExp(r'\S*_+\S*'), ' ');
     if (_stress.isNotEmpty) {
       t = t.replaceAllMapped(RegExp(r'[А-Яа-яЁё]+'), (m) {
         return _stress[m[0]!.toLowerCase()] ?? m[0]!;
@@ -61,7 +69,7 @@ class TtsService {
     await _init();
     try {
       await _tts.stop();
-      await _tts.speak(_prepare(t));
+      await _tts.speak(prepareForSpeech(t));
     } catch (_) {}
   }
 

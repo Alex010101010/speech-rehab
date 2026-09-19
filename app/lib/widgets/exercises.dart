@@ -179,6 +179,11 @@ class ExerciseScaffold extends StatelessWidget {
   final String nextLabel;
   final String? imageName; // имя файла картинки-подсказки (если есть)
   final String? emoji; // значок-подсказка (если нет картинки)
+
+  /// Что читать по «Прослушать», когда задание решено. Нужно там, где в
+  /// задании слово с пропуском («ов_а»): до ответа вслух его не произносим
+  /// вовсе, а собранное слово читаем целиком и по порядку.
+  final String? speakSolved;
   const ExerciseScaffold({
     super.key,
     required this.prompt,
@@ -190,6 +195,7 @@ class ExerciseScaffold extends StatelessWidget {
     this.nextLabel = 'Дальше',
     this.imageName,
     this.emoji,
+    this.speakSolved,
   });
 
   @override
@@ -227,7 +233,10 @@ class ExerciseScaffold extends StatelessWidget {
                       iconSize: 42,
                       icon: const Icon(Icons.volume_up),
                       tooltip: 'Прослушать',
-                      onPressed: () => tts.speak(prompt),
+                      onPressed: () => tts.speak(
+                          solved && (speakSolved ?? '').trim().isNotEmpty
+                              ? speakSolved!
+                              : prompt),
                     ),
                   ],
                 ),
@@ -1086,6 +1095,7 @@ class _TypedExerciseState extends State<TypedExercise> {
     return ExerciseScaffold(
       prompt: prompt,
       tts: widget.tts,
+      speakSolved: (widget.item['answer'] ?? '').toString(),
       imageName: (_cueShown && img.isNotEmpty) ? img : null,
       emoji: (_cueShown && emoji.isNotEmpty) ? emoji : null,
       hint: _hint,
