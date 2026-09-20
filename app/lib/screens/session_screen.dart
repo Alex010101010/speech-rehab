@@ -487,6 +487,16 @@ class _SessionScreenState extends State<SessionScreen> {
           sep: ' ',
           errorless: errorless);
     }
+    // пропуск первой буквы подаём касанием (буквы слева, хвост слова справа);
+    // задания с пропуском внутри слова остаются печатными
+    if (step.type == 'fill_letter' && firstLetterPickable(step.item)) {
+      return FirstLetterExercise(
+          key: key,
+          item: step.item,
+          tts: widget.tts,
+          onResult: _onOutcome,
+          errorless: errorless);
+    }
     if (step.type == 'anagram') {
       return OrderExercise(
           key: key,

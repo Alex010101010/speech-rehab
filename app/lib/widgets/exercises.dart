@@ -922,6 +922,260 @@ class _SyllablesExerciseState extends State<SyllablesExercise> {
   }
 }
 
+// ---------- вставить первую букву касанием ----------
+
+/// Годится ли задание `fill_letter` для формы с выбором первой буквы: пропуск
+/// стоит в начале слова, а в контенте есть пара смешиваемых букв (`pair`,
+/// «д/т»), куда входит нужная. Иначе — пропуск внутри слова, пара из одной
+/// буквы, пара без правильной буквы — задание остаётся печатным.
+bool firstLetterPickable(Map<String, dynamic> item) {
+  final prompt = (item['prompt'] ?? '').toString().trimLeft();
+  final answer = (item['answer'] ?? '').toString().trim();
+  if (!prompt.startsWith('_') || answer.isEmpty) return false;
+  final pair = (item['pair'] ?? '').toString().split('/');
+  if (pair.length != 2 || pair.any((l) => l.trim().runes.length != 1)) {
+    return false;
+  }
+  final need = answer[0].toLowerCase();
+  return pair.any((l) => l.trim().toLowerCase() == need);
+}
+
+/// Пропущена первая буква: слева кнопки-буквы из пары, справа хвост слова со
+/// слотом под букву. Касание ставит букву на место — печатать слово целиком
+/// не нужно, видно, что к чему добавляем. Неверная буква не встаёт (как в
+/// SyllablesExercise), провалить нельзя.
+class FirstLetterExercise extends StatefulWidget {
+  final Map<String, dynamic> item;
+  final TtsService tts;
+  final void Function(StepOutcome) onResult;
+  final bool errorless;
+  const FirstLetterExercise(
+      {super.key,
+      required this.item,
+      required this.tts,
+      required this.onResult,
+      this.errorless = false});
+  @override
+  State<FirstLetterExercise> createState() => _FirstLetterExerciseState();
+}
+
+class _FirstLetterExerciseState extends State<FirstLetterExercise> {
+  late final List<String> _letters = (widget.item['pair'] ?? '')
+      .toString()
+      .split('/')
+      .map((l) => l.trim())
+      .toList();
+  String? _picked; // поставленная буква
+  String? _wrongPick; // неверная попытка (подсветка)
+  int _wrongCount = 0;
+  bool _hintUsed = false;
+  bool _cueShown = false; // картинка/эмодзи раскрыты по кнопке
+  bool _semShown = false; // смысловая подсказка (semHint) показана
+  bool _revealed = false; // ответ показан по «Не знаю»
+  String _hint = 'Нажмите нужную букву';
+
+  String get _answer => (widget.item['answer'] ?? '').toString().trim();
+  String get _letter => _answer.isEmpty ? '' : _answer[0];
+  String get _stump => _answer.isEmpty ? '' : _answer.substring(1);
+  bool get _solved => _picked != null;
+
+  /// Пояснение из промпта («_но (реки)» → «(реки)»): слово с дыркой
+  /// выбрасываем, пояснение оставляем — его можно и показать, и озвучить.
+  String get _clue => (widget.item['prompt'] ?? '')
+      .toString()
+      .replaceAll(RegExp(r'\S*_+\S*'), '')
+      .trim();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.errorless) {
+      _picked = _letter;
+      _hint = 'Это слово';
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (_answer.isNotEmpty) widget.tts.speak('Это слово. $_answer');
+      });
+    }
+  }
+
+  void _tap(String letter) {
+    if (_solved) return;
+    if (letter.toLowerCase() == _letter.toLowerCase()) {
+      setState(() {
+        _picked = _letter;
+        _wrongPick = null;
+        _hint = 'Верно!';
+      });
+      widget.tts.speak(_answer); // слово звучит собранным и по порядку
+    } else {
+      setState(() {
+        _wrongPick = letter;
+        _wrongCount++;
+        _hint = 'Эта буква не подходит — попробуйте другую';
+      });
+    }
+  }
+
+  void _giveHint() {
+    if (_solved) return;
+    // ступени от слабой к сильной: смысл (semHint) → картинка. Буквенной
+    // ступени тут нет — обе буквы и так на экране.
+    final sem = (widget.item['semHint'] ?? '').toString();
+    if (sem.isNotEmpty && !_semShown) {
+      setState(() {
+        _semShown = true;
+        _hintUsed = true;
+        _hint = 'Подсказка: $sem';
+      });
+      widget.tts.speak(sem);
+      return;
+    }
+    final hasCue = (widget.item['image'] ?? '').toString().isNotEmpty ||
+        (widget.item['emoji'] ?? '').toString().isNotEmpty;
+    if (hasCue && !_cueShown) {
+      setState(() {
+        _cueShown = true;
+        _hintUsed = true;
+        _hint = 'Подсказка: смотрите картинку';
+      });
+      return;
+    }
+    setState(() => _hint = 'Больше подсказок нет — попробуйте или «Не знаю»');
+  }
+
+  void _reveal() {
+    setState(() {
+      _picked = _letter;
+      _revealed = true;
+      _wrongPick = null;
+      _hint = 'Правильный ответ: $_answer';
+    });
+    if (_answer.isNotEmpty) widget.tts.speak(_answer);
+  }
+
+  StepOutcome _outcome() {
+    if (widget.errorless) {
+      return const StepOutcome(correct: true, unaided: false, gradeable: false);
+    }
+    return StepOutcome(
+      correct: !_revealed,
+      unaided: !_revealed && _wrongCount == 0 && !_hintUsed,
+      cueLevel: _revealed ? 3 : 0,
+      semanticCue: (_cueShown || _semShown) ? 1 : 0,
+    );
+  }
+
+  Widget _letterTile(String letter) {
+    final wrong = _wrongPick == letter;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: InkWell(
+        onTap: _solved ? null : () => _tap(letter),
+        child: Container(
+          width: 84,
+          height: 76,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: wrong ? Colors.orange.shade200 : Colors.blue.shade50,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.blue.shade200, width: 2),
+          ),
+          child: Text(letter, style: const TextStyle(fontSize: 40)),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final img = (widget.item['image'] ?? '').toString();
+    final emoji = (widget.item['emoji'] ?? '').toString();
+    return ExerciseScaffold(
+      prompt: _clue.isEmpty
+          ? 'Выберите первую букву слова'
+          : 'Выберите первую букву слова $_clue',
+      tts: widget.tts,
+      speakSolved: _answer,
+      imageName: (_cueShown && img.isNotEmpty) ? img : null,
+      emoji: (_cueShown && emoji.isNotEmpty) ? emoji : null,
+      hint: _hint,
+      solved: _solved,
+      onNext: () => widget.onResult(_outcome()),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // слева — буквы на выбор
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [for (final l in _letters) _letterTile(l)],
+              ),
+              const SizedBox(width: 28),
+              // справа — хвост слова со слотом под первую букву
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 60,
+                        height: 76,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: _solved
+                              ? Colors.green.shade100
+                              : const Color(0xFFEAF1FB),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: _solved
+                                  ? Colors.green.shade400
+                                  : Colors.blue.shade200,
+                              width: 2),
+                        ),
+                        child: Text(_solved ? _picked! : '?',
+                            style: TextStyle(
+                                fontSize: 44,
+                                color: _solved
+                                    ? Colors.black
+                                    : Colors.blue.shade300)),
+                      ),
+                      const SizedBox(width: 4),
+                      Text(_stump, style: const TextStyle(fontSize: 44)),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          if (!_solved)
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: _giveHint,
+                    icon: const Icon(Icons.lightbulb_outline),
+                    label: const Text('Подсказка'),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: _reveal,
+                    child: const Text('Не знаю'),
+                  ),
+                ),
+              ],
+            ),
+        ],
+      ),
+    );
+  }
+}
+
 // ---------- ввод текста ----------
 
 class TypedExercise extends StatefulWidget {
