@@ -184,6 +184,11 @@ class ExerciseScaffold extends StatelessWidget {
   /// задании слово с пропуском («ов_а»): до ответа вслух его не произносим
   /// вовсе, а собранное слово читаем целиком и по порядку.
   final String? speakSolved;
+
+  /// Нижняя часть, закреплённая над клавиатурой (поле ввода и кнопки): не
+  /// уезжает с прокруткой задания. Вместе с ней закрепляется и строка
+  /// подсказки — ответ на «Проверить»/«Подсказка» виден во время набора.
+  final Widget? pinned;
   const ExerciseScaffold({
     super.key,
     required this.prompt,
@@ -196,10 +201,53 @@ class ExerciseScaffold extends StatelessWidget {
     this.imageName,
     this.emoji,
     this.speakSolved,
+    this.pinned,
   });
 
   @override
   Widget build(BuildContext context) {
+    // экранная клавиатура в горизонтали съедает около половины высоты:
+    // картинку-подсказку не прячем (это опора), а ужимаем и ставим сбоку
+    final keyboard = MediaQuery.viewInsetsOf(context).bottom > 0;
+    Widget? cue;
+    if (imageName != null) {
+      // OTA-кеш → вшитый ассет → emoji (запасная опора)
+      cue = OtaImage(
+          fileName: imageName!, emoji: emoji, height: keyboard ? 90 : 200);
+    } else if (emoji != null && emoji!.isNotEmpty) {
+      cue = Text(emoji!, style: TextStyle(fontSize: keyboard ? 60 : 110));
+    }
+    final promptRow = Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Text(prompt,
+              style:
+                  const TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+        ),
+        IconButton(
+          iconSize: 42,
+          icon: const Icon(Icons.volume_up),
+          tooltip: 'Прослушать',
+          onPressed: () => tts.speak(
+              solved && (speakSolved ?? '').trim().isNotEmpty
+                  ? speakSolved!
+                  : prompt),
+        ),
+      ],
+    );
+    final hintBox = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      decoration: BoxDecoration(
+        color: solved ? Colors.green.shade50 : const Color(0xFFEAF1FB),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Text(hint,
+          style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w600,
+              color: solved ? Colors.green.shade800 : const Color(0xFF1A3A66))),
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -208,71 +256,50 @@ class ExerciseScaffold extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                if (imageName != null) ...[
-                  Center(
-                    // OTA-кеш → вшитый ассет → emoji (запасная опора)
-                    child: OtaImage(
-                        fileName: imageName!, emoji: emoji, height: 200),
-                  ),
-                  const SizedBox(height: 16),
-                ] else if (emoji != null && emoji!.isNotEmpty) ...[
-                  Center(
-                    child: Text(emoji!, style: const TextStyle(fontSize: 110)),
-                  ),
-                  const SizedBox(height: 16),
-                ],
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Text(prompt,
-                          style: const TextStyle(
-                              fontSize: 28, fontWeight: FontWeight.w600)),
-                    ),
-                    IconButton(
-                      iconSize: 42,
-                      icon: const Icon(Icons.volume_up),
-                      tooltip: 'Прослушать',
-                      onPressed: () => tts.speak(
-                          solved && (speakSolved ?? '').trim().isNotEmpty
-                              ? speakSolved!
-                              : prompt),
-                    ),
+                if (cue != null && keyboard)
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      cue,
+                      const SizedBox(width: 16),
+                      Expanded(child: promptRow),
+                    ],
+                  )
+                else ...[
+                  if (cue != null) ...[
+                    Center(child: cue),
+                    const SizedBox(height: 16),
                   ],
-                ),
+                  promptRow,
+                ],
                 const SizedBox(height: 20),
                 child,
-                const SizedBox(height: 12),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: solved
-                        ? Colors.green.shade50
-                        : const Color(0xFFEAF1FB),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(hint,
-                      style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          color: solved
-                              ? Colors.green.shade800
-                              : const Color(0xFF1A3A66))),
-                ),
+                if (pinned == null) ...[
+                  const SizedBox(height: 12),
+                  hintBox,
+                ],
               ],
             ),
           ),
         ),
-        const SizedBox(height: 8),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: solved ? Colors.green : null,
-            foregroundColor: solved ? Colors.white : null,
+        if (pinned != null) ...[
+          const SizedBox(height: 8),
+          hintBox,
+          const SizedBox(height: 12),
+          pinned!,
+        ],
+        // пока идёт набор, «Дальше» всё равно неактивна — отдаём место полю
+        if (!(keyboard && !solved && pinned != null)) ...[
+          const SizedBox(height: 8),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: solved ? Colors.green : null,
+              foregroundColor: solved ? Colors.white : null,
+            ),
+            onPressed: solved ? onNext : null,
+            child: Text(nextLabel),
           ),
-          onPressed: solved ? onNext : null,
-          child: Text(nextLabel),
-        ),
+        ],
       ],
     );
   }
@@ -1355,25 +1382,33 @@ class _TypedExerciseState extends State<TypedExercise> {
       hint: _hint,
       solved: _solved,
       onNext: () => widget.onResult(_outcome()),
-      child: Column(
+      child: const SizedBox.shrink(),
+      // поле с кнопками закреплено снизу — над клавиатурой, как в мессенджере;
+      // в одну строку, чтобы в горизонтали осталось место под задание
+      pinned: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (target != null && !_solved) ...[
             _LengthGauge(target: target, current: typedLen),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
           ],
-          TextField(
-            controller: _c,
-            enabled: !_solved,
-            style: const TextStyle(fontSize: 26),
-            decoration: const InputDecoration(border: OutlineInputBorder()),
-            textInputAction: TextInputAction.done,
-            onChanged: (_) => setState(() {}), // живой пересчёт шкалы длины
-            onSubmitted: (_) => _check(),
-          ),
-          const SizedBox(height: 14),
-          if (!_solved)
-            Row(
-              children: [
+          Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: TextField(
+                  controller: _c,
+                  enabled: !_solved,
+                  style: const TextStyle(fontSize: 26),
+                  decoration:
+                      const InputDecoration(border: OutlineInputBorder()),
+                  textInputAction: TextInputAction.done,
+                  onChanged: (_) => setState(() {}), // живой пересчёт шкалы длины
+                  onSubmitted: (_) => _check(),
+                ),
+              ),
+              if (!_solved) ...[
+                const SizedBox(width: 12),
                 Expanded(
                   child: ElevatedButton(
                       onPressed: _check, child: const Text('Проверить')),
@@ -1384,7 +1419,8 @@ class _TypedExerciseState extends State<TypedExercise> {
                       onPressed: _giveHint, child: const Text('Подсказка')),
                 ),
               ],
-            ),
+            ],
+          ),
         ],
       ),
     );
