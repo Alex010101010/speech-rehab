@@ -138,6 +138,11 @@ class _LengthGauge extends StatelessWidget {
     final Color fill = over
         ? const Color(0xFFE8A33D) // лишнее — янтарный
         : (exact ? const Color(0xFF2E9E5B) : const Color(0xFF4C84D6));
+    // подпись — тёмным оттенком того же цвета: цвет полосы на светлом фоне
+    // даёт контраст 2–3.5 при норме 4.5, текст не читался
+    final Color ink = over
+        ? const Color(0xFF7A4B00)
+        : (exact ? const Color(0xFF1B6B3C) : const Color(0xFF1A3A66));
     final String label = current == 0
         ? 'Начните писать'
         : over
@@ -161,7 +166,7 @@ class _LengthGauge extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 6),
-        Text(label, style: TextStyle(fontSize: 18, color: fill, fontWeight: FontWeight.w600)),
+        Text(label, style: TextStyle(fontSize: 18, color: ink, fontWeight: FontWeight.w600)),
       ],
     );
   }
@@ -1777,10 +1782,9 @@ class _MemoryExerciseState extends State<MemoryExercise> {
             label: Text(_played ? 'Послушать ещё раз' : 'Слушать'),
           ),
           const SizedBox(height: 14),
-          TextButton(
+          OutlinedButton(
             onPressed: () => setState(() => _shown = !_shown),
-            child: Text(_shown ? 'Скрыть слова' : 'Показать слова',
-                style: const TextStyle(fontSize: 18)),
+            child: Text(_shown ? 'Скрыть слова' : 'Показать слова'),
           ),
           if (_shown)
             Text(_shownWords.join('  ·  '),
@@ -1871,7 +1875,9 @@ class _ReadingExerciseState extends State<ReadingExercise> {
                                       style: const TextStyle(fontSize: 22)),
                                 ),
                                 IconButton(
+                                  iconSize: 42,
                                   icon: const Icon(Icons.volume_up),
+                                  tooltip: 'Прослушать',
                                   onPressed: () => widget.tts.speak(
                                       (questions[i]['q'] ?? '').toString()),
                                 ),
@@ -1883,11 +1889,10 @@ class _ReadingExerciseState extends State<ReadingExercise> {
                                       fontSize: 20,
                                       color: Colors.green.shade800))
                             else
-                              TextButton(
+                              OutlinedButton(
                                 onPressed: () =>
                                     setState(() => _revealed.add(i)),
-                                child: const Text('Показать ответ',
-                                    style: TextStyle(fontSize: 18)),
+                                child: const Text('Показать ответ'),
                               ),
                           ],
                         ),

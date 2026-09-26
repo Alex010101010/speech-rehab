@@ -9,7 +9,13 @@ ThemeData buildTheme() {
     scaffoldBackgroundColor: const Color(0xFFF7F7F5),
   );
   return base.copyWith(
-    textTheme: base.textTheme.apply(fontSizeFactor: 1.25),
+    // В base.textTheme только цвета/начертания, размеры шрифта живут в
+    // typography.englishLike и подмешиваются позже, в Theme.of. Множитель к
+    // «голой» теме молча не действовал (в debug — падал на ассерте), поэтому
+    // сначала подмешиваем размеры, потом увеличиваем.
+    textTheme: base.typography.englishLike
+        .merge(base.textTheme)
+        .apply(fontSizeFactor: 1.25),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         minimumSize: const Size.fromHeight(72),

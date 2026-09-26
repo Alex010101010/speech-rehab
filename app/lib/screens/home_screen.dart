@@ -84,12 +84,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         textAlign: TextAlign.center,
                         style: const TextStyle(fontSize: 22)),
                     const SizedBox(height: 8),
-                    TextButton.icon(
-                      onPressed: () => widget.tts.speak(
-                          'Занятие речью. Нажмите «Начать занятие», чтобы заниматься. '
-                          'Кнопка «Успехи» — посмотреть результаты.'),
-                      icon: const Icon(Icons.volume_up),
-                      label: const Text('Прослушать'),
+                    Center(
+                      child: OutlinedButton.icon(
+                        style: OutlinedButton.styleFrom(
+                            minimumSize: const Size(260, 60)),
+                        onPressed: () => widget.tts.speak(
+                            'Занятие речью. Нажмите «Начать занятие», чтобы заниматься. '
+                            'Кнопка «Успехи» — посмотреть результаты.'),
+                        icon: const Icon(Icons.volume_up),
+                        label: const Text('Прослушать'),
+                      ),
                     ),
                     const SizedBox(height: 32),
                     ElevatedButton(
@@ -110,11 +114,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: const Text('Успехи'),
                     ),
                     const SizedBox(height: 16),
-                    TextButton.icon(
-                      onPressed: () => _showSettings(context),
-                      icon: const Icon(Icons.settings_outlined),
-                      label: const Text('Настройки',
-                          style: TextStyle(fontSize: 18)),
+                    Center(
+                      child: OutlinedButton.icon(
+                        style: OutlinedButton.styleFrom(
+                            minimumSize: const Size(260, 60)),
+                        onPressed: () => _showSettings(context),
+                        icon: const Icon(Icons.settings_outlined),
+                        label: const Text('Настройки'),
+                      ),
                     ),
                   ],
                 ),

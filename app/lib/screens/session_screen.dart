@@ -36,6 +36,14 @@ class _SessionScreenState extends State<SessionScreen> {
   };
   static const _reviewCap = 3; // межсессионных повторов («Вспомним») за сессию
 
+  // кнопки верхней панели («Отдохнуть»/«Пропустить»): крупные, но не во всю
+  // ширину (тема задаёт кнопкам минимальную ширину «сколько есть»)
+  static final _barButton = OutlinedButton.styleFrom(
+    minimumSize: const Size(0, 60),
+    padding: const EdgeInsets.symmetric(horizontal: 18),
+    textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+  );
+
   // Повтор «сегодня» (первый шаг лесенки, внутри этой же сессии): свежевыученные
   // (сам или с подсказкой) задания переигрываются мини-блоком «Закрепим» перед финалом.
   // Отдельный лимит — НЕ из пула «Вспомним», чтобы не утомлять (лёгкий: 6+2+3).
@@ -544,11 +552,20 @@ class _SessionScreenState extends State<SessionScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, // убираем ← (путал с «к прошлому заданию»)
-        leadingWidth: 160,
-        leading: TextButton.icon(
-          onPressed: _rest,
-          icon: const Icon(Icons.home_outlined, size: 22),
-          label: const Text('Отдохнуть', style: TextStyle(fontSize: 16)),
+        // крупные кнопки с рамкой: мелкие надписи трудно попасть непривычной
+        // рукой, а случайное «Пропустить» засчитывает задание пропущенным
+        toolbarHeight: 84,
+        leadingWidth: 236,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: Center(
+            child: OutlinedButton.icon(
+              style: _barButton,
+              onPressed: _rest,
+              icon: const Icon(Icons.home_outlined, size: 28),
+              label: const Text('Отдохнуть'),
+            ),
+          ),
         ),
         centerTitle: true,
         title: Text(
@@ -559,12 +576,13 @@ class _SessionScreenState extends State<SessionScreen> {
                     : '${idx + 1} из $total',
             style: const TextStyle(fontSize: 20)),
         actions: [
-          TextButton(
+          OutlinedButton(
+            style: _barButton,
             onPressed: () => _onOutcome(
                 const StepOutcome(correct: false, unaided: false, gradeable: false)),
-            child: const Text('Пропустить', style: TextStyle(fontSize: 18)),
+            child: const Text('Пропустить'),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 24),
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4),

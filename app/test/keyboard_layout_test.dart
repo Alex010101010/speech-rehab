@@ -4,25 +4,13 @@
 // сам попросил), а ужимаем.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rech/app_theme.dart';
 import 'package:rech/engine/tts_service.dart';
 import 'package:rech/widgets/exercises.dart';
 
 const _screen = Size(1280, 800); // планшет 10″ в горизонтали, логические px
 const _keyboard = 380.0;
 
-// Размеры кнопок как в buildTheme(). Сам buildTheme() в тесте не берём:
-// textTheme.apply(fontSizeFactor) падает на ассерте — у базовой темы нет
-// размеров шрифта (отдельная проблема, заведена в бэклог).
-final _theme = ThemeData(
-  elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-          minimumSize: const Size.fromHeight(72),
-          textStyle: const TextStyle(fontSize: 24))),
-  outlinedButtonTheme: OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-          minimumSize: const Size.fromHeight(64),
-          textStyle: const TextStyle(fontSize: 22))),
-);
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +33,7 @@ void main() {
     addTearDown(tester.view.reset);
     // каркас как в session_screen: AppBar + отступ 24
     await tester.pumpWidget(MaterialApp(
-      theme: _theme,
+      theme: buildTheme(),
       home: Scaffold(
         appBar: AppBar(title: const Text('1 из 10')),
         body: SafeArea(
