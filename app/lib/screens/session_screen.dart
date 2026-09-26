@@ -27,7 +27,8 @@ class _SessionScreenState extends State<SessionScreen> {
 
   // Интервальное повторение (spaced retrieval). Рабочая копия расписания
   // (id задания -> карточка); пишется в прогресс при сохранении. Повторяем
-  // только то, что вспомнили САМИ — не неуспешное (без негативной концовки).
+  // решённое верно (сам или с подсказкой) — не неуспешное (без негативной
+  // концовки).
   final DateTime _today = DateTime.now();
   late final Map<String, ReviewCard> _review = {
     for (final e in widget.store.progress.review.entries)
@@ -36,7 +37,7 @@ class _SessionScreenState extends State<SessionScreen> {
   static const _reviewCap = 3; // межсессионных повторов («Вспомним») за сессию
 
   // Повтор «сегодня» (первый шаг лесенки, внутри этой же сессии): свежевыученные
-  // самостоятельно задания переигрываются мини-блоком «Закрепим» перед финалом.
+  // (сам или с подсказкой) задания переигрываются мини-блоком «Закрепим» перед финалом.
   // Отдельный лимит — НЕ из пула «Вспомним», чтобы не утомлять (лёгкий: 6+2+3).
   final List<SessionStep> _todayQueue = [];
   bool _sameDayInserted = false;
@@ -169,8 +170,8 @@ class _SessionScreenState extends State<SessionScreen> {
     return slots;
   }
 
-  /// Блок «Закрепим» — повтор «сегодня»: до [_sameDayCap] заданий, выученных
-  /// самостоятельно в этой же сессии. Бонусный шаг (не из пула «Вспомним»).
+  /// Блок «Закрепим» — повтор «сегодня»: до [_sameDayCap] заданий, решённых
+  /// верно в этой же сессии. Бонусный шаг (не из пула «Вспомним»).
   List<SessionSlot> _sameDaySlots() => _todayQueue
       .take(_sameDayCap)
       .map((s) => SessionSlot(s.type, 'sameday', fixedItem: s.item))
@@ -300,11 +301,12 @@ class _SessionScreenState extends State<SessionScreen> {
     }
   }
 
-  /// Засев в расписание повторения: задание, отвечённое САМОСТОЯТЕЛЬНО и верно,
-  /// вернётся через растущие интервалы. Только core-шаги с объективной оценкой;
-  /// уже стоящие на расписании не трогаем (ими управляет их карточка).
+  /// Засев в расписание повторения: задание, решённое верно (сам или с
+  /// подсказкой, см. [ReviewScheduler.seeds]), вернётся через растущие
+  /// интервалы. Только core-шаги; уже стоящие на расписании не трогаем (ими
+  /// управляет их карточка).
   void _maybeSeedReview(StepOutcome o, SessionSlot slot) {
-    if (slot.role != 'core' || !o.gradeable || !o.correct || !o.unaided) return;
+    if (slot.role != 'core' || !ReviewScheduler.seeds(o)) return;
     final id = _current.item['id']?.toString();
     if (id == null || id.isEmpty || _review.containsKey(id)) return;
     _review[id] = ReviewCard(

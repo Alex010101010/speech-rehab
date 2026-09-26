@@ -3,8 +3,47 @@
 // гоняется CI-шагом flutter test (локального Flutter нет).
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rech/engine/progress_store.dart';
+import 'package:rech/models/exercise.dart';
 
 void main() {
+  group('ReviewScheduler.seeds: что попадает в повтор', () {
+    test('решил сам — засеваем', () {
+      expect(
+          ReviewScheduler.seeds(
+              const StepOutcome(correct: true, unaided: true)),
+          isTrue);
+    });
+
+    test('решил с подсказкой — тоже засеваем (раньше выпадало)', () {
+      expect(
+          ReviewScheduler.seeds(
+              const StepOutcome(correct: true, unaided: false, cueLevel: 1)),
+          isTrue);
+      expect(
+          ReviewScheduler.seeds(
+              const StepOutcome(correct: true, unaided: false, semanticCue: 1)),
+          isTrue);
+    });
+
+    test('показан ответ — не засеваем', () {
+      expect(
+          ReviewScheduler.seeds(
+              const StepOutcome(correct: false, unaided: false, cueLevel: 3)),
+          isFalse);
+    });
+
+    test('самооценка и безошибочный режим — не засеваем', () {
+      expect(
+          ReviewScheduler.seeds(const StepOutcome(
+              correct: true, unaided: true, gradeable: false)),
+          isFalse);
+      expect(
+          ReviewScheduler.seeds(const StepOutcome(
+              correct: true, unaided: false, gradeable: false)),
+          isFalse);
+    });
+  });
+
   group('ReviewScheduler.nextBox', () {
     test('вспомнил сам — вверх по лесенке', () {
       expect(ReviewScheduler.nextBox(0, recalled: true), 1);
